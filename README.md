@@ -3,7 +3,7 @@ A persistence solution for Eiffel events. This repository is different than Eiff
 events. The MongoDB, at backend, has trigger events. Whenever any event is added into the collection named "eiffel-events", the 
 visualization is updated. 
 
-### All the events must be inserted in the collection named "eiffel-events" only. 
+### [Note]: All the events must be inserted in the collection named "eiffel-events" only one by one. You cannot insert more than one event at one time, due to the fact that it is a live visualization. This is also a major difference between original Eiffel Vici (https://github.com/eiffel-community/eiffel-vici) and Eiffel-store (this repository). Original Eiffel Vici takes a big JSON file full of Eiffel events as an argument and build a one-time visualization which is not a "Live Visualization". This repository takes Eiffel event one by one and build visualization gradually.  
 
 ### Installing
 
@@ -33,7 +33,11 @@ eventsequences
 tablerows
 ```
 
-The system is ready to use.
+### The app (localhost:3000) is ready to use, but nothing will appear on screen as there are no events in db. You have two options:
+
+1) Publish your events from CI to RabbitMQ Bus and connect RabbitMQ bus with Eiffel-store through MongoDB. Check the Note above.
+2) Copy-paste dummy events (one by one) from JSON file provided in this repository with the named "eiffelevents.json" to mongo db collection name "eiffel-events" in "meteor" database (Check Point Number 3 Above).
+
 
 ## Getting Started
 
