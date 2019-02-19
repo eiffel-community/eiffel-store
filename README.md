@@ -42,4 +42,7 @@ The Eiffel-store visualization is live. Insert Eiffel event into the collection 
 
 ### Connection to RabbitMQ Server
 
+Your CI (e.g., Jenkins or Gerrit) can publish Eiffel events on your RabbitMQ Bus and you can connect RabbitMQ Bus with Eiffel-store by using the a small java code, written by me, on https://github.com/azeem59/rabbitmq-eiffel-store. This is a bridge between RabbitMQ Bus and Eiffel-store. By running this code, you can just publish events on RabbitMQ Bus and it will automatically appear in the Eiffel-store app.
+This code may have some errors. Please feel free to update the code or write your own bridge between RabbitMQ Bus and Eiffel-store
+
 
