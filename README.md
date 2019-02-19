@@ -35,7 +35,7 @@ tablerows
 
 ### The app (localhost:3000) is ready to use, but nothing will appear on screen as there are no events in db. You have two options:
 
-1) Publish your events from CI to RabbitMQ Bus and connect RabbitMQ bus with Eiffel-store through MongoDB. Check the Note above.
+1) Publish your events from CI to RabbitMQ Bus and connect RabbitMQ bus with Eiffel-store through MongoDB. Check the section "Connection to RabbitMQ Server" below.
 2) Copy-paste dummy events (one by one) from JSON file provided in this repository with the named "eiffelevents.json" to mongo db collection name "eiffel-events" in "meteor" database (Check Point Number 3 Above).
 
 
