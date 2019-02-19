@@ -1,0 +1,26 @@
+<template name="details">
+    <div id="details-container" class="panel panel-default">
+        <div class="panel-heading">
+
+            <h3 id="table-level2-heading" class="panel-title col-lg-11"></h3>
+
+            <input id="details_toggle" type="checkbox" data-toggle="toggle"
+                   data-on="Plot" data-off="Table" data-size="small" class="col-lg-1">
+
+        </div>
+        <div id="details_table" class="panel-body">
+            {{> tabular table=TabularTables.Rows selector=selector class="table table-striped table-bordered table-condensed nowrap"}}
+        </div>
+        <div id="plot_container">
+            <div id="plot_pass_fail"></div>
+            <div id="plot_exec_time"></div>
+            <!--<div id="invalid_plot_event" class="alert alert-info" role="alert">Could not generate plot for this type of-->
+            <!--event...-->
+            <!--</div>-->
+        </div>
+        <div class="panel-footer">
+
+        </div>
+        <div id="details_loader" class="loader"></div>
+    </div>
+</template>

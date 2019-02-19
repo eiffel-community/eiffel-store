@@ -1,0 +1,21 @@
+<template name="eventchain">
+    <div id="sequence_container" class="panel panel-default">
+        <div class="panel-heading">
+
+            <span id="level3_heading_select">Select an event in the table above.</span>
+            <span id="level3_heading_loading">Sequence graph loading...</span>
+            <span id="level3_heading_updated">Sequence graph updated <time id="sequence_updated_time"
+                                                                           class="timeago"></time>.</span>
+        </div>
+        <div id="cy-event-chain" class="cy panel-body">
+
+        </div>
+        <div class="panel-footer">
+            <span id="level3_footer_select">Select an event in the details-table to view its event chain.</span>
+            <span id="level3_footer_loading">Loading data from server.. </span>
+            <span id="level3_footer_updated"></span>
+        </div>
+
+        <div id="sequence_loader" class="loader"></div>
+    </div>
+</template>

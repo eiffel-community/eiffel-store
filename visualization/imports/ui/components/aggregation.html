@@ -1,0 +1,48 @@
+<template name="aggregation">
+    <div id="aggregation_container" class="panel panel-default">
+        <div class="panel-heading">
+            <span id="level1_heading_loading">Aggregation graph loading...</span>
+            <span id="level1_heading_updated">Aggregation graph updated <time id="aggregation_updated_time"
+                                                                              class="timeago"></time></span>
+        </div>
+        <div id="aggregation-tt"></div>
+        <div id="cy-aggregation" class="cy panel-body"></div>
+        <div class="panel-footer">
+            <div class="panel panel-default" id="aggregation_time_line"></div>
+            <div class="row">
+                <div class="col-lg-2">
+                    <div class="input-group">
+                        <span class="input-group-addon">From</span><input id="date-from"
+                                                                          class="form-control datepicker"/>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="input-group">
+                        <span class="input-group-addon">To</span><input id="date-to"
+                                                                        class="form-control datepicker"/>
+                    </div>
+
+                </div>
+                <div class="col-lg-2">
+                    <div class="input-group">
+                        <span class="input-group-addon">Soft limit</span><input id="limit" class="form-control"/>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="input-group">
+                        <span class="input-group-addon">Sequences shown</span>
+                        <input type="text" value="TODO" id="sequences_showing" class="form-control" readonly/>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="input-group">
+                        <span class="input-group-addon">Additional sequences</span>
+                        <input type="text" value="0" id="additional-sequences" class="form-control" readonly/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="aggregation_loader" class="loader"></div>
+    </div>
+
+</template>

@@ -1,0 +1,114 @@
+<template name="help">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h2 class="modal-title">Information</h2>
+        </div>
+        <div class="modal-body">
+            <h3>Overview of the application</h3>
+            This application is used to visualize the data flow of a continuous integration system to
+            enable analyzing it's performance and potential bottlenecks.
+            It uses data from the <a href="https://github.com/Ericsson/eiffel">Eiffel</a> framework which
+            offers a platform agnostic messaging protocol to trace the data flow.
+            What follows is a brief explanation of the application. For technical details see the bottom of this modal.
+            <h3>Aggregation view</h3>
+            The first canvas consist of the aggregation view. The graph rendered is an aggregation of all event
+            chains contained within the time spans specified in the time line below it. The events depicted were triggered
+            by each other according to the vertices in the graph, where the time "flows" from left to right.
+            For a list of all nodes and their meaning, see the section "Different types of nodes" below.
+            To change the data set, simply drag and drop the "start" and "end" time points inside the time line.
+            To navigate the graph use "drag n' drop" together with scrolling. There are also some tools for navigating
+            in the top left, along with a button to reset the view. The nodes can also be moved around and clicked
+            to display a popup with additional information, and the "show all events"-button inside the popup will
+            load all events represented by the node into the details view.
+            <h3>Details view</h3>
+            The details view tabulates the events aggregated in a node selected in the aggregation view.
+            It can be re-ordered by clicking a column header, filtered using the search field to the top right and
+            be displayed on a time line by clicking the switch, also in the upper right. By clicking the "Event chain"-
+            button the event chain that the event took part in will be loaded into the event chain view.
+            <h3>Event chain view</h3>
+            The event chain view renders a graph depicting a series of events based on
+            one that was selected in the details view. The selected node is outlined in yellow.
+            The events were triggered by each other as indicated by outgoing vertices. Vertices that are dotted
+            symbolizes a reference to a node that does not partake in the event chain, but that is of some other
+            importance. I.e. the previous version of an artifact. This view is very similar to the aggregation view,
+            and it should be read if more information is required.
+            <h3>Different types of nodes</h3>
+            <div class="node-row">
+                <div class="node-col">
+                    <img src="/images/tc.png" /> <br />
+                    <h4>Test case</h4>
+                </div>
+                <div class="node-col">
+                    <img src="/images/ts.png" /> <br />
+                    <h4>Test suite</h4>
+                </div>
+            </div>
+            <div class="node-row">
+                <div class="node-col">
+                    <img src="/images/clm.png" /> <br />
+                    <h4>Confidence level modified</h4>
+                </div>
+                <div class="node-col">
+                    <img src="/images/act.png" /> <br />
+                    <h4>Activity</h4>
+                </div>
+            </div>
+            <div class="node-row">
+                <div class="node-col">
+                    <img src="/images/artc.png" /> <br />
+                    <h4>Artifact created</h4>
+                </div>
+                <div class="node-col">
+                    <img src="/images/artp.png" /> <br />
+                    <h4>Artifact published</h4>
+                </div>
+            </div>
+            <div class="node-row">
+                <div class="node-col">
+                    <img src="/images/artr.png" /> <br />
+                    <h4>Artifact reused</h4>
+                </div>
+                <div class="node-col">
+                    <img src="/images/edef.png" /> <br />
+                    <h4>Environment defined</h4>
+                </div>
+            </div>
+            <div class="node-row">
+                <div class="node-col">
+                    <img src="/images/cdef.png" /> <br />
+                    <h4>Composition defined</h4>
+                </div>
+                <div class="node-col">
+                    <img src="/images/capp.png" /> <br />
+                    <h4>Configuration applied</h4>
+                </div>
+            </div>
+            <div class="node-row">
+                <div class="node-col">
+                    <img src="/images/scc.png" /> <br />
+                    <h4>Source change created</h4>
+                </div>
+                <div class="node-col">
+                    <img src="/images/scs.png" /> <br />
+                    <h4>Source change submitted</h4>
+                </div>
+            </div>
+            <div class="node-row">
+                <div class="node-col">
+                    <img src="/images/anp.png" /> <br />
+                    <h4>Announcement published</h4>
+                </div>
+            </div>
+            <h3>Technical</h3>
+            This section contains technical information about the application.
+            <h4>Source</h4>
+            <a target="_blank" href="https://gitlab.ida.liu.se/tddd96/visualization">Git repository</a>
+            <h4>Contact</h4>
+            <p>Admin: jonathan@jonathanwahlund.se</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+    </div>
+</template>

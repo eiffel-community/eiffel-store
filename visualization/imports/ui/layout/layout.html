@@ -1,0 +1,90 @@
+<template name="layout">
+
+    <nav id="navscrollspy" class="navbar navbar-default" role="navigation">
+        <ul class="nav nav-pills nav-stacked">
+            <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+            <!--<li class="hidden">-->
+            <!--<a class="page-scroll" href="#page-top"></a>-->
+            <!--</li>-->
+            <li>
+                <a class="page-scroll" href="#aggregation">Aggregation</a>
+            </li>
+            <li>
+                <a class="page-scroll" href="#details">Details</a>
+            </li>
+            <li>
+                <a class="page-scroll" href="#eventchain">Event chain</a>
+            </li>
+            <li class="nav-divider"></li>
+            <!--<li>-->
+            <!--<a href="#" data-toggle="modal" data-target="#settingsModal"><span class="glyphicon glyphicon-cog"-->
+            <!--aria-hidden="true"></span></a>-->
+            <!--</li>-->
+            <li>
+                <a href="#" data-toggle="modal" data-target="#infoModal"><span class="glyphicon glyphicon-info-sign"
+                                                                               aria-hidden="true"></span></a>
+            </li>
+            <li id="connectionStatus">
+                <a href="#" data-toggle="modal" data-target="#lost-connection-modal"><span
+                        class="glyphicon glyphicon-ok-sign"
+                        aria-hidden="true" style="color:green"></span></a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="modal fade" id="settingsModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Settings</h4>
+                </div>
+                <div class="modal-body">
+                    <p>You will be able to trigger a data import from here soon.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal fade" id="infoModal" role="dialog">
+        <div class="modal-dialog">
+            {{> help }}
+        </div>
+    </div>
+
+    <div class="modal fade" id="lost-connection-modal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" id="lost_connection_modal_title"><span
+                            class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Connection status</h4>
+                </div>
+                <div class="modal-body" id="lost_connection_modal_body">
+
+                    <p>You are connected to the server.</p>
+                </div>
+                <div class="modal-footer">
+                    <button id="retry-button" type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="page-header">
+        <h1>ViCi - Visualization of Continuous Integration </h1>
+    </div>
+
+    {{> yield}}
+    <hr/>
+</template>

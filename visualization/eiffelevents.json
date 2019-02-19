@@ -1,0 +1,3807 @@
+[
+  {
+    "links": [],
+    "meta": {
+      "id": "0873c670-2889-4907-9c45-bdc96968ab38",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481875845353,
+      "type": "EiffelSourceChangeSubmittedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "gitIdentifier": {
+        "repoUri": "https://repo.com",
+        "branch": "master",
+        "repoName": "myRepo",
+        "commitId": "fd090b60a4aedc5161da9c035a49b14a319829b4"
+      },
+      "customData": [
+        {
+          "value": "SCS1",
+          "key": "name"
+        },
+        {
+          "value": 0,
+          "key": "iteration"
+        }
+      ],
+      "submitter": {
+        "id": "johnxxx",
+        "group": "Team Gophers",
+        "email": "john.doe@company.com",
+        "name": "John Doe"
+      }
+    }
+  },
+  {
+    "links": [],
+    "meta": {
+      "id": "27c319f8-6b8d-49d9-acb9-64b13fb69c9a",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481875845354,
+      "type": "EiffelEnvironmentDefinedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "customData": [
+        {
+          "value": "EDef1",
+          "key": "name"
+        },
+        {
+          "value": 0,
+          "key": "iteration"
+        }
+      ],
+      "version": "0",
+      "name": "Environment 1"
+    }
+  },
+  {
+    "links": [],
+    "meta": {
+      "id": "c4f9565d-2382-488f-b911-e3326bce21a3",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481875845355,
+      "type": "EiffelEnvironmentDefinedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "customData": [
+        {
+          "value": "EDef2",
+          "key": "name"
+        },
+        {
+          "value": 0,
+          "key": "iteration"
+        }
+      ],
+      "version": "0",
+      "name": "Environment 2"
+    }
+  },
+  {
+    "links": [],
+    "meta": {
+      "id": "99cc53cc-73f6-49ca-a6e4-e7a78b4d706f",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481875845356,
+      "type": "EiffelArtifactCreatedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "customData": [
+        {
+          "value": "ArtC3",
+          "key": "name"
+        },
+        {
+          "value": 0,
+          "key": "iteration"
+        }
+      ],
+      "fileInformation": [
+        {
+          "classifier": "",
+          "extension": "jar"
+        }
+      ],
+      "gav": {
+        "artifactId": "third-party-library",
+        "version": "3.2.4",
+        "groupId": "com.othercompany.library"
+      }
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "0873c670-2889-4907-9c45-bdc96968ab38",
+        "type": "ELEMENT"
+      }
+    ],
+    "meta": {
+      "id": "7dbda920-b59c-480f-b9fc-d600d4b32f7d",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481875845357,
+      "type": "EiffelCompositionDefinedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "customData": [
+        {
+          "value": "CDef3",
+          "key": "name"
+        },
+        {
+          "value": 0,
+          "key": "iteration"
+        }
+      ],
+      "version": "0",
+      "name": "Composition 3"
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "7dbda920-b59c-480f-b9fc-d600d4b32f7d",
+        "type": "COMPOSITION"
+      },
+      {
+        "target": "7dbda920-b59c-480f-b9fc-d600d4b32f7d",
+        "type": "CAUSE"
+      }
+    ],
+    "meta": {
+      "id": "4bef9f2f-ce68-46b8-b643-cdff9ee578a4",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481875845358,
+      "type": "EiffelArtifactCreatedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "customData": [
+        {
+          "value": "ArtCC1",
+          "key": "name"
+        },
+        {
+          "value": 0,
+          "key": "iteration"
+        }
+      ],
+      "fileInformation": [
+        {
+          "classifier": "",
+          "extension": "jar"
+        }
+      ],
+      "gav": {
+        "artifactId": "component-1",
+        "version": "1.0.0",
+        "groupId": "com.mycompany.myproduct"
+      }
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "7dbda920-b59c-480f-b9fc-d600d4b32f7d",
+        "type": "COMPOSITION"
+      },
+      {
+        "target": "7dbda920-b59c-480f-b9fc-d600d4b32f7d",
+        "type": "CAUSE"
+      }
+    ],
+    "meta": {
+      "id": "cfc588eb-46d0-4a51-8ddc-e85d631cb723",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481875845359,
+      "type": "EiffelArtifactCreatedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "customData": [
+        {
+          "value": "ArtCC2",
+          "key": "name"
+        },
+        {
+          "value": 0,
+          "key": "iteration"
+        }
+      ],
+      "fileInformation": [
+        {
+          "classifier": "",
+          "extension": "jar"
+        }
+      ],
+      "gav": {
+        "artifactId": "component-2",
+        "version": "1.0.0",
+        "groupId": "com.mycompany.myproduct"
+      }
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "7dbda920-b59c-480f-b9fc-d600d4b32f7d",
+        "type": "COMPOSITION"
+      },
+      {
+        "target": "7dbda920-b59c-480f-b9fc-d600d4b32f7d",
+        "type": "CAUSE"
+      }
+    ],
+    "meta": {
+      "id": "caff4e3f-45f3-488f-b07b-7629c994c32c",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481875845360,
+      "type": "EiffelArtifactCreatedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "customData": [
+        {
+          "value": "ArtCC3",
+          "key": "name"
+        },
+        {
+          "value": 0,
+          "key": "iteration"
+        }
+      ],
+      "fileInformation": [
+        {
+          "classifier": "",
+          "extension": "jar"
+        }
+      ],
+      "gav": {
+        "artifactId": "component-3",
+        "version": "1.0.0",
+        "groupId": "com.mycompany.myproduct"
+      }
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "0873c670-2889-4907-9c45-bdc96968ab38",
+        "type": "BASE"
+      }
+    ],
+    "meta": {
+      "id": "f8440da1-6bb0-4455-a4ca-2012f6bdfba0",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481875855361,
+      "type": "EiffelSourceChangeCreatedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "gitIdentifier": {
+        "repoUri": "https://repo.com",
+        "branch": "topic-branch-1",
+        "repoName": "myRepo",
+        "commitId": "fd090b60a4aedc5161da9c035a49b14a319829c5"
+      },
+      "author": {
+        "id": "johnxxx",
+        "group": "Team Gophers",
+        "email": "john.doe@company.com",
+        "name": "John Doe"
+      },
+      "customData": [
+        {
+          "value": "SCC1",
+          "key": "name"
+        },
+        {
+          "value": 1,
+          "key": "iteration"
+        }
+      ],
+      "change": {
+        "files": "https://filelist.com/1",
+        "insertions": 345,
+        "deletions": 211
+      }
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "0873c670-2889-4907-9c45-bdc96968ab38",
+        "type": "PREVIOUS_VERSION"
+      },
+      {
+        "target": "f8440da1-6bb0-4455-a4ca-2012f6bdfba0",
+        "type": "CHANGE"
+      }
+    ],
+    "meta": {
+      "id": "f72bf98f-f684-48c1-af2c-ec741bb06e18",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481875855362,
+      "type": "EiffelSourceChangeSubmittedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "gitIdentifier": {
+        "repoUri": "https://repo.com",
+        "branch": "master",
+        "repoName": "myRepo",
+        "commitId": "fd090b60a4aedc5161da9c035a49b14a319829b4"
+      },
+      "customData": [
+        {
+          "value": "SCS1",
+          "key": "name"
+        },
+        {
+          "value": 1,
+          "key": "iteration"
+        }
+      ],
+      "submitter": {
+        "id": "johnxxx",
+        "group": "Team Gophers",
+        "email": "john.doe@company.com",
+        "name": "John Doe"
+      }
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "7dbda920-b59c-480f-b9fc-d600d4b32f7d",
+        "type": "PREVIOUS_VERSION"
+      },
+      {
+        "target": "f72bf98f-f684-48c1-af2c-ec741bb06e18",
+        "type": "ELEMENT"
+      }
+    ],
+    "meta": {
+      "id": "13c15ceb-e02d-42a6-bff9-1261dbdf9220",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481875855462,
+      "type": "EiffelCompositionDefinedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "customData": [
+        {
+          "value": "CDef3",
+          "key": "name"
+        },
+        {
+          "value": 1,
+          "key": "iteration"
+        }
+      ],
+      "version": "1",
+      "name": "Composition 3"
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "13c15ceb-e02d-42a6-bff9-1261dbdf9220",
+        "type": "COMPOSITION"
+      },
+      {
+        "target": "13c15ceb-e02d-42a6-bff9-1261dbdf9220",
+        "type": "CAUSE"
+      },
+      {
+        "target": "cfc588eb-46d0-4a51-8ddc-e85d631cb723",
+        "type": "PREVIOUS_VERSION"
+      }
+    ],
+    "meta": {
+      "id": "8a8b4bcc-c3b7-4c39-80fe-808f85c9fde2",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481875890462,
+      "type": "EiffelArtifactCreatedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "customData": [
+        {
+          "value": "ArtCC2",
+          "key": "name"
+        },
+        {
+          "value": 1,
+          "key": "iteration"
+        }
+      ],
+      "fileInformation": [
+        {
+          "classifier": "",
+          "extension": "jar"
+        }
+      ],
+      "gav": {
+        "artifactId": "component-2",
+        "version": "1.1.0",
+        "groupId": "com.mycompany.myproduct"
+      }
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "13c15ceb-e02d-42a6-bff9-1261dbdf9220",
+        "type": "COMPOSITION"
+      },
+      {
+        "target": "13c15ceb-e02d-42a6-bff9-1261dbdf9220",
+        "type": "CAUSE"
+      },
+      {
+        "target": "caff4e3f-45f3-488f-b07b-7629c994c32c",
+        "type": "PREVIOUS_VERSION"
+      }
+    ],
+    "meta": {
+      "id": "02c462b3-56f9-44ab-b517-e6d892e97f36",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481875891462,
+      "type": "EiffelArtifactCreatedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "customData": [
+        {
+          "value": "ArtCC3",
+          "key": "name"
+        },
+        {
+          "value": 1,
+          "key": "iteration"
+        }
+      ],
+      "fileInformation": [
+        {
+          "classifier": "",
+          "extension": "jar"
+        }
+      ],
+      "gav": {
+        "artifactId": "component-3",
+        "version": "1.1.0",
+        "groupId": "com.mycompany.myproduct"
+      }
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "8a8b4bcc-c3b7-4c39-80fe-808f85c9fde2",
+        "type": "CAUSE"
+      },
+      {
+        "target": "02c462b3-56f9-44ab-b517-e6d892e97f36",
+        "type": "CAUSE"
+      }
+    ],
+    "meta": {
+      "id": "c04fa59a-3c36-4601-8eac-7a26b8910f08",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481875891562,
+      "type": "EiffelActivityTriggeredEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "categories": [
+        "Sub-system Build Activity"
+      ],
+      "triggers": [
+        {
+          "type": "EIFFEL_EVENT"
+        }
+      ],
+      "customData": [
+        {
+          "value": "ActT4",
+          "key": "name"
+        },
+        {
+          "value": 1,
+          "key": "iteration"
+        }
+      ],
+      "executionType": "AUTOMATED",
+      "name": "Act4"
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "c04fa59a-3c36-4601-8eac-7a26b8910f08",
+        "type": "ACTIVITY_EXECUTION"
+      }
+    ],
+    "meta": {
+      "id": "8bb3fc4d-d07a-4492-9662-7e75039fa850",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481875891563,
+      "type": "EiffelActivityStartedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "customData": [
+        {
+          "value": "ActS4",
+          "key": "name"
+        },
+        {
+          "value": 1,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "c04fa59a-3c36-4601-8eac-7a26b8910f08",
+        "type": "CONTEXT"
+      },
+      {
+        "target": "4bef9f2f-ce68-46b8-b643-cdff9ee578a4",
+        "type": "ELEMENT"
+      },
+      {
+        "target": "8a8b4bcc-c3b7-4c39-80fe-808f85c9fde2",
+        "type": "ELEMENT"
+      },
+      {
+        "target": "02c462b3-56f9-44ab-b517-e6d892e97f36",
+        "type": "ELEMENT"
+      }
+    ],
+    "meta": {
+      "id": "fb6ef12d-25fb-4d77-b9fd-87688e66de47",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481875891663,
+      "type": "EiffelCompositionDefinedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "customData": [
+        {
+          "value": "CDef2",
+          "key": "name"
+        },
+        {
+          "value": 1,
+          "key": "iteration"
+        }
+      ],
+      "version": "1",
+      "name": "Composition 2"
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "fb6ef12d-25fb-4d77-b9fd-87688e66de47",
+        "type": "COMPOSITION"
+      },
+      {
+        "target": "c4f9565d-2382-488f-b911-e3326bce21a3",
+        "type": "ENVIRONMENT"
+      },
+      {
+        "target": "c04fa59a-3c36-4601-8eac-7a26b8910f08",
+        "type": "CONTEXT"
+      }
+    ],
+    "meta": {
+      "id": "6acc3c87-75e0-4b6d-88f5-b1a5d4e62b43",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481875891763,
+      "type": "EiffelArtifactCreatedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "customData": [
+        {
+          "value": "ArtC2",
+          "key": "name"
+        },
+        {
+          "value": 1,
+          "key": "iteration"
+        }
+      ],
+      "fileInformation": [
+        {
+          "classifier": "",
+          "extension": "jar"
+        }
+      ],
+      "gav": {
+        "artifactId": "sub-system",
+        "version": "1.1.0",
+        "groupId": "com.mycompany.myproduct"
+      }
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "6acc3c87-75e0-4b6d-88f5-b1a5d4e62b43",
+        "type": "ARTIFACT"
+      },
+      {
+        "target": "c04fa59a-3c36-4601-8eac-7a26b8910f08",
+        "type": "CONTEXT"
+      }
+    ],
+    "meta": {
+      "id": "33d05e6f-9bd9-4138-83b6-e20cc74680a3",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481875921763,
+      "type": "EiffelArtifactPublishedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "customData": [
+        {
+          "value": "ArtP2",
+          "key": "name"
+        },
+        {
+          "value": 1,
+          "key": "iteration"
+        }
+      ],
+      "locations": [
+        {
+          "uri": "https://myrepository.com/mySubSystemArtifact",
+          "type": "PLAIN"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "c04fa59a-3c36-4601-8eac-7a26b8910f08",
+        "type": "ACTIVITY_EXECUTION"
+      }
+    ],
+    "meta": {
+      "id": "6f812965-bc21-4c27-b250-d1e47c0b6908",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481875921813,
+      "type": "EiffelActivityFinishedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "outcome": {
+        "conclusion": "SUCCESSFUL"
+      },
+      "customData": [
+        {
+          "value": "ActF4",
+          "key": "name"
+        },
+        {
+          "value": 1,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "33d05e6f-9bd9-4138-83b6-e20cc74680a3",
+        "type": "CAUSE"
+      }
+    ],
+    "meta": {
+      "id": "ffa23d43-5df8-4438-b509-dadda934e926",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481875923813,
+      "type": "EiffelActivityTriggeredEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "categories": [
+        "Sub-system Test Activity"
+      ],
+      "triggers": [
+        {
+          "type": "EIFFEL_EVENT"
+        }
+      ],
+      "customData": [
+        {
+          "value": "ActT3",
+          "key": "name"
+        },
+        {
+          "value": 1,
+          "key": "iteration"
+        }
+      ],
+      "executionType": "AUTOMATED",
+      "name": "Act3"
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "ffa23d43-5df8-4438-b509-dadda934e926",
+        "type": "ACTIVITY_EXECUTION"
+      }
+    ],
+    "meta": {
+      "id": "60749638-771c-45fe-81b2-7ff290338f6f",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481875923816,
+      "type": "EiffelActivityStartedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "customData": [
+        {
+          "value": "ActS3",
+          "key": "name"
+        },
+        {
+          "value": 1,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "ffa23d43-5df8-4438-b509-dadda934e926",
+        "type": "CONTEXT"
+      }
+    ],
+    "meta": {
+      "id": "5ac05ae1-d7a2-4ef0-be0b-670ee4e8a8cf",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481875925816,
+      "type": "EiffelTestSuiteStartedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "categories": [
+        "Pre system integration tests"
+      ],
+      "types": [
+        "FUNCTIONAL"
+      ],
+      "customData": [
+        {
+          "value": "TSS1",
+          "key": "name"
+        },
+        {
+          "value": 1,
+          "key": "iteration"
+        }
+      ],
+      "name": "My functional test suite"
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "5ac05ae1-d7a2-4ef0-be0b-670ee4e8a8cf",
+        "type": "CONTEXT"
+      },
+      {
+        "target": "6acc3c87-75e0-4b6d-88f5-b1a5d4e62b43",
+        "type": "IUT"
+      }
+    ],
+    "meta": {
+      "id": "cb9d64b0-a6e9-4419-8b5d-a650c27c59ca",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481875925916,
+      "type": "EiffelTestCaseStartedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "testCase": {
+        "id": "TC5",
+        "uri": "https://other-tm.company.com/testCase/TC5",
+        "tracker": "My Other Test Management System"
+      },
+      "customData": [
+        {
+          "value": "TCS5",
+          "key": "name"
+        },
+        {
+          "value": 1,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "5ac05ae1-d7a2-4ef0-be0b-670ee4e8a8cf",
+        "type": "CONTEXT"
+      },
+      {
+        "target": "6acc3c87-75e0-4b6d-88f5-b1a5d4e62b43",
+        "type": "IUT"
+      }
+    ],
+    "meta": {
+      "id": "e06defd8-fcf0-4e08-bf32-43bbc06cf655",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481875925918,
+      "type": "EiffelTestCaseStartedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "testCase": {
+        "id": "TC6",
+        "uri": "https://other-tm.company.com/testCase/TC6",
+        "tracker": "My Other Test Management System"
+      },
+      "customData": [
+        {
+          "value": "TCS6",
+          "key": "name"
+        },
+        {
+          "value": 1,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "5ac05ae1-d7a2-4ef0-be0b-670ee4e8a8cf",
+        "type": "CONTEXT"
+      },
+      {
+        "target": "6acc3c87-75e0-4b6d-88f5-b1a5d4e62b43",
+        "type": "IUT"
+      }
+    ],
+    "meta": {
+      "id": "636a91e8-fb59-4863-a736-02a479f92816",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481875925919,
+      "type": "EiffelTestCaseStartedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "testCase": {
+        "id": "TC6",
+        "uri": "https://other-tm.company.com/testCase/TC6",
+        "tracker": "My Other Test Management System"
+      },
+      "customData": [
+        {
+          "value": "TCS7",
+          "key": "name"
+        },
+        {
+          "value": 1,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "cb9d64b0-a6e9-4419-8b5d-a650c27c59ca",
+        "type": "TEST_CASE_EXECUTION"
+      }
+    ],
+    "meta": {
+      "id": "11109351-41e0-474a-bc1c-f6e81e58a1c9",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481875935919,
+      "type": "EiffelTestCaseFinishedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "outcome": {
+        "verdict": "PASSED",
+        "conclusion": "SUCCESSFUL"
+      },
+      "customData": [
+        {
+          "value": "TCF5",
+          "key": "name"
+        },
+        {
+          "value": 1,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "e06defd8-fcf0-4e08-bf32-43bbc06cf655",
+        "type": "TEST_CASE_EXECUTION"
+      }
+    ],
+    "meta": {
+      "id": "17b20d3a-23a6-41c6-8da0-a87a240b4c2f",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481875938919,
+      "type": "EiffelTestCaseFinishedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "outcome": {
+        "verdict": "PASSED",
+        "conclusion": "SUCCESSFUL"
+      },
+      "customData": [
+        {
+          "value": "TCF6",
+          "key": "name"
+        },
+        {
+          "value": 1,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "636a91e8-fb59-4863-a736-02a479f92816",
+        "type": "TEST_CASE_EXECUTION"
+      }
+    ],
+    "meta": {
+      "id": "2d2a3a27-9f87-4dd5-8953-1f9effebc1ec",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481875943919,
+      "type": "EiffelTestCaseFinishedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "outcome": {
+        "verdict": "PASSED",
+        "conclusion": "SUCCESSFUL"
+      },
+      "customData": [
+        {
+          "value": "TCF7",
+          "key": "name"
+        },
+        {
+          "value": 1,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "5ac05ae1-d7a2-4ef0-be0b-670ee4e8a8cf",
+        "type": "TEST_SUITE_EXECUTION"
+      }
+    ],
+    "meta": {
+      "id": "40df7fc4-0c40-40a3-a349-9f6da0ba81c5",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481875943969,
+      "type": "EiffelTestSuiteFinishedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "outcome": {
+        "verdict": "PASSED"
+      },
+      "customData": [
+        {
+          "value": "TSF1",
+          "key": "name"
+        },
+        {
+          "value": 1,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "ffa23d43-5df8-4438-b509-dadda934e926",
+        "type": "ACTIVITY_EXECUTION"
+      }
+    ],
+    "meta": {
+      "id": "11fb2dab-ad1f-48f3-84fa-7893a3addece",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481875943972,
+      "type": "EiffelActivityFinishedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "outcome": {
+        "conclusion": "SUCCESSFUL"
+      },
+      "customData": [
+        {
+          "value": "ActF3",
+          "key": "name"
+        },
+        {
+          "value": 1,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "40df7fc4-0c40-40a3-a349-9f6da0ba81c5",
+        "type": "CAUSE"
+      },
+      {
+        "target": "6acc3c87-75e0-4b6d-88f5-b1a5d4e62b43",
+        "type": "SUBJECT"
+      }
+    ],
+    "meta": {
+      "id": "f37d59a3-069e-4f4c-8cc5-a52e73501a75",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481875944272,
+      "type": "EiffelConfidenceLevelModifiedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "value": "SUCCESS",
+      "customData": [
+        {
+          "value": "CLM2",
+          "key": "name"
+        },
+        {
+          "value": 1,
+          "key": "iteration"
+        }
+      ],
+      "name": "readyForSystemIntegration"
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "f37d59a3-069e-4f4c-8cc5-a52e73501a75",
+        "type": "CAUSE"
+      },
+      {
+        "target": "6acc3c87-75e0-4b6d-88f5-b1a5d4e62b43",
+        "type": "ELEMENT"
+      },
+      {
+        "target": "99cc53cc-73f6-49ca-a6e4-e7a78b4d706f",
+        "type": "ELEMENT"
+      }
+    ],
+    "meta": {
+      "id": "696f6249-ad8d-4b8f-b54f-e0e2d43b5c8d",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481875944572,
+      "type": "EiffelCompositionDefinedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "customData": [
+        {
+          "value": "CDef1",
+          "key": "name"
+        },
+        {
+          "value": 1,
+          "key": "iteration"
+        }
+      ],
+      "version": "1",
+      "name": "Composition 1"
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "696f6249-ad8d-4b8f-b54f-e0e2d43b5c8d",
+        "type": "COMPOSITION"
+      },
+      {
+        "target": "27c319f8-6b8d-49d9-acb9-64b13fb69c9a",
+        "type": "ENVIRONMENT"
+      },
+      {
+        "target": "696f6249-ad8d-4b8f-b54f-e0e2d43b5c8d",
+        "type": "CAUSE"
+      }
+    ],
+    "meta": {
+      "id": "16552a1a-801e-48c8-b758-42a7673d9997",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481875945572,
+      "type": "EiffelArtifactCreatedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "customData": [
+        {
+          "value": "ArtC1",
+          "key": "name"
+        },
+        {
+          "value": 1,
+          "key": "iteration"
+        }
+      ],
+      "fileInformation": [
+        {
+          "classifier": "",
+          "extension": "jar"
+        }
+      ],
+      "gav": {
+        "artifactId": "complete-system",
+        "version": "1.1.0",
+        "groupId": "com.mycompany.myproduct"
+      }
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "16552a1a-801e-48c8-b758-42a7673d9997",
+        "type": "ARTIFACT"
+      },
+      {
+        "target": "16552a1a-801e-48c8-b758-42a7673d9997",
+        "type": "CAUSE"
+      }
+    ],
+    "meta": {
+      "id": "edfa9bff-29ed-4b80-96ad-b1327281ffbc",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481875946572,
+      "type": "EiffelArtifactPublishedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "customData": [
+        {
+          "value": "ArtP1",
+          "key": "name"
+        },
+        {
+          "value": 1,
+          "key": "iteration"
+        }
+      ],
+      "locations": [
+        {
+          "uri": "https://myrepository.com/myCompleteSystemArtifact",
+          "type": "PLAIN"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "edfa9bff-29ed-4b80-96ad-b1327281ffbc",
+        "type": "CAUSE"
+      }
+    ],
+    "meta": {
+      "id": "2a8c0d1d-c205-4c9a-8670-fc9cf91f907c",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481875947572,
+      "type": "EiffelActivityTriggeredEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "categories": [
+        "Test Activity"
+      ],
+      "triggers": [
+        {
+          "type": "EIFFEL_EVENT"
+        }
+      ],
+      "customData": [
+        {
+          "value": "ActT1",
+          "key": "name"
+        },
+        {
+          "value": 1,
+          "key": "iteration"
+        }
+      ],
+      "executionType": "AUTOMATED",
+      "name": "Act1"
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "2a8c0d1d-c205-4c9a-8670-fc9cf91f907c",
+        "type": "ACTIVITY_EXECUTION"
+      }
+    ],
+    "meta": {
+      "id": "969f8fbe-5fab-4612-9a21-5352e1192025",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481875947574,
+      "type": "EiffelActivityStartedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "customData": [
+        {
+          "value": "ActS1",
+          "key": "name"
+        },
+        {
+          "value": 1,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "edfa9bff-29ed-4b80-96ad-b1327281ffbc",
+        "type": "CAUSE"
+      }
+    ],
+    "meta": {
+      "id": "b85d9337-aa27-458b-8e18-dee5ed50e511",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481875947624,
+      "type": "EiffelActivityTriggeredEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "categories": [
+        "Test Activity"
+      ],
+      "triggers": [
+        {
+          "type": "EIFFEL_EVENT"
+        }
+      ],
+      "customData": [
+        {
+          "value": "ActT2",
+          "key": "name"
+        },
+        {
+          "value": 1,
+          "key": "iteration"
+        }
+      ],
+      "executionType": "AUTOMATED",
+      "name": "Act2"
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "2a8c0d1d-c205-4c9a-8670-fc9cf91f907c",
+        "type": "CONTEXT"
+      },
+      {
+        "target": "16552a1a-801e-48c8-b758-42a7673d9997",
+        "type": "IUT"
+      }
+    ],
+    "meta": {
+      "id": "703982ab-bddf-4f75-967a-6797867a7434",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481875948624,
+      "type": "EiffelTestCaseStartedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "testCase": {
+        "id": "TC1",
+        "uri": "http://tm.company.com/browse/TC1",
+        "tracker": "My First Test Management System"
+      },
+      "customData": [
+        {
+          "value": "TCS1",
+          "key": "name"
+        },
+        {
+          "value": 1,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "2a8c0d1d-c205-4c9a-8670-fc9cf91f907c",
+        "type": "CONTEXT"
+      },
+      {
+        "target": "16552a1a-801e-48c8-b758-42a7673d9997",
+        "type": "IUT"
+      }
+    ],
+    "meta": {
+      "id": "11f298d4-e9d8-47b9-beb1-d2fc03357c88",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481875948724,
+      "type": "EiffelTestCaseStartedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "testCase": {
+        "id": "TC2",
+        "uri": "http://tm.company.com/browse/TC2",
+        "tracker": "My First Test Management System"
+      },
+      "customData": [
+        {
+          "value": "TCS2",
+          "key": "name"
+        },
+        {
+          "value": 1,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "11f298d4-e9d8-47b9-beb1-d2fc03357c88",
+        "type": "TEST_CASE_EXECUTION"
+      }
+    ],
+    "meta": {
+      "id": "67d6de48-86dc-493c-b0a3-cb80ecb5a8df",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481875998724,
+      "type": "EiffelTestCaseFinishedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "outcome": {
+        "verdict": "PASSED",
+        "conclusion": "SUCCESSFUL"
+      },
+      "customData": [
+        {
+          "value": "TCF2",
+          "key": "name"
+        },
+        {
+          "value": 1,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "703982ab-bddf-4f75-967a-6797867a7434",
+        "type": "TEST_CASE_EXECUTION"
+      }
+    ],
+    "meta": {
+      "id": "a7be922a-d525-4339-8aa7-a91b4512023c",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876001724,
+      "type": "EiffelTestCaseFinishedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "outcome": {
+        "verdict": "PASSED",
+        "conclusion": "SUCCESSFUL"
+      },
+      "customData": [
+        {
+          "value": "TCF1",
+          "key": "name"
+        },
+        {
+          "value": 1,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "2a8c0d1d-c205-4c9a-8670-fc9cf91f907c",
+        "type": "ACTIVITY_EXECUTION"
+      }
+    ],
+    "meta": {
+      "id": "f975ca0d-106b-4f4f-a316-29f63c064750",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876001824,
+      "type": "EiffelActivityFinishedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "outcome": {
+        "conclusion": "SUCCESSFUL"
+      },
+      "customData": [
+        {
+          "value": "ActF1",
+          "key": "name"
+        },
+        {
+          "value": 1,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "b85d9337-aa27-458b-8e18-dee5ed50e511",
+        "type": "ACTIVITY_EXECUTION"
+      }
+    ],
+    "meta": {
+      "id": "2de3c1ce-894f-49f6-ac27-f9046c44ccd3",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876101824,
+      "type": "EiffelActivityStartedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "customData": [
+        {
+          "value": "ActS2",
+          "key": "name"
+        },
+        {
+          "value": 1,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "b85d9337-aa27-458b-8e18-dee5ed50e511",
+        "type": "CONTEXT"
+      },
+      {
+        "target": "16552a1a-801e-48c8-b758-42a7673d9997",
+        "type": "IUT"
+      }
+    ],
+    "meta": {
+      "id": "3472ed56-5c3b-4344-8b3d-67d212bfe517",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876102024,
+      "type": "EiffelTestCaseStartedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "testCase": {
+        "id": "TC3",
+        "uri": "http://tm.company.com/browse/TC3",
+        "tracker": "My First Test Management System"
+      },
+      "customData": [
+        {
+          "value": "TCS3",
+          "key": "name"
+        },
+        {
+          "value": 1,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "3472ed56-5c3b-4344-8b3d-67d212bfe517",
+        "type": "TEST_CASE_EXECUTION"
+      }
+    ],
+    "meta": {
+      "id": "695a9bb1-b6eb-4bd4-bb24-db56f185322a",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876112024,
+      "type": "EiffelTestCaseFinishedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "outcome": {
+        "verdict": "PASSED",
+        "conclusion": "SUCCESSFUL"
+      },
+      "customData": [
+        {
+          "value": "TCF3",
+          "key": "name"
+        },
+        {
+          "value": 1,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "b85d9337-aa27-458b-8e18-dee5ed50e511",
+        "type": "CONTEXT"
+      },
+      {
+        "target": "16552a1a-801e-48c8-b758-42a7673d9997",
+        "type": "IUT"
+      }
+    ],
+    "meta": {
+      "id": "a05738ca-e91c-4d9a-8d39-efa5be9751c7",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876112124,
+      "type": "EiffelTestCaseStartedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "testCase": {
+        "id": "TC4",
+        "uri": "http://tm.company.com/browse/TC4",
+        "tracker": "My First Test Management System"
+      },
+      "customData": [
+        {
+          "value": "TCS4",
+          "key": "name"
+        },
+        {
+          "value": 1,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "a05738ca-e91c-4d9a-8d39-efa5be9751c7",
+        "type": "TEST_CASE_EXECUTION"
+      }
+    ],
+    "meta": {
+      "id": "ee0c8e9e-94ab-490f-be04-c3e01e7bd6a6",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876232124,
+      "type": "EiffelTestCaseFinishedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "outcome": {
+        "verdict": "PASSED",
+        "conclusion": "SUCCESSFUL"
+      },
+      "customData": [
+        {
+          "value": "TCF4",
+          "key": "name"
+        },
+        {
+          "value": 1,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "b85d9337-aa27-458b-8e18-dee5ed50e511",
+        "type": "ACTIVITY_EXECUTION"
+      }
+    ],
+    "meta": {
+      "id": "7285a264-19ea-405f-91a9-504371e6a901",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876232144,
+      "type": "EiffelActivityFinishedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "outcome": {
+        "conclusion": "SUCCESSFUL"
+      },
+      "customData": [
+        {
+          "value": "ActF2",
+          "key": "name"
+        },
+        {
+          "value": 1,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "16552a1a-801e-48c8-b758-42a7673d9997",
+        "type": "SUBJECT"
+      },
+      {
+        "target": "a7be922a-d525-4339-8aa7-a91b4512023c",
+        "type": "CAUSE"
+      },
+      {
+        "target": "67d6de48-86dc-493c-b0a3-cb80ecb5a8df",
+        "type": "CAUSE"
+      },
+      {
+        "target": "695a9bb1-b6eb-4bd4-bb24-db56f185322a",
+        "type": "CAUSE"
+      },
+      {
+        "target": "ee0c8e9e-94ab-490f-be04-c3e01e7bd6a6",
+        "type": "CAUSE"
+      }
+    ],
+    "meta": {
+      "id": "038ca690-f280-49e8-b15e-2055b97ef886",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876234644,
+      "type": "EiffelConfidenceLevelModifiedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "value": "SUCCESS",
+      "customData": [
+        {
+          "value": "CLM1",
+          "key": "name"
+        },
+        {
+          "value": 1,
+          "key": "iteration"
+        }
+      ],
+      "name": "readyForRelease"
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "f72bf98f-f684-48c1-af2c-ec741bb06e18",
+        "type": "BASE"
+      }
+    ],
+    "meta": {
+      "id": "008a9700-0247-48ab-bc30-bc50e78d2f27",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876244645,
+      "type": "EiffelSourceChangeCreatedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "gitIdentifier": {
+        "repoUri": "https://repo.com",
+        "branch": "topic-branch-2",
+        "repoName": "myRepo",
+        "commitId": "fd090b60a4aedc5161da9c035a49b14a319829c5"
+      },
+      "author": {
+        "id": "johnxxx",
+        "group": "Team Gophers",
+        "email": "john.doe@company.com",
+        "name": "John Doe"
+      },
+      "customData": [
+        {
+          "value": "SCC1",
+          "key": "name"
+        },
+        {
+          "value": 2,
+          "key": "iteration"
+        }
+      ],
+      "change": {
+        "files": "https://filelist.com/2",
+        "insertions": 433,
+        "deletions": 291
+      }
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "f72bf98f-f684-48c1-af2c-ec741bb06e18",
+        "type": "PREVIOUS_VERSION"
+      },
+      {
+        "target": "008a9700-0247-48ab-bc30-bc50e78d2f27",
+        "type": "CHANGE"
+      }
+    ],
+    "meta": {
+      "id": "136fd784-0220-4381-8dff-91ad6f62c9f5",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876244646,
+      "type": "EiffelSourceChangeSubmittedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "gitIdentifier": {
+        "repoUri": "https://repo.com",
+        "branch": "master",
+        "repoName": "myRepo",
+        "commitId": "fd090b60a4aedc5161da9c035a49b14a319829b4"
+      },
+      "customData": [
+        {
+          "value": "SCS1",
+          "key": "name"
+        },
+        {
+          "value": 2,
+          "key": "iteration"
+        }
+      ],
+      "submitter": {
+        "id": "johnxxx",
+        "group": "Team Gophers",
+        "email": "john.doe@company.com",
+        "name": "John Doe"
+      }
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "13c15ceb-e02d-42a6-bff9-1261dbdf9220",
+        "type": "PREVIOUS_VERSION"
+      },
+      {
+        "target": "136fd784-0220-4381-8dff-91ad6f62c9f5",
+        "type": "ELEMENT"
+      }
+    ],
+    "meta": {
+      "id": "dc732f3a-6a65-442d-a36b-11687d1b4b2a",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876244746,
+      "type": "EiffelCompositionDefinedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "customData": [
+        {
+          "value": "CDef3",
+          "key": "name"
+        },
+        {
+          "value": 2,
+          "key": "iteration"
+        }
+      ],
+      "version": "2",
+      "name": "Composition 3"
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "dc732f3a-6a65-442d-a36b-11687d1b4b2a",
+        "type": "COMPOSITION"
+      },
+      {
+        "target": "dc732f3a-6a65-442d-a36b-11687d1b4b2a",
+        "type": "CAUSE"
+      },
+      {
+        "target": "4bef9f2f-ce68-46b8-b643-cdff9ee578a4",
+        "type": "PREVIOUS_VERSION"
+      }
+    ],
+    "meta": {
+      "id": "9c126d68-9bd3-4135-a21d-d52c9811b505",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876444746,
+      "type": "EiffelArtifactCreatedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "customData": [
+        {
+          "value": "ArtCC1",
+          "key": "name"
+        },
+        {
+          "value": 2,
+          "key": "iteration"
+        }
+      ],
+      "fileInformation": [
+        {
+          "classifier": "",
+          "extension": "jar"
+        }
+      ],
+      "gav": {
+        "artifactId": "component-1",
+        "version": "1.2.0",
+        "groupId": "com.mycompany.myproduct"
+      }
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "dc732f3a-6a65-442d-a36b-11687d1b4b2a",
+        "type": "COMPOSITION"
+      },
+      {
+        "target": "dc732f3a-6a65-442d-a36b-11687d1b4b2a",
+        "type": "CAUSE"
+      },
+      {
+        "target": "8a8b4bcc-c3b7-4c39-80fe-808f85c9fde2",
+        "type": "PREVIOUS_VERSION"
+      }
+    ],
+    "meta": {
+      "id": "0f98bb26-17aa-4063-b54c-5b46d4c6a748",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876479746,
+      "type": "EiffelArtifactCreatedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "customData": [
+        {
+          "value": "ArtCC2",
+          "key": "name"
+        },
+        {
+          "value": 2,
+          "key": "iteration"
+        }
+      ],
+      "fileInformation": [
+        {
+          "classifier": "",
+          "extension": "jar"
+        }
+      ],
+      "gav": {
+        "artifactId": "component-2",
+        "version": "1.2.0",
+        "groupId": "com.mycompany.myproduct"
+      }
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "dc732f3a-6a65-442d-a36b-11687d1b4b2a",
+        "type": "COMPOSITION"
+      },
+      {
+        "target": "dc732f3a-6a65-442d-a36b-11687d1b4b2a",
+        "type": "CAUSE"
+      },
+      {
+        "target": "02c462b3-56f9-44ab-b517-e6d892e97f36",
+        "type": "PREVIOUS_VERSION"
+      }
+    ],
+    "meta": {
+      "id": "71b7fb84-e856-492a-aa04-9a377ed21c62",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876480746,
+      "type": "EiffelArtifactCreatedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "customData": [
+        {
+          "value": "ArtCC3",
+          "key": "name"
+        },
+        {
+          "value": 2,
+          "key": "iteration"
+        }
+      ],
+      "fileInformation": [
+        {
+          "classifier": "",
+          "extension": "jar"
+        }
+      ],
+      "gav": {
+        "artifactId": "component-3",
+        "version": "1.2.0",
+        "groupId": "com.mycompany.myproduct"
+      }
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "9c126d68-9bd3-4135-a21d-d52c9811b505",
+        "type": "CAUSE"
+      },
+      {
+        "target": "0f98bb26-17aa-4063-b54c-5b46d4c6a748",
+        "type": "CAUSE"
+      },
+      {
+        "target": "71b7fb84-e856-492a-aa04-9a377ed21c62",
+        "type": "CAUSE"
+      }
+    ],
+    "meta": {
+      "id": "2f31973c-68d3-4557-af6c-3dbc2ee069ce",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876480846,
+      "type": "EiffelActivityTriggeredEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "categories": [
+        "Sub-system Build Activity"
+      ],
+      "triggers": [
+        {
+          "type": "EIFFEL_EVENT"
+        }
+      ],
+      "customData": [
+        {
+          "value": "ActT4",
+          "key": "name"
+        },
+        {
+          "value": 2,
+          "key": "iteration"
+        }
+      ],
+      "executionType": "AUTOMATED",
+      "name": "Act4"
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "2f31973c-68d3-4557-af6c-3dbc2ee069ce",
+        "type": "ACTIVITY_EXECUTION"
+      }
+    ],
+    "meta": {
+      "id": "2c76e82f-eff1-4c2f-a532-6e7e115a9f8a",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876480847,
+      "type": "EiffelActivityStartedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "customData": [
+        {
+          "value": "ActS4",
+          "key": "name"
+        },
+        {
+          "value": 2,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "fb6ef12d-25fb-4d77-b9fd-87688e66de47",
+        "type": "PREVIOUS_VERSION"
+      },
+      {
+        "target": "2f31973c-68d3-4557-af6c-3dbc2ee069ce",
+        "type": "CONTEXT"
+      },
+      {
+        "target": "9c126d68-9bd3-4135-a21d-d52c9811b505",
+        "type": "ELEMENT"
+      },
+      {
+        "target": "0f98bb26-17aa-4063-b54c-5b46d4c6a748",
+        "type": "ELEMENT"
+      },
+      {
+        "target": "71b7fb84-e856-492a-aa04-9a377ed21c62",
+        "type": "ELEMENT"
+      }
+    ],
+    "meta": {
+      "id": "569d8e2d-dccc-4b38-ac79-9be411d25032",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876480947,
+      "type": "EiffelCompositionDefinedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "customData": [
+        {
+          "value": "CDef2",
+          "key": "name"
+        },
+        {
+          "value": 2,
+          "key": "iteration"
+        }
+      ],
+      "version": "2",
+      "name": "Composition 2"
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "569d8e2d-dccc-4b38-ac79-9be411d25032",
+        "type": "COMPOSITION"
+      },
+      {
+        "target": "c4f9565d-2382-488f-b911-e3326bce21a3",
+        "type": "ENVIRONMENT"
+      },
+      {
+        "target": "6acc3c87-75e0-4b6d-88f5-b1a5d4e62b43",
+        "type": "PREVIOUS_VERSION"
+      },
+      {
+        "target": "2f31973c-68d3-4557-af6c-3dbc2ee069ce",
+        "type": "CONTEXT"
+      }
+    ],
+    "meta": {
+      "id": "3de3c1ea-72cb-4f09-b2f3-eabe29b26d29",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876481047,
+      "type": "EiffelArtifactCreatedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "customData": [
+        {
+          "value": "ArtC2",
+          "key": "name"
+        },
+        {
+          "value": 2,
+          "key": "iteration"
+        }
+      ],
+      "fileInformation": [
+        {
+          "classifier": "",
+          "extension": "jar"
+        }
+      ],
+      "gav": {
+        "artifactId": "sub-system",
+        "version": "1.2.0",
+        "groupId": "com.mycompany.myproduct"
+      }
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "3de3c1ea-72cb-4f09-b2f3-eabe29b26d29",
+        "type": "ARTIFACT"
+      },
+      {
+        "target": "2f31973c-68d3-4557-af6c-3dbc2ee069ce",
+        "type": "CONTEXT"
+      }
+    ],
+    "meta": {
+      "id": "f01c8a35-c4f5-4826-9e7b-0453164c615b",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876511047,
+      "type": "EiffelArtifactPublishedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "customData": [
+        {
+          "value": "ArtP2",
+          "key": "name"
+        },
+        {
+          "value": 2,
+          "key": "iteration"
+        }
+      ],
+      "locations": [
+        {
+          "uri": "https://myrepository.com/mySubSystemArtifact",
+          "type": "PLAIN"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "2f31973c-68d3-4557-af6c-3dbc2ee069ce",
+        "type": "ACTIVITY_EXECUTION"
+      }
+    ],
+    "meta": {
+      "id": "11321e26-d144-450a-863e-a4d5df7158aa",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876511097,
+      "type": "EiffelActivityFinishedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "outcome": {
+        "conclusion": "SUCCESSFUL"
+      },
+      "customData": [
+        {
+          "value": "ActF4",
+          "key": "name"
+        },
+        {
+          "value": 2,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "f01c8a35-c4f5-4826-9e7b-0453164c615b",
+        "type": "CAUSE"
+      }
+    ],
+    "meta": {
+      "id": "704db08b-0770-48c2-a42d-2572fee96ddd",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876513097,
+      "type": "EiffelActivityTriggeredEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "categories": [
+        "Sub-system Test Activity"
+      ],
+      "triggers": [
+        {
+          "type": "EIFFEL_EVENT"
+        }
+      ],
+      "customData": [
+        {
+          "value": "ActT3",
+          "key": "name"
+        },
+        {
+          "value": 2,
+          "key": "iteration"
+        }
+      ],
+      "executionType": "AUTOMATED",
+      "name": "Act3"
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "704db08b-0770-48c2-a42d-2572fee96ddd",
+        "type": "ACTIVITY_EXECUTION"
+      }
+    ],
+    "meta": {
+      "id": "0a2d78fd-326f-4fef-982f-9cb23be0254c",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876513100,
+      "type": "EiffelActivityStartedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "customData": [
+        {
+          "value": "ActS3",
+          "key": "name"
+        },
+        {
+          "value": 2,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "704db08b-0770-48c2-a42d-2572fee96ddd",
+        "type": "CONTEXT"
+      }
+    ],
+    "meta": {
+      "id": "5ca573dc-b607-4e90-adc4-c87b9fff2c0d",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876515100,
+      "type": "EiffelTestSuiteStartedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "categories": [
+        "Pre system integration tests"
+      ],
+      "types": [
+        "FUNCTIONAL"
+      ],
+      "customData": [
+        {
+          "value": "TSS1",
+          "key": "name"
+        },
+        {
+          "value": 2,
+          "key": "iteration"
+        }
+      ],
+      "name": "My functional test suite"
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "5ca573dc-b607-4e90-adc4-c87b9fff2c0d",
+        "type": "CONTEXT"
+      },
+      {
+        "target": "3de3c1ea-72cb-4f09-b2f3-eabe29b26d29",
+        "type": "IUT"
+      }
+    ],
+    "meta": {
+      "id": "3688a12f-e1ed-40de-9fc9-0d0c17707b52",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876515200,
+      "type": "EiffelTestCaseStartedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "testCase": {
+        "id": "TC5",
+        "uri": "https://other-tm.company.com/testCase/TC5",
+        "tracker": "My Other Test Management System"
+      },
+      "customData": [
+        {
+          "value": "TCS5",
+          "key": "name"
+        },
+        {
+          "value": 2,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "5ca573dc-b607-4e90-adc4-c87b9fff2c0d",
+        "type": "CONTEXT"
+      },
+      {
+        "target": "3de3c1ea-72cb-4f09-b2f3-eabe29b26d29",
+        "type": "IUT"
+      }
+    ],
+    "meta": {
+      "id": "1b1895da-fd79-4eea-9a3d-9678b2da4ebf",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876515202,
+      "type": "EiffelTestCaseStartedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "testCase": {
+        "id": "TC6",
+        "uri": "https://other-tm.company.com/testCase/TC6",
+        "tracker": "My Other Test Management System"
+      },
+      "customData": [
+        {
+          "value": "TCS6",
+          "key": "name"
+        },
+        {
+          "value": 2,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "5ca573dc-b607-4e90-adc4-c87b9fff2c0d",
+        "type": "CONTEXT"
+      },
+      {
+        "target": "3de3c1ea-72cb-4f09-b2f3-eabe29b26d29",
+        "type": "IUT"
+      }
+    ],
+    "meta": {
+      "id": "e494e899-9ce6-4582-b33d-df3b9c3e06a9",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876515203,
+      "type": "EiffelTestCaseStartedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "testCase": {
+        "id": "TC6",
+        "uri": "https://other-tm.company.com/testCase/TC6",
+        "tracker": "My Other Test Management System"
+      },
+      "customData": [
+        {
+          "value": "TCS7",
+          "key": "name"
+        },
+        {
+          "value": 2,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "3688a12f-e1ed-40de-9fc9-0d0c17707b52",
+        "type": "TEST_CASE_EXECUTION"
+      }
+    ],
+    "meta": {
+      "id": "9fe23669-3396-40f6-8e73-6e050008d58c",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876525203,
+      "type": "EiffelTestCaseFinishedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "outcome": {
+        "verdict": "PASSED",
+        "conclusion": "SUCCESSFUL"
+      },
+      "customData": [
+        {
+          "value": "TCF5",
+          "key": "name"
+        },
+        {
+          "value": 2,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "1b1895da-fd79-4eea-9a3d-9678b2da4ebf",
+        "type": "TEST_CASE_EXECUTION"
+      }
+    ],
+    "meta": {
+      "id": "37488644-a4d9-493f-ba4b-ac09d5561080",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876528203,
+      "type": "EiffelTestCaseFinishedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "outcome": {
+        "verdict": "PASSED",
+        "conclusion": "SUCCESSFUL"
+      },
+      "customData": [
+        {
+          "value": "TCF6",
+          "key": "name"
+        },
+        {
+          "value": 2,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "e494e899-9ce6-4582-b33d-df3b9c3e06a9",
+        "type": "TEST_CASE_EXECUTION"
+      }
+    ],
+    "meta": {
+      "id": "f9f5023d-5357-47e0-bf25-b880804619de",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876533203,
+      "type": "EiffelTestCaseFinishedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "outcome": {
+        "verdict": "PASSED",
+        "conclusion": "SUCCESSFUL"
+      },
+      "customData": [
+        {
+          "value": "TCF7",
+          "key": "name"
+        },
+        {
+          "value": 2,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "5ca573dc-b607-4e90-adc4-c87b9fff2c0d",
+        "type": "TEST_SUITE_EXECUTION"
+      }
+    ],
+    "meta": {
+      "id": "1b965d3e-1572-4fdc-b603-700deebb1e76",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876533253,
+      "type": "EiffelTestSuiteFinishedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "outcome": {
+        "verdict": "PASSED"
+      },
+      "customData": [
+        {
+          "value": "TSF1",
+          "key": "name"
+        },
+        {
+          "value": 2,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "704db08b-0770-48c2-a42d-2572fee96ddd",
+        "type": "ACTIVITY_EXECUTION"
+      }
+    ],
+    "meta": {
+      "id": "654647bf-dde8-46d0-bef6-2fe1ec650626",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876533256,
+      "type": "EiffelActivityFinishedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "outcome": {
+        "conclusion": "SUCCESSFUL"
+      },
+      "customData": [
+        {
+          "value": "ActF3",
+          "key": "name"
+        },
+        {
+          "value": 2,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "1b965d3e-1572-4fdc-b603-700deebb1e76",
+        "type": "CAUSE"
+      },
+      {
+        "target": "3de3c1ea-72cb-4f09-b2f3-eabe29b26d29",
+        "type": "SUBJECT"
+      }
+    ],
+    "meta": {
+      "id": "7388f5f9-637c-40a0-9511-372bb319c71e",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876533556,
+      "type": "EiffelConfidenceLevelModifiedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "value": "SUCCESS",
+      "customData": [
+        {
+          "value": "CLM2",
+          "key": "name"
+        },
+        {
+          "value": 2,
+          "key": "iteration"
+        }
+      ],
+      "name": "readyForSystemIntegration"
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "696f6249-ad8d-4b8f-b54f-e0e2d43b5c8d",
+        "type": "PREVIOUS_VERSION"
+      },
+      {
+        "target": "7388f5f9-637c-40a0-9511-372bb319c71e",
+        "type": "CAUSE"
+      },
+      {
+        "target": "3de3c1ea-72cb-4f09-b2f3-eabe29b26d29",
+        "type": "ELEMENT"
+      },
+      {
+        "target": "99cc53cc-73f6-49ca-a6e4-e7a78b4d706f",
+        "type": "ELEMENT"
+      }
+    ],
+    "meta": {
+      "id": "dabf32b6-e4a6-42e9-ab78-4f7f04a389fa",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876533856,
+      "type": "EiffelCompositionDefinedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "customData": [
+        {
+          "value": "CDef1",
+          "key": "name"
+        },
+        {
+          "value": 2,
+          "key": "iteration"
+        }
+      ],
+      "version": "2",
+      "name": "Composition 1"
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "dabf32b6-e4a6-42e9-ab78-4f7f04a389fa",
+        "type": "COMPOSITION"
+      },
+      {
+        "target": "27c319f8-6b8d-49d9-acb9-64b13fb69c9a",
+        "type": "ENVIRONMENT"
+      },
+      {
+        "target": "dabf32b6-e4a6-42e9-ab78-4f7f04a389fa",
+        "type": "CAUSE"
+      },
+      {
+        "target": "16552a1a-801e-48c8-b758-42a7673d9997",
+        "type": "PREVIOUS_VERSION"
+      }
+    ],
+    "meta": {
+      "id": "78a1732e-5b6d-47f2-a649-b64755945017",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876534856,
+      "type": "EiffelArtifactCreatedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "customData": [
+        {
+          "value": "ArtC1",
+          "key": "name"
+        },
+        {
+          "value": 2,
+          "key": "iteration"
+        }
+      ],
+      "fileInformation": [
+        {
+          "classifier": "",
+          "extension": "jar"
+        }
+      ],
+      "gav": {
+        "artifactId": "complete-system",
+        "version": "1.2.0",
+        "groupId": "com.mycompany.myproduct"
+      }
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "78a1732e-5b6d-47f2-a649-b64755945017",
+        "type": "ARTIFACT"
+      },
+      {
+        "target": "78a1732e-5b6d-47f2-a649-b64755945017",
+        "type": "CAUSE"
+      }
+    ],
+    "meta": {
+      "id": "328eb3cb-32fa-47a6-9e04-5932d26b9ba4",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876535856,
+      "type": "EiffelArtifactPublishedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "customData": [
+        {
+          "value": "ArtP1",
+          "key": "name"
+        },
+        {
+          "value": 2,
+          "key": "iteration"
+        }
+      ],
+      "locations": [
+        {
+          "uri": "https://myrepository.com/myCompleteSystemArtifact",
+          "type": "PLAIN"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "328eb3cb-32fa-47a6-9e04-5932d26b9ba4",
+        "type": "CAUSE"
+      }
+    ],
+    "meta": {
+      "id": "726540f0-84c9-435d-8ea1-c5b79968c95c",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876536856,
+      "type": "EiffelActivityTriggeredEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "categories": [
+        "Test Activity"
+      ],
+      "triggers": [
+        {
+          "type": "EIFFEL_EVENT"
+        }
+      ],
+      "customData": [
+        {
+          "value": "ActT1",
+          "key": "name"
+        },
+        {
+          "value": 2,
+          "key": "iteration"
+        }
+      ],
+      "executionType": "AUTOMATED",
+      "name": "Act1"
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "726540f0-84c9-435d-8ea1-c5b79968c95c",
+        "type": "ACTIVITY_EXECUTION"
+      }
+    ],
+    "meta": {
+      "id": "e98c6440-2a52-4a97-8a26-41943372ac69",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876536858,
+      "type": "EiffelActivityStartedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "customData": [
+        {
+          "value": "ActS1",
+          "key": "name"
+        },
+        {
+          "value": 2,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "328eb3cb-32fa-47a6-9e04-5932d26b9ba4",
+        "type": "CAUSE"
+      }
+    ],
+    "meta": {
+      "id": "449081f0-6df6-4c64-b49e-ce0bd1cc3cce",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876536908,
+      "type": "EiffelActivityTriggeredEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "categories": [
+        "Test Activity"
+      ],
+      "triggers": [
+        {
+          "type": "EIFFEL_EVENT"
+        }
+      ],
+      "customData": [
+        {
+          "value": "ActT2",
+          "key": "name"
+        },
+        {
+          "value": 2,
+          "key": "iteration"
+        }
+      ],
+      "executionType": "AUTOMATED",
+      "name": "Act2"
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "726540f0-84c9-435d-8ea1-c5b79968c95c",
+        "type": "CONTEXT"
+      },
+      {
+        "target": "78a1732e-5b6d-47f2-a649-b64755945017",
+        "type": "IUT"
+      }
+    ],
+    "meta": {
+      "id": "f4a488fb-4917-4f8a-a072-aa58f9641b49",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876537908,
+      "type": "EiffelTestCaseStartedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "testCase": {
+        "id": "TC1",
+        "uri": "http://tm.company.com/browse/TC1",
+        "tracker": "My First Test Management System"
+      },
+      "customData": [
+        {
+          "value": "TCS1",
+          "key": "name"
+        },
+        {
+          "value": 2,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "726540f0-84c9-435d-8ea1-c5b79968c95c",
+        "type": "CONTEXT"
+      },
+      {
+        "target": "78a1732e-5b6d-47f2-a649-b64755945017",
+        "type": "IUT"
+      }
+    ],
+    "meta": {
+      "id": "3d972577-2b40-44e1-937d-e9e520984eae",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876538008,
+      "type": "EiffelTestCaseStartedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "testCase": {
+        "id": "TC2",
+        "uri": "http://tm.company.com/browse/TC2",
+        "tracker": "My First Test Management System"
+      },
+      "customData": [
+        {
+          "value": "TCS2",
+          "key": "name"
+        },
+        {
+          "value": 2,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "3d972577-2b40-44e1-937d-e9e520984eae",
+        "type": "TEST_CASE_EXECUTION"
+      }
+    ],
+    "meta": {
+      "id": "fdb26112-207a-49a1-9daf-c1743850fa39",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876588008,
+      "type": "EiffelTestCaseFinishedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "outcome": {
+        "verdict": "PASSED",
+        "conclusion": "SUCCESSFUL"
+      },
+      "customData": [
+        {
+          "value": "TCF2",
+          "key": "name"
+        },
+        {
+          "value": 2,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "f4a488fb-4917-4f8a-a072-aa58f9641b49",
+        "type": "TEST_CASE_EXECUTION"
+      }
+    ],
+    "meta": {
+      "id": "47cf3270-42c6-4424-ba67-623ab6294159",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876591008,
+      "type": "EiffelTestCaseFinishedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "outcome": {
+        "verdict": "PASSED",
+        "conclusion": "SUCCESSFUL"
+      },
+      "customData": [
+        {
+          "value": "TCF1",
+          "key": "name"
+        },
+        {
+          "value": 2,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "726540f0-84c9-435d-8ea1-c5b79968c95c",
+        "type": "ACTIVITY_EXECUTION"
+      }
+    ],
+    "meta": {
+      "id": "d7bc68e6-730d-4241-9dfe-69f43118d961",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876591108,
+      "type": "EiffelActivityFinishedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "outcome": {
+        "conclusion": "SUCCESSFUL"
+      },
+      "customData": [
+        {
+          "value": "ActF1",
+          "key": "name"
+        },
+        {
+          "value": 2,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "449081f0-6df6-4c64-b49e-ce0bd1cc3cce",
+        "type": "ACTIVITY_EXECUTION"
+      }
+    ],
+    "meta": {
+      "id": "144d0dc4-ca77-447d-bf2e-4a95413535e6",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876691108,
+      "type": "EiffelActivityStartedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "customData": [
+        {
+          "value": "ActS2",
+          "key": "name"
+        },
+        {
+          "value": 2,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "449081f0-6df6-4c64-b49e-ce0bd1cc3cce",
+        "type": "CONTEXT"
+      },
+      {
+        "target": "78a1732e-5b6d-47f2-a649-b64755945017",
+        "type": "IUT"
+      }
+    ],
+    "meta": {
+      "id": "52495439-f0a7-46a5-99aa-ca8406bf8fd8",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876691308,
+      "type": "EiffelTestCaseStartedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "testCase": {
+        "id": "TC3",
+        "uri": "http://tm.company.com/browse/TC3",
+        "tracker": "My First Test Management System"
+      },
+      "customData": [
+        {
+          "value": "TCS3",
+          "key": "name"
+        },
+        {
+          "value": 2,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "52495439-f0a7-46a5-99aa-ca8406bf8fd8",
+        "type": "TEST_CASE_EXECUTION"
+      }
+    ],
+    "meta": {
+      "id": "0dc2cbaf-4439-4473-961d-0f7f3e72a7e1",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876701308,
+      "type": "EiffelTestCaseFinishedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "outcome": {
+        "verdict": "PASSED",
+        "conclusion": "SUCCESSFUL"
+      },
+      "customData": [
+        {
+          "value": "TCF3",
+          "key": "name"
+        },
+        {
+          "value": 2,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "449081f0-6df6-4c64-b49e-ce0bd1cc3cce",
+        "type": "CONTEXT"
+      },
+      {
+        "target": "78a1732e-5b6d-47f2-a649-b64755945017",
+        "type": "IUT"
+      }
+    ],
+    "meta": {
+      "id": "53567031-82bc-4421-bc21-ffb8948be6e7",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876701408,
+      "type": "EiffelTestCaseStartedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "testCase": {
+        "id": "TC4",
+        "uri": "http://tm.company.com/browse/TC4",
+        "tracker": "My First Test Management System"
+      },
+      "customData": [
+        {
+          "value": "TCS4",
+          "key": "name"
+        },
+        {
+          "value": 2,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "53567031-82bc-4421-bc21-ffb8948be6e7",
+        "type": "TEST_CASE_EXECUTION"
+      }
+    ],
+    "meta": {
+      "id": "c4e5e46b-46e0-4a9f-a7b1-4b44c0a34572",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876821408,
+      "type": "EiffelTestCaseFinishedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "outcome": {
+        "verdict": "PASSED",
+        "conclusion": "SUCCESSFUL"
+      },
+      "customData": [
+        {
+          "value": "TCF4",
+          "key": "name"
+        },
+        {
+          "value": 2,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "449081f0-6df6-4c64-b49e-ce0bd1cc3cce",
+        "type": "ACTIVITY_EXECUTION"
+      }
+    ],
+    "meta": {
+      "id": "15f67f42-25b6-4091-a06f-d6d69d7bcc3c",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876821428,
+      "type": "EiffelActivityFinishedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "outcome": {
+        "conclusion": "SUCCESSFUL"
+      },
+      "customData": [
+        {
+          "value": "ActF2",
+          "key": "name"
+        },
+        {
+          "value": 2,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "78a1732e-5b6d-47f2-a649-b64755945017",
+        "type": "SUBJECT"
+      },
+      {
+        "target": "47cf3270-42c6-4424-ba67-623ab6294159",
+        "type": "CAUSE"
+      },
+      {
+        "target": "fdb26112-207a-49a1-9daf-c1743850fa39",
+        "type": "CAUSE"
+      },
+      {
+        "target": "0dc2cbaf-4439-4473-961d-0f7f3e72a7e1",
+        "type": "CAUSE"
+      },
+      {
+        "target": "c4e5e46b-46e0-4a9f-a7b1-4b44c0a34572",
+        "type": "CAUSE"
+      }
+    ],
+    "meta": {
+      "id": "1a123ec6-85de-47b1-b9f5-4c0d46554bd6",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876823928,
+      "type": "EiffelConfidenceLevelModifiedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "value": "SUCCESS",
+      "customData": [
+        {
+          "value": "CLM1",
+          "key": "name"
+        },
+        {
+          "value": 2,
+          "key": "iteration"
+        }
+      ],
+      "name": "readyForRelease"
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "136fd784-0220-4381-8dff-91ad6f62c9f5",
+        "type": "BASE"
+      }
+    ],
+    "meta": {
+      "id": "0bf2fb94-e4fd-44a5-bbb8-473c3e97b3a2",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876833929,
+      "type": "EiffelSourceChangeCreatedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "gitIdentifier": {
+        "repoUri": "https://repo.com",
+        "branch": "topic-branch-3",
+        "repoName": "myRepo",
+        "commitId": "fd090b60a4aedc5161da9c035a49b14a319829c5"
+      },
+      "author": {
+        "id": "johnxxx",
+        "group": "Team Gophers",
+        "email": "john.doe@company.com",
+        "name": "John Doe"
+      },
+      "customData": [
+        {
+          "value": "SCC1",
+          "key": "name"
+        },
+        {
+          "value": 3,
+          "key": "iteration"
+        }
+      ],
+      "change": {
+        "files": "https://filelist.com/3",
+        "insertions": 398,
+        "deletions": 370
+      }
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "136fd784-0220-4381-8dff-91ad6f62c9f5",
+        "type": " "
+      },
+      {
+        "target": "0bf2fb94-e4fd-44a5-bbb8-473c3e97b3a2",
+        "type": "CHANGE"
+      }
+    ],
+    "meta": {
+      "id": "ba18c2da-f959-48c2-b72d-75f589163811",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876833930,
+      "type": "EiffelSourceChangeSubmittedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "gitIdentifier": {
+        "repoUri": "https://repo.com",
+        "branch": "master",
+        "repoName": "myRepo",
+        "commitId": "fd090b60a4aedc5161da9c035a49b14a319829b4"
+      },
+      "customData": [
+        {
+          "value": "SCS1",
+          "key": "name"
+        },
+        {
+          "value": 3,
+          "key": "iteration"
+        }
+      ],
+      "submitter": {
+        "id": "johnxxx",
+        "group": "Team Gophers",
+        "email": "john.doe@company.com",
+        "name": "John Doe"
+      }
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "dc732f3a-6a65-442d-a36b-11687d1b4b2a",
+        "type": "PREVIOUS_VERSION"
+      },
+      {
+        "target": "ba18c2da-f959-48c2-b72d-75f589163811",
+        "type": "ELEMENT"
+      }
+    ],
+    "meta": {
+      "id": "af5fb247-803d-4b19-a98a-19abcab25bc6",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481876834030,
+      "type": "EiffelCompositionDefinedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "customData": [
+        {
+          "value": "CDef3",
+          "key": "name"
+        },
+        {
+          "value": 3,
+          "key": "iteration"
+        }
+      ],
+      "version": "3",
+      "name": "Composition 3"
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "af5fb247-803d-4b19-a98a-19abcab25bc6",
+        "type": "COMPOSITION"
+      },
+      {
+        "target": "af5fb247-803d-4b19-a98a-19abcab25bc6",
+        "type": "CAUSE"
+      },
+      {
+        "target": "9c126d68-9bd3-4135-a21d-d52c9811b505",
+        "type": "PREVIOUS_VERSION"
+      }
+    ],
+    "meta": {
+      "id": "4ef7dd7d-1390-48b5-a4f4-18f0583f00b7",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481877034030,
+      "type": "EiffelArtifactCreatedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "customData": [
+        {
+          "value": "ArtCC1",
+          "key": "name"
+        },
+        {
+          "value": 3,
+          "key": "iteration"
+        }
+      ],
+      "fileInformation": [
+        {
+          "classifier": "",
+          "extension": "jar"
+        }
+      ],
+      "gav": {
+        "artifactId": "component-1",
+        "version": "1.3.0",
+        "groupId": "com.mycompany.myproduct"
+      }
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "af5fb247-803d-4b19-a98a-19abcab25bc6",
+        "type": "COMPOSITION"
+      },
+      {
+        "target": "af5fb247-803d-4b19-a98a-19abcab25bc6",
+        "type": "CAUSE"
+      },
+      {
+        "target": "0f98bb26-17aa-4063-b54c-5b46d4c6a748",
+        "type": "PREVIOUS_VERSION"
+      }
+    ],
+    "meta": {
+      "id": "340ca277-12c2-42e7-ae6f-1809eb106c32",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481877069030,
+      "type": "EiffelArtifactCreatedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "customData": [
+        {
+          "value": "ArtCC2",
+          "key": "name"
+        },
+        {
+          "value": 3,
+          "key": "iteration"
+        }
+      ],
+      "fileInformation": [
+        {
+          "classifier": "",
+          "extension": "jar"
+        }
+      ],
+      "gav": {
+        "artifactId": "component-2",
+        "version": "1.3.0",
+        "groupId": "com.mycompany.myproduct"
+      }
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "af5fb247-803d-4b19-a98a-19abcab25bc6",
+        "type": "COMPOSITION"
+      },
+      {
+        "target": "af5fb247-803d-4b19-a98a-19abcab25bc6",
+        "type": "CAUSE"
+      },
+      {
+        "target": "71b7fb84-e856-492a-aa04-9a377ed21c62",
+        "type": "PREVIOUS_VERSION"
+      }
+    ],
+    "meta": {
+      "id": "3b0bb070-f320-417c-9a2a-bc8c4fcdbf24",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481877070030,
+      "type": "EiffelArtifactCreatedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "customData": [
+        {
+          "value": "ArtCC3",
+          "key": "name"
+        },
+        {
+          "value": 3,
+          "key": "iteration"
+        }
+      ],
+      "fileInformation": [
+        {
+          "classifier": "",
+          "extension": "jar"
+        }
+      ],
+      "gav": {
+        "artifactId": "component-3",
+        "version": "1.3.0",
+        "groupId": "com.mycompany.myproduct"
+      }
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "4ef7dd7d-1390-48b5-a4f4-18f0583f00b7",
+        "type": "CAUSE"
+      },
+      {
+        "target": "340ca277-12c2-42e7-ae6f-1809eb106c32",
+        "type": "CAUSE"
+      },
+      {
+        "target": "3b0bb070-f320-417c-9a2a-bc8c4fcdbf24",
+        "type": "CAUSE"
+      }
+    ],
+    "meta": {
+      "id": "93886ba0-302b-477b-bfdd-5ae8d4647d71",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481877070130,
+      "type": "EiffelActivityTriggeredEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "categories": [
+        "Sub-system Build Activity"
+      ],
+      "triggers": [
+        {
+          "type": "EIFFEL_EVENT"
+        }
+      ],
+      "customData": [
+        {
+          "value": "ActT4",
+          "key": "name"
+        },
+        {
+          "value": 3,
+          "key": "iteration"
+        }
+      ],
+      "executionType": "AUTOMATED",
+      "name": "Act4"
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "93886ba0-302b-477b-bfdd-5ae8d4647d71",
+        "type": "ACTIVITY_EXECUTION"
+      }
+    ],
+    "meta": {
+      "id": "30b448b9-ae39-45e8-b8dc-4a49c2eacc16",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481877070131,
+      "type": "EiffelActivityStartedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "customData": [
+        {
+          "value": "ActS4",
+          "key": "name"
+        },
+        {
+          "value": 3,
+          "key": "iteration"
+        }
+      ]
+    }
+  },
+  {
+    "links": [
+      {
+        "target": "569d8e2d-dccc-4b38-ac79-9be411d25032",
+        "type": "PREVIOUS_VERSION"
+      },
+      {
+        "target": "93886ba0-302b-477b-bfdd-5ae8d4647d71",
+        "type": "CONTEXT"
+      },
+      {
+        "target": "4ef7dd7d-1390-48b5-a4f4-18f0583f00b7",
+        "type": "ELEMENT"
+      },
+      {
+        "target": "340ca277-12c2-42e7-ae6f-1809eb106c32",
+        "type": "ELEMENT"
+      },
+      {
+        "target": "3b0bb070-f320-417c-9a2a-bc8c4fcdbf24",
+        "type": "ELEMENT"
+      }
+    ],
+    "meta": {
+      "id": "fefd71f2-a032-46b4-bad4-68cc56cfc545",
+      "source": {
+        "domainId": "example.domain"
+      },
+      "time": 1481877070231,
+      "type": "EiffelCompositionDefinedEvent",
+      "version": "1.0.0"
+    },
+    "data": {
+      "customData": [
+        {
+          "value": "CDef2",
+          "key": "name"
+        },
+        {
+          "value": 3,
+          "key": "iteration"
+        }
+      ],
+      "version": "3",
+      "name": "Composition 2"
+    }
+  }
+]

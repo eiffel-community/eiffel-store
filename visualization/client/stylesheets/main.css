@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css?family=Julius+Sans+One');
+
+h1 {
+    font-family: 'Julius Sans One', sans-serif;
+    color: #4E443C;
+    text-transform: none;
+    margin-bottom: 0;
+    margin-left: 25px;
+}
+
+hr {
+    width: 45%;
+    margin-left: 25px;
+}
+
+body {
+    scroll-behavior: smooth;
+    background-color: whitesmoke;
+}
+
+.section {
+    /*margin-bottom: 20px;*/
+    /*margin-left: 10px;*/
+    margin: 10px;
+    width: 90%;
+}
+
+.cy {
+    height: 70vh;
+    /*height: 900px;*/
+    display: block;
+    background-color: #ffffff;
+    padding: 0;
+}
+
+.cy-panzoom {
+    z-index: 999 !important;
+}
+
+h2 {
+    text-align: center;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    font-weight: 400;
+}
+
+.aggregation-tt-btn {
+    margin-bottom: 10px !important;
+}
+
+.td-right {
+    text-align: right;
+}
+
+.page-header {
+    margin: 0;
+}
+
+.navbar {
+    position: fixed;
+    right: 10px;
+    top: 10px;
+    z-index: 1000;
+}
+
+#page_footer {
+    height: 15vh;
+}
+
+.qtip {
+    max-width: none !important;
+}
+
+/* Loader*/
+.loader {
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    position: absolute;
+
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #555555;
+    width: 100px;
+    height: 100px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.node-row {
+    width: 100%;
+    padding-left: 80px;
+    padding-right: 80px;
+}
+
+.node-col {
+    display: inline-block;
+    text-align: center;
+    width: 200px;
+
+}
