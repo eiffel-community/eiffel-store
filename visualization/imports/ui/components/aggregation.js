@@ -25,9 +25,9 @@ Template.aggregation.rendered = () => {
             datepickers = $('.datepicker'),
             defaultLimit = 500,
             defaultFrom = '2015-01-01',
-            defaultTo = '2018-01-01',
+            defaultTo = '2030-09-04',
             fromTimeline = 1420070400000,// from: 1420070400000 2015
-            toTimeline = 1514764800000;// to: 1514764800000 2018
+            toTimeline = 1594764800000;// to: 1514764800000 2018
 
         // Set default input values
         fromInput.val(defaultFrom);

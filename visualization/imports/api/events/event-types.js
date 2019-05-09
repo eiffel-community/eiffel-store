@@ -23,6 +23,13 @@ export const isActivityEvent = function (eventType) {
     return _.contains(eventTypes, eventType);
 };
 
+export const isTestCaseEvent = function (eventType) {
+    let eventTypes = [
+        getTestCaseEventName()
+    ];
+    return _.contains(eventTypes, eventType);
+};
+
 export const isAnnouncementPublishedEvent = function (eventType) {
     return eventType === 'EiffelAnnouncementPublishedEvent';
 };
@@ -78,10 +85,9 @@ export const isTestEvent = function (eventType) {
     ];
     return _.contains(eventTypes, eventType);
 };
-
-export const isTestCaseEvent = function (eventType) {
-    return eventType === 'TestCaseEvent';
-};
+// export const isTestCaseEvent = function (eventType) {
+//     return eventType === 'TestCaseEvent';
+// };
 export const isTestSuiteEvent = function (eventType) {
     return eventType === 'TestSuiteEvent';
 };

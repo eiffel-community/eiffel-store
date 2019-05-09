@@ -5,18 +5,18 @@
     "start": "meteor run"
   },
   "dependencies": {
-    "amqp": "^0.2.6",
-    "babel-runtime": "^6.23.0",
-    "cytoscape": "^2.7.16",
-    "cytoscape-dagre": "^1.4.0",
-    "cytoscape-panzoom": "^2.4.1",
-    "cytoscape-qtip": "^2.6.1",
+    "amqp": "^0.2.7",
+    "babel-runtime": "^6.26.0",
+    "cytoscape": "^2.7.29",
+    "cytoscape-dagre": "^1.6.0",
+    "cytoscape-panzoom": "^2.5.3",
+    "cytoscape-qtip": "^2.7.1",
     "datatables.net": "^1.10.13",
-    "datatables.net-bs": "^1.10.15",
-    "jquery": "^3.2.1",
-    "meteor-node-stubs": "^0.2.6",
-    "moment": "^2.21.0",
+    "datatables.net-bs": "^1.10.19",
+    "jquery": "^3.3.1",
+    "meteor-node-stubs": "^0.2.11",
+    "moment": "^2.24.0",
     "npm": "*",
-    "vis": "^4.19.1"
+    "vis": "^4.21.0"
   }
 }
