@@ -345,6 +345,7 @@ function renderGraph(graph, container, level) {
                     '<tr class="danger"><td>Failed</td><td class="td-right">' + nodeData.failed + '</td><td class="td-right">' + Math.round(10 * (nodeData.failed / nodeData.length * 100) / 10) + '%</td></tr>' +
                     '<tr><td>Inconclusive</td><td class="td-right">' + nodeData.inconclusive + '</td><td class="td-right">' + Math.round(10 * (nodeData.inconclusive / nodeData.length) / 10) + '%</td></tr>' +
                     '<tr><td>Total no. of events</td><td colspan="2" class="td-right">' + nodeData.length + '</td></tr>' +
+                    '<tr class="info"><td>Avg queue time</td><td colspan="2" class="td-right">' + toHMS(nodeData.avgQueueTime) + '</td></tr>' +
                     '<tr class="info"><td>Avg run time</td><td colspan="2" class="td-right">' + toHMS(nodeData.avgRunTime) + '</td></tr>' +
                     '</table>'; // Row 3 - OTHER
             case /TS/.test(nodeLabel):                                              // Checks if node_id starts with 'TSF'
@@ -478,6 +479,7 @@ function renderGraph(graph, container, level) {
                     '<tr><td>Executor</td><td>' + nodeData.executor + '</td></tr>' +
                     '<tr><td>Tracker</td><td>' + nodeData.tracker + '</td></tr>' +
                     '<tr><td>Execution type</td><td>' + nodeData.executionType + '</td></tr>' +
+                    '<tr><td>Queue time</td><td>' + toHMS(nodeData.timeStarted - nodeData.timeTriggered) + '</td></tr>' +
                     '<tr><td>Execution time</td><td>' + toHMS(nodeData.timeFinished - nodeData.timeStarted) + '</td></tr>' +
                     '<tr><td>Description</td><td>' + nodeData.outcomeDescription + '</td></tr>' +
                     '</table>';
