@@ -71,41 +71,13 @@ export const populateEventsCollection = new ValidatedMethod({
         }
 
         _.each(events, (event) => {
-            console.log("The fetched events are: " + event.meta.type)
+            // console.log("The fetched events are: " + event.meta.type)
             if (isToBePared(event.meta.type)) {
                 toBePared[event.meta.id] = event;
             }
         });
 
         _.each(events, (event) => {
-            // if (isEiffelTestCaseFinished(event.meta.type)) {
-            //     let startEvent = toBePared[event.links[0].target];
-            //     // console.log('The eventis-------------------------------: ' + event.links[0].target)
-            //     if (startEvent === undefined) {
-            //         console.log(startEvent);
-            //     }
-
-            //     let regex = /^(\D+)\D(\d)+$/g;
-            //     let str = event.data.customData[0].value;
-            //     let match = regex.exec(str);
-
-            //     Events.insert({
-            //         type: getTestCaseEventName(), // *
-            //         name: match[1] + match[2], // *
-            //         id: event.meta.id, // *
-            //         links: startEvent.links, // *
-            //         source: startEvent.meta.source, //*
-            //         time: {
-            //             started: startEvent.meta.time,
-            //             finished: event.meta.time,
-            //         },
-            //         data: Object.assign(startEvent.data, event.data), // *
-            //         dev: {},
-
-            //         startEvent: startEvent.meta.id,
-            //         finishEvent: event.meta.id,
-            //     })
-            // } else 
             if (isEiffelTestSuiteFinished(event.meta.type)) {
                 let startEvent = toBePared[event.links[0].target];
                 if (startEvent === undefined) {
@@ -146,7 +118,7 @@ export const populateEventsCollection = new ValidatedMethod({
 
                 let regex = /^(\D+)\D(\d)+$/g;
                 let str = mergingEvent.data.customData[0].value;
-                console.log("The customData is: " + mergingEvent.data.customData[0].value)
+                // console.log("The customData is: " + mergingEvent.data.customData[0].value)
                 let match = regex.exec(str);
 
                 Events.insert({
@@ -174,7 +146,7 @@ export const populateEventsCollection = new ValidatedMethod({
             }
             else if (isEiffelActivityExecution(event.meta.type)) {
                 let mergingEvent = toBePared[event.links[0].target]; // We need to check the type of link not take the first link in the list
-                console.log("Activity Margin event: " + mergingEvent.event + " " + event.meta.type + " " + event.meta.id)
+                // console.log("Activity Margin event: " + mergingEvent.event + " " + event.meta.type + " " + event.meta.id)
                 if (mergingEvent.event === undefined) {
 
                     let regex = /^(\D+)\D(\d)+$/g;
@@ -220,7 +192,7 @@ export const populateEventsCollection = new ValidatedMethod({
 
             } else if (isEiffelTestCaseExecution(event.meta.type)) {
                 let mergingEvent = toBePared[event.links[0].target];
-                console.log("Test Margin event: " + mergingEvent.event + " " + event.meta.type + " " + event.meta.id)
+                // console.log("Test Margin event: " + mergingEvent.event + " " + event.meta.type + " " + event.meta.id)
                 if (mergingEvent.event === undefined) {
 
                     let regex = /^(\D+)\D(\d)+$/g;

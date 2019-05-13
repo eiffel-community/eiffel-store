@@ -399,13 +399,21 @@ function renderGraph(graph, container, level) {
                     '<tr><td colspan="2">nodeData.body</td></tr>' +
                     '</table>';
             case /ArtC/.test(nodeLabel):
-                return '<h4 id="tt_header">' + nodeLabel + '</h4>' +
-                    '<table class="table table-bordered">' +
-                    '<tr><td>Name</td><td class="td-right">' + nodeData.name + '</td></tr>' +
-                    '<tr><td>GAV Group ID</td><td class="td-right">' + nodeData.gav_groupId + '</td></tr>' +
-                    '<tr><td>GAV Artifact ID</td><td class="td-right">' + nodeData.gav_artifactId + '</td></tr>' +
-                    '<tr><td>GAV Version</td><td class="td-right">' + nodeData.gav_version + '</td></tr>' +
-                    '</table>';
+                if (nodeData.gav_groupId !== undefined) {
+                    return '<h4 id="tt_header">' + nodeLabel + '</h4>' +
+                        '<table class="table table-bordered">' +
+                        '<tr><td>Name</td><td class="td-right">' + nodeData.name + '</td></tr>' +
+                        '<tr><td>GAV Group ID</td><td class="td-right">' + nodeData.gav_groupId + '</td></tr>' +
+                        '<tr><td>GAV Artifact ID</td><td class="td-right">' + nodeData.gav_artifactId + '</td></tr>' +
+                        '<tr><td>GAV Version</td><td class="td-right">' + nodeData.gav_version + '</td></tr>' +
+                        '</table>';
+                } else {
+                    return '<h4 id="tt_header">' + nodeLabel + '</h4>' +
+                        '<table class="table table-bordered">' +
+                        '<tr><td>Name</td><td class="td-right">' + nodeData.name + '</td></tr>' +
+                        '<tr><td>Identity</td><td class="td-right">' + nodeData.identity + '</td></tr>' +
+                        '</table>';
+                }        
             case /ArtP/.test(nodeLabel):
                 html = '<h4 id="tt_header">' + nodeLabel + '</h4>' +
                     '<table class="table table-bordered">' +

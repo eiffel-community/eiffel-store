@@ -390,7 +390,7 @@ export const getAggregatedGraph = new ValidatedMethod({
                     node.data.timedOut = valueCount.hasOwnProperty('TIMED_OUT') ? valueCount['TIMED_OUT'] : 0;
                     node.data.inconclusive = valueCount.hasOwnProperty('INCONCLUSIVE') ? valueCount['INCONCLUSIVE'] : 0;
                     let totalQueueTime = _.reduce(events, (memo, event) => {
-                        console.log("The actTriggered time is: " + event.time.triggered)
+                        // console.log("The actTriggered time is: " + event.time.triggered)
                         return memo + (event.time.started - event.time.triggered);
                     }, 0);
                     let totalRunTime = _.reduce(events, (memo, event) => {
@@ -443,12 +443,12 @@ export const getAggregatedGraph = new ValidatedMethod({
 
                     // Need change here - Add avg queue time
                     let totalQueueTime = _.reduce(events, (memo, event) => {
-                        console.log("The actTriggered time is: " + event.time.triggered)
+                        // console.log("The actTriggered time is: " + event.time.triggered)
                         return memo + (event.time.started - event.time.triggered);
                     }, 0);
                     let totalRunTime = _.reduce(events, (memo, event) => {
-                        console.log("The triggered time is: " + event.time.triggered + " " + event.type) // The triggered time here is "undefined". Need to map event.time.triggered.                                                                                                    
-                        console.log("The triggered id is: " + event.id)
+                        // console.log("The triggered time is: " + event.time.triggered + " " + event.type)                                                                                             
+                        // console.log("The triggered id is: " + event.id)
                         return memo + (event.time.finished - event.time.started);
                     }, 0);
                     node.data.avgQueueTime = totalQueueTime / node.data.length;
@@ -579,16 +579,30 @@ export const getEventChainGraph = new ValidatedMethod({
                     node.data.body = event.data.body;
                 }
                 else if (isArtifactCreatedEvent(node.data.type)) {
-                    
-                    node.data.gav_groupId = "groupId";
-                    node.data.gav_artifactId = "artifactId";
-                    node.data.gav_version = "version";
 
-                    if (event.data.name !== undefined) {
-                        node.data.name = event.data.name;
+                    // console.log("The GAV is: ", event.data.gav)
+                    if (event.data.gav !== undefined) {
+            
+                        node.data.gav_groupId = event.data.gav.groupId;
+                        node.data.gav_artifactId = event.data.gav.artifactId;
+                        node.data.gav_version = event.data.gav.version;
+
+                        if (event.data.name !== undefined) {
+                            node.data.name = event.data.name;
+                        } else {
+                            node.data.name = "No data";
+                        }
                     } else {
-                        node.data.name = "No data";
+
+                        node.data.identity = event.data.identity;
+
+                        if (event.source.name !== undefined) {
+                            node.data.name = event.source.name;
+                        } else {
+                            node.data.name = "No data";
+                        }
                     }
+
                 }
                 else if (isArtifactPublishedEvent(node.data.type)) {
                     node.data.locations = event.data.locations;
@@ -811,7 +825,7 @@ export const getEventChainGraph = new ValidatedMethod({
                     node.data.inconclusive = inconclusiveCount;
 
                     if (isTestCaseEvent(node.data.type)) {
-                        console.log('The testCaseEvent is: ====== ' + node.data.type)
+                        // console.log('The testCaseEvent is: ====== ' + node.data.type)
                         node.data.timeTriggered = event.time.triggered;
                         node.data.timeStarted = event.time.started;
                         node.data.timeFinished = event.time.finished;
