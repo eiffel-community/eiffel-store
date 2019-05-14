@@ -78,7 +78,6 @@ export const populateEventsCollection = new ValidatedMethod({
         });
 
         _.each(events, (event) => {
-<<<<<<< HEAD
              // above event is an object and contain complete event including some additional information of MongoDB
             // we can print this object using console.log(event);
             var EventName=''; // This is temporary variable to hold names of events such as ArtC, TCS5
@@ -145,36 +144,6 @@ export const populateEventsCollection = new ValidatedMethod({
                 {
                     EventName="ActC";
                 }   
-            // if (isEiffelTestCaseFinished(event.meta.type)) {
-            //     let startEvent = toBePared[event.links[0].target];
-            //     // console.log('The eventis-------------------------------: ' + event.links[0].target)
-            //     if (startEvent === undefined) {
-            //         console.log(startEvent);
-            //     }
-
-            //     let regex = /^(\D+)\D(\d)+$/g;
-            //     let str = event.data.customData[0].value;
-            //     let match = regex.exec(str);
-
-            //     Events.insert({
-            //         type: getTestCaseEventName(), // *
-            //         name: match[1] + match[2], // *
-            //         id: event.meta.id, // *
-            //         links: startEvent.links, // *
-            //         source: startEvent.meta.source, //*
-            //         time: {
-            //             started: startEvent.meta.time,
-            //             finished: event.meta.time,
-            //         },
-            //         data: Object.assign(startEvent.data, event.data), // *
-            //         dev: {},
-
-            //         startEvent: startEvent.meta.id,
-            //         finishEvent: event.meta.id,
-            //     })
-            // } else 
-=======
->>>>>>> 446c3e0d22d0baef45660890b60900ed1203dd47
             if (isEiffelTestSuiteFinished(event.meta.type)) {
                 let startEvent = toBePared[event.links[0].target];
                 if (startEvent === undefined) {
@@ -215,13 +184,8 @@ export const populateEventsCollection = new ValidatedMethod({
                 let mergingEvent = toBePared[event.links[0].target];
 
                 let regex = /^(\D+)\D(\d)+$/g;
-<<<<<<< HEAD
                 let str = EventName;
-                console.log("The customData is: " + mergingEvent.data.customData[0].value)
-=======
-                let str = mergingEvent.data.customData[0].value;
-                // console.log("The customData is: " + mergingEvent.data.customData[0].value)
->>>>>>> 446c3e0d22d0baef45660890b60900ed1203dd47
+               // console.log("The customData is: " + mergingEvent.data.customData[0].value)
                 let match = regex.exec(str);
 
                 Events.insert({
