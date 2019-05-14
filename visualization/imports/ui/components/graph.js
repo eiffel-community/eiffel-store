@@ -376,6 +376,7 @@ function renderGraph(graph, container, level) {
             case /Act/.test(nodeLabel):
                 let html = '<h4>' + nodeLabel + '</h4>' +
                     '<table class="table table-bordered">' +
+                    '<tr><td>ID</td><td class="td-right">' + nodeData.id + '</td></tr>' +
                     '<tr><td>Conclusion</td><td>' + nodeData.conclusion + '</td></tr>' +
                     '<tr><td>Execution type</td><td>' + nodeData.executionType + '</td></tr>' +
                     '<tr><td>Queue time</td><td>' + toHMS(nodeData.timeStarted - nodeData.timeTriggered) + '</td></tr>' +
@@ -389,26 +390,40 @@ function renderGraph(graph, container, level) {
                     _.reduce(nodeData.triggers, (memo, trigger) => {
                         return memo + '<tr><td>Trigger type</td><td>' + trigger.type + '</td></tr>';
                     }, "");
-                html += '</table>'; // Row 3 - OTHER
+                html += '<tr><td>Version</td><td class="td-right">' + nodeData.version + '</td></tr>' + '</table>'; // Row 3 - OTHER
                 return html;
             case /AP/.test(nodeLabel):
                 return '<h4 id="tt_header">' + nodeLabel + '</h4>' +
                     '<table class="table table-bordered">' +
+                    '<tr><td>ID</td><td class="td-right">' + nodeData.id + '</td></tr>' +
                     '<tr><th colspan="2">nodeData.heading</th></tr>' +
                     '<tr><td>Severity</td><td class="td-right">' + nodeData.severity + '</td></tr>' +
                     '<tr><td colspan="2">nodeData.body</td></tr>' +
+                    '<tr><td>Version</td><td class="td-right">' + nodeData.version + '</td></tr>' +
                     '</table>';
             case /ArtC/.test(nodeLabel):
-                return '<h4 id="tt_header">' + nodeLabel + '</h4>' +
-                    '<table class="table table-bordered">' +
-                    '<tr><td>Name</td><td class="td-right">' + nodeData.name + '</td></tr>' +
-                    '<tr><td>GAV Group ID</td><td class="td-right">' + nodeData.gav_groupId + '</td></tr>' +
-                    '<tr><td>GAV Artifact ID</td><td class="td-right">' + nodeData.gav_artifactId + '</td></tr>' +
-                    '<tr><td>GAV Version</td><td class="td-right">' + nodeData.gav_version + '</td></tr>' +
-                    '</table>';
+                if (nodeData.gav_groupId !== undefined) {
+                    return '<h4 id="tt_header">' + nodeLabel + '</h4>' +
+                        '<table class="table table-bordered">' +
+                        '<tr><td>Name</td><td class="td-right">' + nodeData.name + '</td></tr>' +
+                        '<tr><td>ID</td><td class="td-right">' + nodeData.id + '</td></tr>' +
+                        '<tr><td>GAV Group ID</td><td class="td-right">' + nodeData.gav_groupId + '</td></tr>' +
+                        '<tr><td>GAV Artifact ID</td><td class="td-right">' + nodeData.gav_artifactId + '</td></tr>' +
+                        '<tr><td>GAV Version</td><td class="td-right">' + nodeData.gav_version + '</td></tr>' +
+                        '</table>';
+                } else {
+                    return '<h4 id="tt_header">' + nodeLabel + '</h4>' +
+                        '<table class="table table-bordered">' +
+                        '<tr><td>Source Name</td><td class="td-right">' + nodeData.name + '</td></tr>' +
+                        '<tr><td>ID</td><td class="td-right">' + nodeData.id + '</td></tr>' +
+                        '<tr><td>Identity</td><td class="td-right">' + nodeData.identity + '</td></tr>' +
+                        '<tr><td>Version</td><td class="td-right">' + nodeData.version + '</td></tr>' +
+                        '</table>';
+                }        
             case /ArtP/.test(nodeLabel):
                 html = '<h4 id="tt_header">' + nodeLabel + '</h4>' +
                     '<table class="table table-bordered">' +
+                    '<tr><td>ID</td><td class="td-right">' + nodeData.id + '</td></tr>' +
                     '<tr><th colspan="2">Locations</th></tr>';
                 html += _.reduce(nodeData.locations, (memo, location) => {
                     return memo + '<tr><td>Type</td><td class="td-right">' + location.type + '</td></tr>';
@@ -420,30 +435,35 @@ function renderGraph(graph, container, level) {
                 return '<h4 id="tt_header">' + nodeLabel + '</h4>' +
                     '<table class="table table-bordered">' +
                     '<tr><td>Name</td><td class="td-right">' + nodeData.name + '</td></tr>' +
+                    '<tr><td>ID</td><td class="td-right">' + nodeData.id + '</td></tr>' +
                     '<tr><td>Version</td><td class="td-right">' + nodeData.version + '</td></tr>' +
                     '</table>';
             case /CLM/.test(nodeLabel):
                 return '<h4 id="tt_header">' + nodeLabel + '</h4>' +
                     '<table class="table table-bordered">' +
                     '<tr><td>Name</td><td class="td-right">' + nodeData.name + '</td></tr>' +
+                    '<tr><td>ID</td><td class="td-right">' + nodeData.id + '</td></tr>' +
                     '<tr><td>Value</td><td class="td-right">' + nodeData.value + '</td></tr>' +
                     '<tr><td>Issuer ID</td><td class="td-right">' + nodeData.issuer_id + '</td></tr>' +
+                    '<tr><td>Version</td><td class="td-right">' + nodeData.version + '</td></tr>' +
                     '</table>';
             case /CA/.test(nodeLabel):
                 html = '<h4 id="tt_header">' + nodeLabel + '</h4>' +
                     '<table class="table table-bordered">' +
                     '<tr><th colspan="2">Items</th></tr>' +
-                    '<tr><th>Name</th><th>Type</th></tr>';
+                    '<tr><th>Name</th><th>Type</th></tr>' +
+                    '<tr><td>ID</td><td class="td">' + nodeData.id + '</td></tr>';
                 html += _.each(nodeData.items, (item) => {
                     return '<tr><td>' + item.name + '</td><td>' + item.type + '</td></tr>';
                 });
                 html += '<tr><td>No of items</td><td class="td-right">' + nodeData.items_length + '</td></tr>'
-                    + '</table>';
+                    + '<tr><td>Version</td><td class="td-right">' + nodeData.version + '</td></tr>' + '</table>';
                 return html;
             case /EDef/.test(nodeLabel):
                 return '<h4 id="tt_header">' + nodeLabel + '</h4>' +
                     '<table class="table table-bordered">' +
                     '<tr><td>Name</td><td class="td-right">' + nodeData.name + '</td></tr>' +
+                    '<tr><td>ID</td><td class="td-right">' + nodeData.id + '</td></tr>' +
                     '<tr><td>Version</td><td class="td-right">' + nodeData.version + '</td></tr>' +
                     '</table>';
             case /SCC/.test(nodeLabel):
@@ -456,6 +476,7 @@ function renderGraph(graph, container, level) {
                     '<tr><td>Change ID</td><td class="td-right">' + nodeData.changeId + '</td></tr>' +
                     '<tr><td>Git repository</td><td class="td-right">' + nodeData.gitRepoName + '</td></tr>' +
                     '<tr><td>Git branch</td><td class="td-right">' + nodeData.gitBranch + '</td></tr>' +
+                    '<tr><td>Version</td><td class="td-right">' + nodeData.version + '</td></tr>' +
                     //'<tr><td>Git commit ID</td><td class="td-right">' + nodeData.gitCommitId + '</td></tr>' +
                     '</table>';
             case /SCS/.test(nodeLabel):
@@ -468,11 +489,13 @@ function renderGraph(graph, container, level) {
                     '<tr><td>Change ID</td><td class="td-right">' + nodeData.changeId + '</td></tr>' +
                     '<tr><td>Git repository</td><td class="td-right">' + nodeData.gitRepoName + '</td></tr>' +
                     '<tr><td>Git branch</td><td class="td-right">' + nodeData.gitBranch + '</td></tr>' +
+                    '<tr><td>Version</td><td class="td-right">' + nodeData.version + '</td></tr>' +
                     //'<tr><td>Git commit ID</td><td class="td-right">' + nodeData.gitCommitId + '</td></tr>' +
                     '</table>';
             case /TC/.test(nodeLabel):
                 return '<h4 id="tt_header">' + nodeLabel + '</h4>' +
                     '<table class="table table-bordered">' +
+                    '<tr><td>ID</td><td class="td">' + nodeData.id + '</td></tr>' +
                     '<tr><td>Test Case ID</td><td>' + nodeData.testCaseId + '</td></tr>' +
                     '<tr><td>Verdict</td><td>' + nodeData.verdict + '</td></tr>' +
                     '<tr><td>Conclusion</td><td>' + nodeData.conclusion + '</td></tr>' +
@@ -482,15 +505,18 @@ function renderGraph(graph, container, level) {
                     '<tr><td>Queue time</td><td>' + toHMS(nodeData.timeStarted - nodeData.timeTriggered) + '</td></tr>' +
                     '<tr><td>Execution time</td><td>' + toHMS(nodeData.timeFinished - nodeData.timeStarted) + '</td></tr>' +
                     '<tr><td>Description</td><td>' + nodeData.outcomeDescription + '</td></tr>' +
+                    '<tr><td>Version</td><td class="td-right">' + nodeData.version + '</td></tr>' +
                     '</table>';
             case /TS/.test(nodeLabel):
                 return '<h4 id="tt_header">' + nodeLabel + '</h4>' +
                     '<table class="table table-bordered">' +
                     '<tr><td>Name</td><td>' + nodeData.name + '</td></tr>' +
+                    '<tr><td>ID</td><td class="td">' + nodeData.id + '</td></tr>' +
                     '<tr><td>Verdict</td><td>' + nodeData.verdict + '</td></tr>' +
                     '<tr><td>Conclusion</td><td>' + nodeData.conclusion + '</td></tr>' +
                     '<tr><td>Description</td><td>' + nodeData.outcomeDescription + '</td></tr>' +
                     '<tr><td>Execution time</td><td>' + toHMS(nodeData.timeFinished - nodeData.timeStarted) + '</td></tr>' +
+                    '<tr><td>Version</td><td class="td-right">' + nodeData.version + '</td></tr>' +
                     '</table>';
 
             default:

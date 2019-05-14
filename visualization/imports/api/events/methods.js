@@ -71,13 +71,14 @@ export const populateEventsCollection = new ValidatedMethod({
         }
 
         _.each(events, (event) => {
-            console.log("The fetched events are: " + event.meta.type)
+            // console.log("The fetched events are: " + event.meta.type)
             if (isToBePared(event.meta.type)) {
                 toBePared[event.meta.id] = event;
             }
         });
 
         _.each(events, (event) => {
+<<<<<<< HEAD
              // above event is an object and contain complete event including some additional information of MongoDB
             // we can print this object using console.log(event);
             var EventName=''; // This is temporary variable to hold names of events such as ArtC, TCS5
@@ -172,6 +173,8 @@ export const populateEventsCollection = new ValidatedMethod({
             //         finishEvent: event.meta.id,
             //     })
             // } else 
+=======
+>>>>>>> 446c3e0d22d0baef45660890b60900ed1203dd47
             if (isEiffelTestSuiteFinished(event.meta.type)) {
                 let startEvent = toBePared[event.links[0].target];
                 if (startEvent === undefined) {
@@ -186,6 +189,7 @@ export const populateEventsCollection = new ValidatedMethod({
                     type: getTestSuiteEventName(), // *
                     name: EventName, // *
                     id: event.meta.id, // *
+                    version: event.meta.version, // *
                     time: {
                         started: startEvent.meta.time,
                         finished: event.meta.time,
@@ -203,7 +207,7 @@ export const populateEventsCollection = new ValidatedMethod({
                     type: getRedirectName(), // *
                     id: startEvent.meta.id,
                     dev: {},
-
+                    version: event.meta.version,
                     target: event.meta.id
                 });
             }
@@ -211,15 +215,20 @@ export const populateEventsCollection = new ValidatedMethod({
                 let mergingEvent = toBePared[event.links[0].target];
 
                 let regex = /^(\D+)\D(\d)+$/g;
+<<<<<<< HEAD
                 let str = EventName;
                 console.log("The customData is: " + mergingEvent.data.customData[0].value)
+=======
+                let str = mergingEvent.data.customData[0].value;
+                // console.log("The customData is: " + mergingEvent.data.customData[0].value)
+>>>>>>> 446c3e0d22d0baef45660890b60900ed1203dd47
                 let match = regex.exec(str);
 
                 Events.insert({
                     type: getActivityEventName(), // *
                     name: EventName, // *
                     id: mergingEvent.meta.id, // *
-
+                    version: event.meta.version, // *
                     links: mergingEvent.links, // *
                     source: mergingEvent.meta.source, //*
                     time: {
@@ -234,13 +243,13 @@ export const populateEventsCollection = new ValidatedMethod({
                     type: getRedirectName(), // *
                     id: event.meta.id,
                     dev: {},
-
+                    version: event.meta.version,
                     target: mergingEvent.meta.id
                 });
             }
             else if (isEiffelActivityExecution(event.meta.type)) {
                 let mergingEvent = toBePared[event.links[0].target]; // We need to check the type of link not take the first link in the list
-                console.log("Activity Margin event: " + mergingEvent.event + " " + event.meta.type + " " + event.meta.id)
+                // console.log("Activity Margin event: " + mergingEvent.event + " " + event.meta.type + " " + event.meta.id)
                 if (mergingEvent.event === undefined) {
 
                     let regex = /^(\D+)\D(\d)+$/g;
@@ -251,7 +260,7 @@ export const populateEventsCollection = new ValidatedMethod({
                         type: getActivityEventName(), // *
                         name: EventName, // *
                         id: mergingEvent.meta.id, // *
-
+                        version: event.meta.version,
                         links: mergingEvent.links, // *
                         source: mergingEvent.meta.source, //*
                         time: {
@@ -276,7 +285,7 @@ export const populateEventsCollection = new ValidatedMethod({
                     type: getRedirectName(), // *
                     id: event.meta.id,
                     dev: {},
-
+                    version: event.meta.version,
                     target: mergingEvent.meta.id
                 });
 
@@ -286,7 +295,7 @@ export const populateEventsCollection = new ValidatedMethod({
 
             } else if (isEiffelTestCaseExecution(event.meta.type)) {
                 let mergingEvent = toBePared[event.links[0].target];
-                console.log("Test Margin event: " + mergingEvent.event + " " + event.meta.type + " " + event.meta.id)
+                // console.log("Test Margin event: " + mergingEvent.event + " " + event.meta.type + " " + event.meta.id)
                 if (mergingEvent.event === undefined) {
 
                     let regex = /^(\D+)\D(\d)+$/g;
@@ -297,7 +306,7 @@ export const populateEventsCollection = new ValidatedMethod({
                         type: getTestCaseEventName(), // *
                         name: EventName, // *
                         id: mergingEvent.meta.id, // *
-
+                        version: event.meta.version,
                         links: mergingEvent.links, // *
                         source: mergingEvent.meta.source, //*
                         time: {
@@ -323,7 +332,7 @@ export const populateEventsCollection = new ValidatedMethod({
                     type: getRedirectName(), // *
                     id: event.meta.id,
                     dev: {},
-
+                    version: event.meta.version,
                     target: mergingEvent.meta.id
                 });
 
@@ -341,6 +350,7 @@ export const populateEventsCollection = new ValidatedMethod({
                     type: event.meta.type, // *
                     name: EventName, // *
                     id: event.meta.id, // *
+                    version: event.meta.version, // *
                     time: {
                         started: event.meta.time,
                         finished: event.meta.time,
