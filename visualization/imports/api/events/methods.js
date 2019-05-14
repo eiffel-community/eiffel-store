@@ -78,6 +78,72 @@ export const populateEventsCollection = new ValidatedMethod({
         });
 
         _.each(events, (event) => {
+             // above event is an object and contain complete event including some additional information of MongoDB
+            // we can print this object using console.log(event);
+            var EventName=''; // This is temporary variable to hold names of events such as ArtC, TCS5
+            // custom data actually represents activity such as ArtC for ArtifectCreated Event. If it is not 
+            // explicitely provided in event, we need to write if-else to distinguish events to be able to printed
+            // otherwise we can use use name: event.data.customData[0].value
+            if(event.meta.type=="EiffelAnnouncementPublishedEvent")
+                {
+                    EventName="AnnP-".concat(event.data.severity);
+                }
+            else if (event.meta.type=="EiffelArtifactCreatedEvent")
+                {
+                    EventName="ArtC3-".concat(event.data.identity);
+                }
+            else if(event.meta.type=="EiffelArtifactPublishedEvent")
+                {
+                    EventName="ArtP";
+                }
+            else if(event.meta.type=="EiffelTestExecutionRecipeCollectionCreatedEvent")
+                {
+                    EventName="TestExeRecipColl";
+                }
+            else if(event.meta.type=="EiffelEnvironmentDefinedEvent")
+                {
+                    EventName="EDef2";
+                } 
+            else if(event.meta.type=="EiffelActivityTriggeredEvent")
+                {
+                    EventName="ActT-".concat(event.data.name);
+                }
+            else if(event.meta.type=="EiffelActivityStartedEvent")
+                {
+                    EventName="ActS";
+                }
+            else if(event.meta.type=="EiffelActivityFinishedEvent")
+                {
+                    EventName="ActF";
+                }
+            else if(event.meta.type=="EiffelTestSuiteStartedEvent")
+                {
+                    EventName="TSS";
+                }
+            else if(event.meta.type=="EiffelTestSuiteFinishedEvent")
+                {
+                    EventName="TSF";
+                }    
+            else if(event.meta.type=="EiffelConfidenceLevelModifiedEvent")
+                {
+                    EventName="CLM";
+                }    
+            else if(event.meta.type=="EiffelTestCaseStartedEvent")
+                {
+                    EventName="TCS";
+                } 
+            else if(event.meta.type=="EiffelTestCaseFinishedEvent")
+                {
+                    EventName="TCF";
+                } 
+            else if(event.meta.type=="EiffelTestCaseTriggeredEvent")
+                {
+                    EventName="TCT";
+                }
+            else if(event.meta.type=="EiffelActivityCanceledEvent")
+                {
+                    EventName="ActC";
+                }   
             // if (isEiffelTestCaseFinished(event.meta.type)) {
             //     let startEvent = toBePared[event.links[0].target];
             //     // console.log('The eventis-------------------------------: ' + event.links[0].target)
@@ -113,12 +179,12 @@ export const populateEventsCollection = new ValidatedMethod({
                 }
 
                 let regex = /^(\D+)\D(\d)+$/g;
-                let str = event.data.customData[0].value;
+                let str = EventName;
                 let match = regex.exec(str);
 
                 Events.insert({
                     type: getTestSuiteEventName(), // *
-                    name: match[1] + match[2], // *
+                    name: EventName, // *
                     id: event.meta.id, // *
                     time: {
                         started: startEvent.meta.time,
@@ -145,13 +211,13 @@ export const populateEventsCollection = new ValidatedMethod({
                 let mergingEvent = toBePared[event.links[0].target];
 
                 let regex = /^(\D+)\D(\d)+$/g;
-                let str = mergingEvent.data.customData[0].value;
+                let str = EventName;
                 console.log("The customData is: " + mergingEvent.data.customData[0].value)
                 let match = regex.exec(str);
 
                 Events.insert({
                     type: getActivityEventName(), // *
-                    name: match[1] + match[2], // *
+                    name: EventName, // *
                     id: mergingEvent.meta.id, // *
 
                     links: mergingEvent.links, // *
@@ -178,12 +244,12 @@ export const populateEventsCollection = new ValidatedMethod({
                 if (mergingEvent.event === undefined) {
 
                     let regex = /^(\D+)\D(\d)+$/g;
-                    let str = mergingEvent.data.customData[0].value;
+                    let str = EventName;
                     let match = regex.exec(str);
 
                     mergingEvent.event = {
                         type: getActivityEventName(), // *
-                        name: match[1] + match[2], // *
+                        name: EventName, // *
                         id: mergingEvent.meta.id, // *
 
                         links: mergingEvent.links, // *
@@ -224,12 +290,12 @@ export const populateEventsCollection = new ValidatedMethod({
                 if (mergingEvent.event === undefined) {
 
                     let regex = /^(\D+)\D(\d)+$/g;
-                    let str = mergingEvent.data.customData[0].value;
+                    let str = EventName;
                     let match = regex.exec(str);
 
                     mergingEvent.event = {
                         type: getTestCaseEventName(), // *
-                        name: match[1] + match[2], // *
+                        name: EventName, // *
                         id: mergingEvent.meta.id, // *
 
                         links: mergingEvent.links, // *
@@ -270,10 +336,10 @@ export const populateEventsCollection = new ValidatedMethod({
             }
             else {
                 console.log("You are in Event Else");
-                console.log(" and value is " + event.data.customData[0].value);
+               // console.log(" and value is " + event.data.customData[0].value);
                 Events.insert({
                     type: event.meta.type, // *
-                    name: event.data.customData[0].value, // *
+                    name: EventName, // *
                     id: event.meta.id, // *
                     time: {
                         started: event.meta.time,
