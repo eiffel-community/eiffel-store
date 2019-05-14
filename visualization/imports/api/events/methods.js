@@ -92,6 +92,7 @@ export const populateEventsCollection = new ValidatedMethod({
                     type: getTestSuiteEventName(), // *
                     name: match[1] + match[2], // *
                     id: event.meta.id, // *
+                    version: event.meta.version, // *
                     time: {
                         started: startEvent.meta.time,
                         finished: event.meta.time,
@@ -109,7 +110,7 @@ export const populateEventsCollection = new ValidatedMethod({
                     type: getRedirectName(), // *
                     id: startEvent.meta.id,
                     dev: {},
-
+                    version: event.meta.version,
                     target: event.meta.id
                 });
             }
@@ -125,7 +126,7 @@ export const populateEventsCollection = new ValidatedMethod({
                     type: getActivityEventName(), // *
                     name: match[1] + match[2], // *
                     id: mergingEvent.meta.id, // *
-
+                    version: event.meta.version, // *
                     links: mergingEvent.links, // *
                     source: mergingEvent.meta.source, //*
                     time: {
@@ -140,7 +141,7 @@ export const populateEventsCollection = new ValidatedMethod({
                     type: getRedirectName(), // *
                     id: event.meta.id,
                     dev: {},
-
+                    version: event.meta.version,
                     target: mergingEvent.meta.id
                 });
             }
@@ -157,7 +158,7 @@ export const populateEventsCollection = new ValidatedMethod({
                         type: getActivityEventName(), // *
                         name: match[1] + match[2], // *
                         id: mergingEvent.meta.id, // *
-
+                        version: event.meta.version,
                         links: mergingEvent.links, // *
                         source: mergingEvent.meta.source, //*
                         time: {
@@ -182,7 +183,7 @@ export const populateEventsCollection = new ValidatedMethod({
                     type: getRedirectName(), // *
                     id: event.meta.id,
                     dev: {},
-
+                    version: event.meta.version,
                     target: mergingEvent.meta.id
                 });
 
@@ -203,7 +204,7 @@ export const populateEventsCollection = new ValidatedMethod({
                         type: getTestCaseEventName(), // *
                         name: match[1] + match[2], // *
                         id: mergingEvent.meta.id, // *
-
+                        version: event.meta.version,
                         links: mergingEvent.links, // *
                         source: mergingEvent.meta.source, //*
                         time: {
@@ -229,7 +230,7 @@ export const populateEventsCollection = new ValidatedMethod({
                     type: getRedirectName(), // *
                     id: event.meta.id,
                     dev: {},
-
+                    version: event.meta.version,
                     target: mergingEvent.meta.id
                 });
 
@@ -247,6 +248,7 @@ export const populateEventsCollection = new ValidatedMethod({
                     type: event.meta.type, // *
                     name: event.data.customData[0].value, // *
                     id: event.meta.id, // *
+                    version: event.meta.version, // *
                     time: {
                         started: event.meta.time,
                         finished: event.meta.time,
