@@ -390,7 +390,7 @@ export const getAggregatedGraph = new ValidatedMethod({
                     node.data.timedOut = valueCount.hasOwnProperty('TIMED_OUT') ? valueCount['TIMED_OUT'] : 0;
                     node.data.inconclusive = valueCount.hasOwnProperty('INCONCLUSIVE') ? valueCount['INCONCLUSIVE'] : 0;
                     let totalQueueTime = _.reduce(events, (memo, event) => {
-                        console.log("The actTriggered time is: " + event.time.triggered)
+                        // console.log("The actTriggered time is: " + event.time.triggered)
                         return memo + (event.time.started - event.time.triggered);
                     }, 0);
                     let totalRunTime = _.reduce(events, (memo, event) => {
@@ -443,12 +443,12 @@ export const getAggregatedGraph = new ValidatedMethod({
 
                     // Need change here - Add avg queue time
                     let totalQueueTime = _.reduce(events, (memo, event) => {
-                        console.log("The actTriggered time is: " + event.time.triggered)
+                        // console.log("The actTriggered time is: " + event.time.triggered)
                         return memo + (event.time.started - event.time.triggered);
                     }, 0);
                     let totalRunTime = _.reduce(events, (memo, event) => {
-                        console.log("The triggered time is: " + event.time.triggered + " " + event.type) // The triggered time here is "undefined". Need to map event.time.triggered.                                                                                                    
-                        console.log("The triggered id is: " + event.id)
+                        // console.log("The triggered time is: " + event.time.triggered + " " + event.type)                                                                                             
+                        // console.log("The triggered id is: " + event.id)
                         return memo + (event.time.finished - event.time.started);
                     }, 0);
                     node.data.avgQueueTime = totalQueueTime / node.data.length;
@@ -537,6 +537,7 @@ export const getEventChainGraph = new ValidatedMethod({
                     data: {
                         label: event.name,
                         id: event.id,
+                        version: event.version,
                         events: [event],
                         length: 1,
                         type: event.type,
@@ -556,6 +557,7 @@ export const getEventChainGraph = new ValidatedMethod({
                     node.data.timeStarted = event.time.started;
                     node.data.timeFinished = event.time.finished;
                     node.data.conclusion = event.data.outcome.conclusion;
+                    node.version = event.version;
 
                     // Non-required Eiffel data
                     if (event.data.triggers !== undefined) {
@@ -577,21 +579,40 @@ export const getEventChainGraph = new ValidatedMethod({
                     node.data.heading = event.data.heading;
                     node.data.severity = event.data.severity;
                     node.data.body = event.data.body;
+                    node.version = event.version;
                 }
                 else if (isArtifactCreatedEvent(node.data.type)) {
-                    
-                    node.data.gav_groupId = "groupId";
-                    node.data.gav_artifactId = "artifactId";
-                    node.data.gav_version = "version";
 
-                    if (event.data.name !== undefined) {
-                        node.data.name = event.data.name;
+                    // console.log("The GAV is: ", event.data.gav)
+                    if (event.data.gav !== undefined) {
+            
+                        node.data.gav_groupId = event.data.gav.groupId;
+                        node.data.gav_artifactId = event.data.gav.artifactId;
+                        node.data.gav_version = event.data.gav.version;
+                        node.version = event.version;
+
+                        if (event.data.name !== undefined) {
+                            node.data.name = event.data.name;
+                        } else {
+                            node.data.name = "No data";
+                        }
                     } else {
-                        node.data.name = "No data";
+
+                        node.id = event.id;
+                        node.version = event.version;                        
+
+                        if (event.source.name !== undefined || event.data.identity !== undefined) {
+                            node.data.identity = event.data.identity;
+                            node.data.name = event.source.name;
+                        } else {
+                            node.data.name = "No data";
+                        }
                     }
+
                 }
                 else if (isArtifactPublishedEvent(node.data.type)) {
                     node.data.locations = event.data.locations;
+                    node.version = event.version;
                     let locationCount = _.reduce(node.data.locations, function (memo) {
                         return memo + 1;
                     }, 0);
@@ -602,6 +623,7 @@ export const getEventChainGraph = new ValidatedMethod({
                 }
                 else if (isCompositionDefinedEvent(node.data.type)) {
                     node.data.name = event.data.name;
+                    node.version = event.version;
                     if (event.data.version !== undefined) {
                         node.data.version = event.data.version;
                     } else {
@@ -611,6 +633,7 @@ export const getEventChainGraph = new ValidatedMethod({
                 else if (isConfidenceLevelEvent(node.data.type)) {
                     node.data.name = event.data.name;
                     node.data.value = event.data.value;
+                    node.version = event.version;
 
                     let passedCount = 0;
                     let failedCount = 0;
@@ -639,6 +662,7 @@ export const getEventChainGraph = new ValidatedMethod({
                 }
                 else if (isConfigurationAppliedEvent(node.data.type)) {
                     node.data.items = event.data.items;
+                    node.version = event.version;
                     let itemCount = _.reduce(node.data.items, function (memo) {
                         return memo + 1;
                     }, 0);
@@ -646,6 +670,7 @@ export const getEventChainGraph = new ValidatedMethod({
                 }
                 else if (isEnvironmentDefinedEvent(node.data.type)) {
                     node.data.name = event.data.name;
+                    node.version = event.version;
                     if (event.data.version !== undefined) {
                         node.data.version = event.data.version;
                     } else {
@@ -658,6 +683,7 @@ export const getEventChainGraph = new ValidatedMethod({
                 }
                 else if (isIssueVerifiedEvent(node.data.type)) {
                       node.data.name = event.data.name;
+                      node.version = event.version;
                     if (event.data.version !== undefined) {
                         node.data.version = event.data.version;
                     } else {
@@ -666,6 +692,7 @@ export const getEventChainGraph = new ValidatedMethod({
 
                 }
                 else if (isSourceChangeCreatedEvent(node.data.type)) {
+                    node.version = event.version;
                     if (event.data.author !== undefined) {
                         if (event.data.author.name !== undefined) {
                             node.data.authorName = event.data.author.name;
@@ -730,6 +757,7 @@ export const getEventChainGraph = new ValidatedMethod({
 
                 }
                 else if (isSourceChangeSubmittedEvent(node.data.type)) {
+                    node.version = event.version;
                     if (event.data.submitter !== undefined) {
                         if (event.data.submitter.name !== undefined) {
                             node.data.submitterName = event.data.submitter.name;
@@ -811,7 +839,7 @@ export const getEventChainGraph = new ValidatedMethod({
                     node.data.inconclusive = inconclusiveCount;
 
                     if (isTestCaseEvent(node.data.type)) {
-                        console.log('The testCaseEvent is: ====== ' + node.data.type)
+                        // console.log('The testCaseEvent is: ====== ' + node.data.type)
                         node.data.timeTriggered = event.time.triggered;
                         node.data.timeStarted = event.time.started;
                         node.data.timeFinished = event.time.finished;
