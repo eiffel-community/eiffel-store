@@ -11,7 +11,8 @@ import vis from "vis";
 
 let aggregationLock = false;
 let aggregationQueued = undefined;
-
+let today = new Date;
+let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
 
 Template.aggregation.rendered = () => {
 
@@ -25,9 +26,9 @@ Template.aggregation.rendered = () => {
             datepickers = $('.datepicker'),
             defaultLimit = 500,
             defaultFrom = '2015-01-01',
-            defaultTo = '2030-09-04',
+            defaultTo = date,
             fromTimeline = 1420070400000,// from: 1420070400000 2015
-            toTimeline = 1594764800000;// to: 1514764800000 2018
+            toTimeline = today.getTime();
 
         // Set default input values
         fromInput.val(defaultFrom);
