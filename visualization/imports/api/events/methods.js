@@ -86,11 +86,11 @@ export const populateEventsCollection = new ValidatedMethod({
             // otherwise we can use use name: event.data.customData[0].value
             if(event.meta.type=="EiffelAnnouncementPublishedEvent")
                 {
-                    EventName="AnnP-".concat(event.data.severity);
+                    EventName="AnnP";
                 }
             else if (event.meta.type=="EiffelArtifactCreatedEvent")
                 {
-                    EventName="ArtC3-".concat(event.data.identity);
+                    EventName="ArtC";
                 }
             else if(event.meta.type=="EiffelArtifactPublishedEvent")
                 {
@@ -102,11 +102,11 @@ export const populateEventsCollection = new ValidatedMethod({
                 }
             else if(event.meta.type=="EiffelEnvironmentDefinedEvent")
                 {
-                    EventName="EDef2";
+                    EventName="EDef";
                 } 
             else if(event.meta.type=="EiffelActivityTriggeredEvent")
                 {
-                    EventName="ActT-".concat(event.data.name);
+                    EventName="ActT";
                 }
             else if(event.meta.type=="EiffelActivityStartedEvent")
                 {
@@ -145,163 +145,172 @@ export const populateEventsCollection = new ValidatedMethod({
                     EventName="ActC";
                 }   
             if (isEiffelTestSuiteFinished(event.meta.type)) {
-                let startEvent = toBePared[event.links[0].target];
-                if (startEvent === undefined) {
-                    console.log(startEvent);
-                }
-
-                let regex = /^(\D+)\D(\d)+$/g;
-                let str = EventName;
-                let match = regex.exec(str);
-
-                Events.insert({
-                    type: getTestSuiteEventName(), // *
-                    name: EventName, // *
-                    id: event.meta.id, // *
-                    version: event.meta.version, // *
-                    time: {
-                        started: startEvent.meta.time,
-                        finished: event.meta.time,
-                    },
-                    links: startEvent.links, // *
-                    source: startEvent.meta.source, //*
-                    data: Object.assign(startEvent.data, event.data), // *
-                    dev: {},
-
-                    startEvent: startEvent.meta.id,
-                    finishEvent: event.meta.id,
-                });
-
-                Events.insert({
-                    type: getRedirectName(), // *
-                    id: startEvent.meta.id,
-                    dev: {},
-                    version: event.meta.version,
-                    target: event.meta.id
-                });
-            }
-            else if (isEiffelActivityCanceled(event.meta.type)) {
-                let mergingEvent = toBePared[event.links[0].target];
-
-                let regex = /^(\D+)\D(\d)+$/g;
-                let str = EventName;
-               // console.log("The customData is: " + mergingEvent.data.customData[0].value)
-                let match = regex.exec(str);
-
-                Events.insert({
-                    type: getActivityEventName(), // *
-                    name: EventName, // *
-                    id: mergingEvent.meta.id, // *
-                    version: event.meta.version, // *
-                    links: mergingEvent.links, // *
-                    source: mergingEvent.meta.source, //*
-                    time: {
-                        triggered: mergingEvent.meta.time,
-                        canceled: event.meta.time,
-                    },
-                    data: Object.assign(mergingEvent.data, event.data), // *
-                    dev: {},
-                });
-
-                Events.insert({
-                    type: getRedirectName(), // *
-                    id: event.meta.id,
-                    dev: {},
-                    version: event.meta.version,
-                    target: mergingEvent.meta.id
-                });
-            }
-            else if (isEiffelActivityExecution(event.meta.type)) {
-                let mergingEvent = toBePared[event.links[0].target]; // We need to check the type of link not take the first link in the list
-                // console.log("Activity Margin event: " + mergingEvent.event + " " + event.meta.type + " " + event.meta.id)
-                if (mergingEvent.event === undefined) {
+                for(var k in event.links){
+                    let startEvent = toBePared[event.links[k].target];
+                    console.log("The LINKS are: " + startEvent.links.target)
+                    if (startEvent === undefined) {
+                        console.log(startEvent);
+                    }
 
                     let regex = /^(\D+)\D(\d)+$/g;
                     let str = EventName;
                     let match = regex.exec(str);
 
-                    mergingEvent.event = {
+                    Events.insert({
+                        type: getTestSuiteEventName(), // *
+                        name: EventName, // *
+                        id: event.meta.id, // *
+                        version: event.meta.version, // *
+                        time: {
+                            started: startEvent.meta.time,
+                            finished: event.meta.time,
+                        },
+                        links: startEvent.links, // *
+                        source: startEvent.meta.source, //*
+                        data: Object.assign(startEvent.data, event.data), // *
+                        dev: {},
+
+                        startEvent: startEvent.meta.id,
+                        finishEvent: event.meta.id,
+                    });
+
+                    Events.insert({
+                        type: getRedirectName(), // *
+                        id: startEvent.meta.id,
+                        dev: {},
+                        version: event.meta.version,
+                        target: event.meta.id
+                    });
+                }
+            }
+            else if (isEiffelActivityCanceled(event.meta.type)) {
+                for(var k in event.links){    
+                    let mergingEvent = toBePared[event.links[k].target];
+
+                    let regex = /^(\D+)\D(\d)+$/g;
+                    let str = EventName;
+                    // console.log("The customData is: " + mergingEvent.data.customData[0].value)
+                    let match = regex.exec(str);
+
+                    Events.insert({
                         type: getActivityEventName(), // *
                         name: EventName, // *
                         id: mergingEvent.meta.id, // *
-                        version: event.meta.version,
+                        version: event.meta.version, // *
                         links: mergingEvent.links, // *
                         source: mergingEvent.meta.source, //*
                         time: {
                             triggered: mergingEvent.meta.time,
+                            canceled: event.meta.time,
                         },
                         data: Object.assign(mergingEvent.data, event.data), // *
                         dev: {},
-                    };
-                } else {
-                    mergingEvent.event.data = Object.assign(mergingEvent.event.data, event.data)
+                    });
+
+                    Events.insert({
+                        type: getRedirectName(), // *
+                        id: event.meta.id,
+                        dev: {},
+                        version: event.meta.version,
+                        target: mergingEvent.meta.id
+                    });
                 }
+            }
+            else if (isEiffelActivityExecution(event.meta.type)) {
+                for(var k in event.links){      
+                    let mergingEvent = toBePared[event.links[k].target]; // We need to check the type of link not take the first link in the list
+                    // console.log("Activity Margin event: " + mergingEvent.event + " " + event.meta.type + " " + event.meta.id)
+                    if (mergingEvent.event === undefined) {
 
-                if (isEiffelActivityStarted(event.meta.type)) {
-                    mergingEvent.event.time.started = event.meta.time;
-                    mergingEvent.event.startEvent = event.meta.id;
-                } else if (isEiffelActivityFinished(event.meta.type)) {
-                    mergingEvent.event.time.finished = event.meta.time;
-                    mergingEvent.event.finishEvent = event.meta.id;
-                }
+                        let regex = /^(\D+)\D(\d)+$/g;
+                        let str = EventName;
+                        let match = regex.exec(str);
 
-                Events.insert({
-                    type: getRedirectName(), // *
-                    id: event.meta.id,
-                    dev: {},
-                    version: event.meta.version,
-                    target: mergingEvent.meta.id
-                });
+                        mergingEvent.event = {
+                            type: getActivityEventName(), // *
+                            name: EventName, // *
+                            id: mergingEvent.meta.id, // *
+                            version: event.meta.version,
+                            links: mergingEvent.links, // *
+                            source: mergingEvent.meta.source, //*
+                            time: {
+                                triggered: mergingEvent.meta.time,
+                            },
+                            data: Object.assign(mergingEvent.data, event.data), // *
+                            dev: {},
+                        };
+                    } else {
+                        mergingEvent.event.data = Object.assign(mergingEvent.event.data, event.data)
+                    }
 
-                if (mergingEvent.event.startEvent !== undefined && mergingEvent.event.finishEvent !== undefined) {
-                    Events.insert(mergingEvent.event);
+                    if (isEiffelActivityStarted(event.meta.type)) {
+                        mergingEvent.event.time.started = event.meta.time;
+                        mergingEvent.event.startEvent = event.meta.id;
+                    } else if (isEiffelActivityFinished(event.meta.type)) {
+                        mergingEvent.event.time.finished = event.meta.time;
+                        mergingEvent.event.finishEvent = event.meta.id;
+                    }
+
+                    Events.insert({
+                        type: getRedirectName(), // *
+                        id: event.meta.id,
+                        dev: {},
+                        version: event.meta.version,
+                        target: mergingEvent.meta.id
+                    });
+
+                    if (mergingEvent.event.startEvent !== undefined && mergingEvent.event.finishEvent !== undefined) {
+                        Events.insert(mergingEvent.event);
+                    }
                 }
 
             } else if (isEiffelTestCaseExecution(event.meta.type)) {
-                let mergingEvent = toBePared[event.links[0].target];
-                // console.log("Test Margin event: " + mergingEvent.event + " " + event.meta.type + " " + event.meta.id)
-                if (mergingEvent.event === undefined) {
+                for(var k in event.links) {
+                    let mergingEvent = toBePared[event.links[k].target];
+                    // console.log("Test Margin event: " + mergingEvent.event + " " + event.meta.type + " " + event.meta.id)
+                    if (mergingEvent.event === undefined) {
 
-                    let regex = /^(\D+)\D(\d)+$/g;
-                    let str = EventName;
-                    let match = regex.exec(str);
+                        let regex = /^(\D+)\D(\d)+$/g;
+                        let str = EventName;
+                        let match = regex.exec(str);
 
-                    mergingEvent.event = {
-                        type: getTestCaseEventName(), // *
-                        name: EventName, // *
-                        id: mergingEvent.meta.id, // *
-                        version: event.meta.version,
-                        links: mergingEvent.links, // *
-                        source: mergingEvent.meta.source, //*
-                        time: {
-                            triggered: mergingEvent.meta.time,
-                        },
-                        data: Object.assign(mergingEvent.data, event.data), // *
+                        mergingEvent.event = {
+                            type: getTestCaseEventName(), // *
+                            name: EventName, // *
+                            id: mergingEvent.meta.id, // *
+                            version: event.meta.version,
+                            links: mergingEvent.links, // *
+                            source: mergingEvent.meta.source, //*
+                            time: {
+                                triggered: mergingEvent.meta.time,
+                            },
+                            data: Object.assign(mergingEvent.data, event.data), // *
+                            dev: {},
+                        };
+                    } else {
+                        mergingEvent.event.data = Object.assign(mergingEvent.event.data, event.data)
+                    }
+
+                    if (isEiffelTestCaseStarted(event.meta.type)) {
+                        // console.log("It should be the testcasestarted event: " + event.meta.type + " " + event.meta.time + " margin " + mergingEvent.event.data)
+                        mergingEvent.event.time.started = event.meta.time;
+                        mergingEvent.event.startEvent = event.meta.id;
+                    } else if (isEiffelTestCaseFinished(event.meta.type)) {
+                        mergingEvent.event.time.finished = event.meta.time;
+                        mergingEvent.event.finishEvent = event.meta.id;
+                    }
+
+                    Events.insert({
+                        type: getRedirectName(), // *
+                        id: event.meta.id,
                         dev: {},
-                    };
-                } else {
-                    mergingEvent.event.data = Object.assign(mergingEvent.event.data, event.data)
-                }
+                        version: event.meta.version,
+                        target: mergingEvent.meta.id
+                    });
 
-                if (isEiffelTestCaseStarted(event.meta.type)) {
-                    // console.log("It should be the testcasestarted event: " + event.meta.type + " " + event.meta.time + " margin " + mergingEvent.event.data)
-                    mergingEvent.event.time.started = event.meta.time;
-                    mergingEvent.event.startEvent = event.meta.id;
-                } else if (isEiffelTestCaseFinished(event.meta.type)) {
-                    mergingEvent.event.time.finished = event.meta.time;
-                    mergingEvent.event.finishEvent = event.meta.id;
-                }
-
-                Events.insert({
-                    type: getRedirectName(), // *
-                    id: event.meta.id,
-                    dev: {},
-                    version: event.meta.version,
-                    target: mergingEvent.meta.id
-                });
-
-                if (mergingEvent.event.startEvent !== undefined && mergingEvent.event.finishEvent !== undefined) {
-                    Events.insert(mergingEvent.event);
+                    if (mergingEvent.event.startEvent !== undefined && mergingEvent.event.finishEvent !== undefined) {
+                        Events.insert(mergingEvent.event);
+                    }
                 }
             }
             else if (isToBePared(event.meta.type)) {

@@ -97,7 +97,7 @@ export const populateEventSequences = new ValidatedMethod({
             'FLOW_CONTEXT',
             'ACTIVITY_EXECUTION',
             'PREVIOUS_ACTIVITY_EXECUTION',
-            // 'PREVIOUS_VERSION', RangeError: Maximum call stack size exceeded
+            'PREVIOUS_VERSION', //RangeError: Maximum call stack size exceeded
             'COMPOSITION',
             // 'ENVIRONMENT', MongoError: document is larger than the maximum size 16777216
             'ARTIFACT',
@@ -671,11 +671,6 @@ export const getEventChainGraph = new ValidatedMethod({
                 else if (isEnvironmentDefinedEvent(node.data.type)) {
                     node.data.name = event.data.name;
                     node.version = event.version;
-                    if (event.data.version !== undefined) {
-                        node.data.version = event.data.version;
-                    } else {
-                        node.data.version = "No data";
-                    }
 
                 }
                 else if (isFlowContextDefinedEvent(node.data.type)) {
@@ -684,11 +679,6 @@ export const getEventChainGraph = new ValidatedMethod({
                 else if (isIssueVerifiedEvent(node.data.type)) {
                       node.data.name = event.data.name;
                       node.version = event.version;
-                    if (event.data.version !== undefined) {
-                        node.data.version = event.data.version;
-                    } else {
-                        node.data.version = "No data";
-                    }
 
                 }
                 else if (isSourceChangeCreatedEvent(node.data.type)) {
