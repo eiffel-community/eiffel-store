@@ -429,7 +429,7 @@ function renderGraph(graph, container, level) {
                     return memo + '<tr><td>Type</td><td class="td-right">' + location.type + '</td></tr>';
                 }, "");
                 html += '<tr><td>No of locations</td><td class="td-right">' + nodeData.location_length + '</td></tr>'
-                    + '</table>';
+                    + '<tr><td>Version</td><td class="td-right">' + nodeData.version + '</td></tr>' + '</table>';
                 return html;
             case /CDef/.test(nodeLabel):
                 return '<h4 id="tt_header">' + nodeLabel + '</h4>' +
