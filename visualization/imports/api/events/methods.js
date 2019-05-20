@@ -94,7 +94,7 @@ export const populateEventsCollection = new ValidatedMethod({
                 }
             else if(event.meta.type=="EiffelArtifactPublishedEvent")
                 {
-                    EventName="ArtP";
+                    EventName="ArtP-".concat(event.meta.type);
                 }
             else if(event.meta.type=="EiffelTestExecutionRecipeCollectionCreatedEvent")
                 {
@@ -134,7 +134,7 @@ export const populateEventsCollection = new ValidatedMethod({
                 } 
             else if(event.meta.type=="EiffelTestCaseFinishedEvent")
                 {
-                    EventName="TCF";
+                    EventName="TCF-".concat(meta.type);
                 } 
             else if(event.meta.type=="EiffelTestCaseTriggeredEvent")
                 {
