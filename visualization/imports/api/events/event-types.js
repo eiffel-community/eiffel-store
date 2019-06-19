@@ -16,20 +16,6 @@
  return eventType === 'EiffelActivityTriggeredEvent';
  };*/
 
-export const isActivityEvent = function (eventType) {
-    let eventTypes = [
-        getActivityEventName()
-    ];
-    return _.contains(eventTypes, eventType);
-};
-
-export const isTestCaseEvent = function (eventType) {
-    let eventTypes = [
-        getTestCaseEventName()
-    ];
-    return _.contains(eventTypes, eventType);
-};
-
 export const isAnnouncementPublishedEvent = function (eventType) {
     return eventType === 'EiffelAnnouncementPublishedEvent';
 };
@@ -85,9 +71,21 @@ export const isTestEvent = function (eventType) {
     ];
     return _.contains(eventTypes, eventType);
 };
-// export const isTestCaseEvent = function (eventType) {
-//     return eventType === 'TestCaseEvent';
-// };
+
+export const isActivityEvent = function (eventType) {
+    let eventTypes = [
+        getActivityEventName()
+    ];
+    return _.contains(eventTypes, eventType);
+};
+
+export const isTestCaseEvent = function (eventType) {
+    let eventTypes = [
+        getTestCaseEventName()
+    ];
+    return _.contains(eventTypes, eventType);
+};
+
 export const isTestSuiteEvent = function (eventType) {
     return eventType === 'TestSuiteEvent';
 };

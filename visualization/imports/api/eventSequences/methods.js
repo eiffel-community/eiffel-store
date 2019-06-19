@@ -81,14 +81,14 @@ export const populateEventSequences = new ValidatedMethod({
         console.log("Removing old events-sequences collection for testing.");
         invalidateEventVersionProperty();
         EventSequences.remove({});
-        
+
         let total = Events.find().count();
         let done = 0;
         let lastPrint = ((done / total) * 100);
 
         console.log('Fetching ' + total + ' events from database. Please wait.');
         let events = Events.find().fetch();
-        
+
         console.log('Processing events from database. Please wait.');
 
         let legalTypes = [
@@ -139,25 +139,44 @@ export const populateEventSequences = new ValidatedMethod({
             } else {
                 total--;
             }
-            console.log("The events events collection is "+event.type);
+            // console.log("The events collection is " + event.type);
             eventMap[event.id] = event;
+            // console.log("The eventMAP TARGET is " + eventMap[event.id]);
         });
 
-        // Find targetedBy
+        // Find targetedBy  Set the for loop over all functions
         _.each(events, (event) => {
+            // console.log("The event TYPE is: " + event.type);
             if (event.type !== getRedirectName()) {
+                // console.log("The event TYPE is: " + event.type + " " + event.targets);
                 _.each(event.targets, (target, index) => {
-                    if (eventMap[target].type === getRedirectName()) {
-                        eventMap[event.id].targets[index] = eventMap[target].target;
-                        target = eventMap[target].target;
+                    // console.log("The event EVERYTHING is: " + " and the INDEX is: " + index + target + ", " + event.targets + ", " + JSON.stringify(eventMap[target]) + " " + event.id);
+                    if (eventMap[target] !== undefined) {
+                        //     eventMap[target]
+                        if (eventMap[target].type === getRedirectName()) {
+                            // console.log("The PROperty is: " + eventMap[target].target + "   and the INDEX is : " + eventMap[target].index )
+                            eventMap[event.id].targets[index] = eventMap[target].target;
+                            target = eventMap[target].target;
+                        }
+                        let exists = _.find(eventMap[target].targetedBy, function (id) {
+                            return id === event.id;
+                        });
+                        if (!exists) {
+                            (eventMap[target].targetedBy).push(event.id)
+                        }
+                        eventMap[event.id] = event;
+                        // console.log("The EVENTID is: "  + JSON.stringify(eventMap[event.id]))
+
+                    } else {
+                        // eventMap[event.id] = event;
+                        done++;
+                        let print = Math.floor((done / total) * 100);
+                        if (print >= (lastPrint + 50)) {
+                            console.log("Finding event parents progress: " + print + '% (' + done + '/' + total + ')');
+                            lastPrint = print;
+                        }
+                        // console.log("The " +  event.type + " has no target " + JSON.stringify(eventMap))
                     }
-                    let exists = _.find(eventMap[target].targetedBy, function (id) {
-                        return id === event.id;
-                    });
-                    if (!exists) {
-                        (eventMap[target].targetedBy).push(event.id)
-                    }
-                    eventMap[event.id] = event;
                 });
 
                 _.each(event.dangerousTargets, (target, index) => {
@@ -189,24 +208,42 @@ export const populateEventSequences = new ValidatedMethod({
             //     linkedEvents.push(eventId);
             //     return linkedEvents;
             // }
-            if (eventMap[eventId].dev.checked === true) {
-                return [];
-            }
-            eventMap[eventId].dev.checked = true;
-            eventMap[eventId].sequenceId = sequenceId;
+            if (eventMap[eventId] !== undefined) {
+                // console.log("The ALLLINKED EVENTID is: " + eventId)
+                // console.log("The EVENTMAP is: " + JSON.stringify(eventMap) + " AND EVENTID IS:" + JSON.stringify(eventId))
+                if (eventMap[eventId].dev.checked === true) {
+                    // console.log("The ALLLINKED CHECKED is: " + eventId)
+                    return [];
 
+                }
+                eventMap[eventId].dev.checked = true;
+                eventMap[eventId].sequenceId = sequenceId;
+
+                let linkedEvents = [];
+                linkedEvents.push(eventId);
+
+                // let targets = eventMap[eventId].targets;
+                // console.log("The target is: " + targets + "  " + eventMap[eventId].type + " " + eventMap[eventId].id);
+                // console.log("The ALLLINKED NOchecked is: " + eventId)
+                // console.log("The targetLENGTH is: " + targets.length + " and eventID is: " + eventId + " and eventMAP " + JSON.stringify(eventMap))
+            }
             let linkedEvents = [];
             linkedEvents.push(eventId);
+            let targets = []
+            // if (targets.length > 0 && eventId == eventId) {
+            // console.log("The targetLENGTH EMPTY is: " + targets.length + " and eventID is: " + eventId)
 
-            let targets = eventMap[eventId].targets;
             for (let index = 0; index < targets.length; index++) {
                 linkedEvents = linkedEvents.concat(getAllLinked(targets[index], sequenceId));
             }
-
+            // console.log("The LINKEDEVENTS inside FOR is: " + linkedEvents + " and " + eventId);
             let targetedBys = eventMap[eventId].targetedBy;
+            if (targetedBys !== undefined) {
+            // console.log("The TARGETEDBY is: " +JSON.stringify(eventMap[eventId]))
             for (let index = 0; index < targetedBys.length; index++) {
                 linkedEvents = linkedEvents.concat(getAllLinked(targetedBys[index], sequenceId));
-            }
+            }}
+            // console.log("The LINKEDEVENTS is: " + linkedEvents + " and " + eventId);
             return linkedEvents;
         }
 
@@ -214,14 +251,16 @@ export const populateEventSequences = new ValidatedMethod({
             let sequence = [];
             if (event.type !== getRedirectName()) {
                 sequence = getAllLinked(event.id, memo.length);
+                // console.log("The ALLLINJED EVENTID callf is: " + event.id)
             }
             if (sequence.length > 0) { // 10
                 memo.push(sequence);
             }
+            // console.log("The sequence is: " + sequence + "  and the memo is: " + memo.length);
             return memo;
         }, []), 'time.finished').reverse();
 
-
+        // console.log("The sequenceID is: " + sequencesIds);
         console.log("Generating sequences.");
         let sequences = [];
         _.each(sequencesIds, (sequence) => {
@@ -231,12 +270,14 @@ export const populateEventSequences = new ValidatedMethod({
 
             let sequenceEvents = _.reduce(sequence, function (memo, eventId) {
                 let event = eventMap[eventId];
+                if (event.time !== undefined){
+                // console.log("The timestarted is: " + event.time)
                 if (timeStart === undefined || event.time.started < timeStart) {
                     timeStart = event.time.started;
                 }
                 if (timeFinish === undefined || event.time.finished > timeFinish) {
                     timeFinish = event.time.finished;
-                }
+                }}
 
                 memo.push(event);
                 return memo;
@@ -261,9 +302,11 @@ export const populateEventSequences = new ValidatedMethod({
         _.each(sequences, (sequence) => {
             let connections = [];
             _.each(sequence.events, (event) => {
+                // console.log("DANGEROUS is: " + event.dangerousTargets)
+                if (event.dangerousTargets !== undefined) {
                 _.each(event.dangerousTargets.concat(event.dangerousTargetedBy), (target) => {
                     connections.push(eventMap[target].sequenceId);
-                });
+                });}
 
                 done++;
                 let print = Math.floor((done / total) * 100);
@@ -280,6 +323,8 @@ export const populateEventSequences = new ValidatedMethod({
 
         done = 0;
         lastPrint = ((done / total) * 100);
+
+        // Loop through sequences
         _.each(sequences, (sequence) => {
             if (latestTime === undefined || latestTime < sequence.time.finished) {
                 latestTime = sequence.time.finished;
@@ -289,7 +334,7 @@ export const populateEventSequences = new ValidatedMethod({
             }
 
             EventSequences.insert(sequence);
-             console.log("the final sequecne is "+ sequence.events.type);
+            // console.log("the final sequecne is " + sequence.events.type);
             done = done + sequence.events.length;
             let print = Math.floor((done / total) * 100);
             if (print >= (lastPrint + 5)) {
@@ -298,8 +343,8 @@ export const populateEventSequences = new ValidatedMethod({
             }
         });
 
-        setProperty.call({propertyName: getEventSequenceStartTimePropertyName(), propertyValue: earliestTime});
-        setProperty.call({propertyName: getEventSequenceFinishTimePropertyName(), propertyValue: latestTime});
+        setProperty.call({ propertyName: getEventSequenceStartTimePropertyName(), propertyValue: earliestTime });
+        setProperty.call({ propertyName: getEventSequenceFinishTimePropertyName(), propertyValue: latestTime });
 
         setEventVersionProperty();
         let print = Math.floor((done / total) * 100);
@@ -327,7 +372,7 @@ export const getAggregatedGraph = new ValidatedMethod({
                 {"time.started": {$gte: parseInt(from), $lte: parseInt(to)}},
                 {sort: {"time.finished": -1}, limit: limit})
                 .fetch();
-           console.log(JSON.stringify(eventSequences));         
+        //    console.log(JSON.stringify(eventSequences));
 
             let linkedSequences = {};
             _.each(eventSequences, (eventSequence) => {
@@ -355,7 +400,7 @@ export const getAggregatedGraph = new ValidatedMethod({
                 sequencesIds.push(sequence.id);
                 return memo.concat(sequence.events);
             }, []);
-           console.log(JSON.stringify(events));
+        //    console.log(JSON.stringify(events));
 
             // Maps individual event node id's to their aggregated node's id and vice versa
             let groupToEvents = {};
@@ -379,10 +424,10 @@ export const getAggregatedGraph = new ValidatedMethod({
                     }
                 };
 
-                
                 if (isActivityEvent(node.data.type)) {
                     console.log("isActivityEvent - IF");
-                    let valueCount = _.countBy(events, (event) => event.data.outcome.conclusion);
+                    let valueCount = _.countBy(events, (event) => event.data.outcome.conclusion)
+                        // console.log("The DATA of activity event is: " + JSON.stringify(event.data))
                     node.data.successful = valueCount.hasOwnProperty('SUCCESSFUL') ? valueCount['SUCCESSFUL'] : 0;
                     node.data.unsuccessful = valueCount.hasOwnProperty('UNSUCCESSFUL') ? valueCount['UNSUCCESSFUL'] : 0;
                     node.data.failed = valueCount.hasOwnProperty('FAILED') ? valueCount['FAILED'] : 0;
@@ -433,8 +478,10 @@ export const getAggregatedGraph = new ValidatedMethod({
                     node.data.inconclusive = valueCount.hasOwnProperty('INCONCLUSIVE') ? valueCount['INCONCLUSIVE'] : 0;
                 }
                 else if (isTestEvent(node.data.type)) {
-                     console.log("isTestEvent - IF");
-                    let valueCount = _.countBy(events, (event) => event.data.outcome.verdict);
+                     console.log("isTestEvent - IF ");
+                    let valueCount = _.countBy(events, (event) => event.data.outcome.verdict)
+                        // console.log("The DATA of test event is: " + JSON.stringify(event.data))
+                    // console.log("The DATA of test event is: " + event.data)
                     let passedCount = valueCount.hasOwnProperty('PASSED') ? valueCount['PASSED'] : 0;
                     let failedCount = valueCount.hasOwnProperty('FAILED') ? valueCount['FAILED'] : 0;
                     node.data.inconclusive = valueCount.hasOwnProperty('INCONCLUSIVE') ? valueCount['INCONCLUSIVE'] : 0;
@@ -447,14 +494,13 @@ export const getAggregatedGraph = new ValidatedMethod({
                         return memo + (event.time.started - event.time.triggered);
                     }, 0);
                     let totalRunTime = _.reduce(events, (memo, event) => {
-                        // console.log("The triggered time is: " + event.time.triggered + " " + event.type)                                                                                             
+                        // console.log("The triggered time is: " + event.time.triggered + " " + event.type)
                         // console.log("The triggered id is: " + event.id)
                         return memo + (event.time.finished - event.time.started);
                     }, 0);
                     node.data.avgQueueTime = totalQueueTime / node.data.length;
                     node.data.avgRunTime = totalRunTime / node.data.length;
                 }
-                
                 nodes.push(node);
 
                 // Save the links from events -> group and group -> events to reconstruct group -> group later
@@ -585,7 +631,7 @@ export const getEventChainGraph = new ValidatedMethod({
 
                     // console.log("The GAV is: ", event.data.gav)
                     if (event.data.gav !== undefined) {
-            
+
                         node.data.gav_groupId = event.data.gav.groupId;
                         node.data.gav_artifactId = event.data.gav.artifactId;
                         node.data.gav_version = event.data.gav.version;
@@ -599,7 +645,7 @@ export const getEventChainGraph = new ValidatedMethod({
                     } else {
 
                         node.id = event.id;
-                        node.version = event.version;                        
+                        node.version = event.version;
 
                         if (event.source.name !== undefined || event.data.identity !== undefined) {
                             node.data.identity = event.data.identity;
@@ -835,7 +881,7 @@ export const getEventChainGraph = new ValidatedMethod({
                         node.data.timeFinished = event.time.finished;
 
                         // Data from startedEvent
-                        if (event.data.testCase.id !== undefined) {
+                        if (event.data.testCase !== undefined) {
                             node.data.testCaseId = event.data.testCase.id;
                         } else {
                             node.data.testCaseId = "No Data";
@@ -847,7 +893,7 @@ export const getEventChainGraph = new ValidatedMethod({
                             node.data.executor = "No Data";
                         }
 
-                        if (event.data.testCase.tracker !== undefined) {
+                        if (event.data.testCase !== undefined) {
                             node.data.tracker = event.data.testCase.tracker;
                         } else {
                             node.data.tracker = "No Data";

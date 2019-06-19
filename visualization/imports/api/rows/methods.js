@@ -60,6 +60,8 @@ export const populateRowsCollection = new ValidatedMethod({
             _.each(sequence.events, (event) => {
 
                 let verdict = VALUE_UNDEFINED;
+                // console.log("The outcome is: " + event.data)
+                if (event.data !== undefined) {
                 if (event.data.outcome !== undefined && event.data.outcome.verdict !== undefined) {
                     verdict = event.data.outcome.verdict
                 } else if (event.type === getConfidenceLevelEventName()) {
@@ -86,6 +88,7 @@ export const populateRowsCollection = new ValidatedMethod({
                         // version: getRowsVersion()
                     }
                 });
+            }
             });
 
 
