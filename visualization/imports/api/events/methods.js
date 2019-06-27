@@ -78,10 +78,10 @@ export const populateEventsCollection = new ValidatedMethod({
         });
 
         _.each(events, (event) => {
-            // above event is an object and contain complete event including some additional information of MongoDB
+             // above event is an object and contain complete event including some additional information of MongoDB
             // we can print this object using console.log(event);
             var EventName=''; // This is temporary variable to hold names of events such as ArtC, TCS5
-            // custom data actually represents activity such as ArtC for ArtifectCreated Event. If it is not
+            // custom data actually represents activity such as ArtC for ArtifectCreated Event. If it is not 
             // explicitely provided in event, we need to write if-else to distinguish events to be able to printed
             // otherwise we can use use name: event.data.customData[0].value
             if(event.meta.type=="EiffelAnnouncementPublishedEvent")
@@ -103,7 +103,7 @@ export const populateEventsCollection = new ValidatedMethod({
             else if(event.meta.type=="EiffelEnvironmentDefinedEvent")
                 {
                     EventName="EDef";
-                }
+                } 
             else if(event.meta.type=="EiffelActivityTriggeredEvent")
                 {
                     EventName="ActT";
@@ -123,19 +123,19 @@ export const populateEventsCollection = new ValidatedMethod({
             else if(event.meta.type=="EiffelTestSuiteFinishedEvent")
                 {
                     EventName="TSF";
-                }
+                }    
             else if(event.meta.type=="EiffelConfidenceLevelModifiedEvent")
                 {
                     EventName="CLM";
-                }
+                }    
             else if(event.meta.type=="EiffelTestCaseStartedEvent")
                 {
                     EventName="TCS";
-                }
+                } 
             else if(event.meta.type=="EiffelTestCaseFinishedEvent")
                 {
                     EventName="TCF";
-                }
+                } 
             else if(event.meta.type=="EiffelTestCaseTriggeredEvent")
                 {
                     EventName="TCT";
@@ -143,20 +143,15 @@ export const populateEventsCollection = new ValidatedMethod({
             else if(event.meta.type=="EiffelActivityCanceledEvent")
                 {
                     EventName="ActC";
-                }
-
+                }   
             if (isEiffelTestSuiteFinished(event.meta.type)) {
-                // console.log("TEST Execution: " + event.meta.type + "  " + event.meta.id)
                 for(var k in event.links){
                     let startEvent = toBePared[event.links[k].target];
-                    // console.log("The STARTEVENT is: " + JSON.stringify(startEvent));
-                    // console.log("The LINKS are: " + startEvent.links.target)
+                    console.log("The LINKS are: " + startEvent.links.target)
                     if (startEvent === undefined) {
+                        console.log(startEvent);
+                    }
 
-                        console.log("The TestSuiteSTARTEVENT is missing it is: " + startEvent);
-
-                    } else if (startEvent !== undefined) {
-                        // console.log("The TestSuiteSTARTEVENT is: " + JSON.stringify(startEvent));
                     let regex = /^(\D+)\D(\d)+$/g;
                     let str = EventName;
                     let match = regex.exec(str);
@@ -186,10 +181,10 @@ export const populateEventsCollection = new ValidatedMethod({
                         version: event.meta.version,
                         target: event.meta.id
                     });
-                }}
+                }
             }
             else if (isEiffelActivityCanceled(event.meta.type)) {
-                for(var k in event.links){
+                for(var k in event.links){    
                     let mergingEvent = toBePared[event.links[k].target];
 
                     let regex = /^(\D+)\D(\d)+$/g;
@@ -209,7 +204,7 @@ export const populateEventsCollection = new ValidatedMethod({
                             canceled: event.meta.time,
                         },
                         data: Object.assign(mergingEvent.data, event.data), // *
-                        dev: {}
+                        dev: {},
                     });
 
                     Events.insert({
@@ -222,17 +217,11 @@ export const populateEventsCollection = new ValidatedMethod({
                 }
             }
             else if (isEiffelActivityExecution(event.meta.type)) {
-                // console.log("ACTIVITY Execution: " + event.meta.type + " " + event.meta.id)
-                for(var k in event.links){
+                for(var k in event.links){      
                     let mergingEvent = toBePared[event.links[k].target]; // We need to check the type of link not take the first link in the list
-                    // if (mergingEvent !== undefined) {
-                    // console.log("The MERGINGEVENT is: "  + JSON.stringify(mergingEvent) + " and mergingevent.event " + mergingEvent.event);
-                    // console.log("Activity Mergin event: " + toBePared[event.links[k].target] + " " + event.meta.type + " " + event.meta.id)
-                    if (mergingEvent === undefined) {
-                        console.log("The ActivityTRIGGEREDEVENT is missing and it is: " + mergingEvent);
-                    } else {
+                    // console.log("Activity Margin event: " + mergingEvent.event + " " + event.meta.type + " " + event.meta.id)
                     if (mergingEvent.event === undefined) {
-                        // console.log("The UNDEFINED is: " + JSON.stringify(mergingEvent));
+
                         let regex = /^(\D+)\D(\d)+$/g;
                         let str = EventName;
                         let match = regex.exec(str);
@@ -248,7 +237,7 @@ export const populateEventsCollection = new ValidatedMethod({
                                 triggered: mergingEvent.meta.time,
                             },
                             data: Object.assign(mergingEvent.data, event.data), // *
-                            dev: {}
+                            dev: {},
                         };
                     } else {
                         mergingEvent.event.data = Object.assign(mergingEvent.event.data, event.data)
@@ -273,21 +262,14 @@ export const populateEventsCollection = new ValidatedMethod({
                     if (mergingEvent.event.startEvent !== undefined && mergingEvent.event.finishEvent !== undefined) {
                         Events.insert(mergingEvent.event);
                     }
-                // }
-                    // console.log("The ACTIVITY DATA is: " + JSON.stringify(Object.assign(mergingEvent.data, event.data)))
-                }}
-            }
-            else if (isEiffelTestCaseExecution(event.meta.type)) {
-                // console.log("Test Execution: " + event.meta.type + " " + event.meta.id)
+                }
+
+            } else if (isEiffelTestCaseExecution(event.meta.type)) {
                 for(var k in event.links) {
                     let mergingEvent = toBePared[event.links[k].target];
-                    // console.log("The MERGINGEVENT is: "  + JSON.stringify(mergingEvent) + " and the eventLINKS is: " + JSON.stringify(event.links[k].target));
-                    // console.log("Test Mergin event: " + event.meta.type + " " + event.meta.id)
-                    if (mergingEvent === undefined) {
-                        console.log("The TestCaseTRIGGEREDEVENT is missing and it is: " + mergingEvent);
-                    } else {
+                    // console.log("Test Margin event: " + mergingEvent.event + " " + event.meta.type + " " + event.meta.id)
                     if (mergingEvent.event === undefined) {
-                    // console.log("The UNDEFINED is: " + JSON.stringify(mergingEvent));
+
                         let regex = /^(\D+)\D(\d)+$/g;
                         let str = EventName;
                         let match = regex.exec(str);
@@ -303,7 +285,7 @@ export const populateEventsCollection = new ValidatedMethod({
                                 triggered: mergingEvent.meta.time,
                             },
                             data: Object.assign(mergingEvent.data, event.data), // *
-                            dev: {}
+                            dev: {},
                         };
                     } else {
                         mergingEvent.event.data = Object.assign(mergingEvent.event.data, event.data)
@@ -329,15 +311,14 @@ export const populateEventsCollection = new ValidatedMethod({
                     if (mergingEvent.event.startEvent !== undefined && mergingEvent.event.finishEvent !== undefined) {
                         Events.insert(mergingEvent.event);
                     }
-                }}
+                }
             }
             else if (isToBePared(event.meta.type)) {
                 // No
-                // console.log("You are in TOBEPARED and the event is: " + event.meta.type + " and the ID is: " + event.meta.id );
             }
             else {
-                // console.log("You are in Event Else and the event is: " + event.meta.type + " and the ID is: " + event.meta.id );
-                 // console.log(" and value is " + event.data.customData[0].value);
+                console.log("You are in Event Else");
+               // console.log(" and value is " + event.data.customData[0].value);
                 Events.insert({
                     type: event.meta.type, // *
                     name: EventName, // *

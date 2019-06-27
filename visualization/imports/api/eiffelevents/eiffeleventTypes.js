@@ -20,25 +20,27 @@ export const isFinishedEiffelEvent = function (eventType) {
     return _.contains(finishedEventTypes, eventType);
 };
 
-// TestCase Events
 export const isEiffelTestCaseTriggered = function (eventType) {
     let eventTypes = [
         'EiffelTestCaseTriggeredEvent'
     ];
     return _.contains(eventTypes, eventType);
 };
+
 export const isEiffelTestCaseStarted = function (eventType) {
     let eventTypes = [
         'EiffelTestCaseStartedEvent'
     ];
     return _.contains(eventTypes, eventType);
 };
+
 export const isEiffelTestCaseFinished = function (eventType) {
     let eventTypes = [
         'EiffelTestCaseFinishedEvent'
     ];
     return _.contains(eventTypes, eventType);
 };
+
 export const isEiffelTestCaseExecution = function (eventType) {
     let eventTypes = [
         'EiffelTestCaseStartedEvent',
@@ -47,7 +49,6 @@ export const isEiffelTestCaseExecution = function (eventType) {
     return _.contains(eventTypes, eventType);
 };
 
-// TestSuite Events
 export const isEiffelTestSuiteStarted = function (eventType) {
     let eventTypes = [
         'EiffelTestSuiteStartedEvent'
@@ -61,7 +62,7 @@ export const isEiffelTestSuiteFinished = function (eventType) {
     return _.contains(eventTypes, eventType);
 };
 
-// Activity Events
+
 export const isEiffelActivityTriggered = function (eventType) {
     let eventTypes = [
         'EiffelActivityTriggeredEvent'
