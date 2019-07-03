@@ -81,14 +81,14 @@ export const populateEventSequences = new ValidatedMethod({
         console.log("Removing old events-sequences collection for testing.");
         invalidateEventVersionProperty();
         EventSequences.remove({});
-        
+
         let total = Events.find().count();
         let done = 0;
         let lastPrint = ((done / total) * 100);
 
         console.log('Fetching ' + total + ' events from database. Please wait.');
         let events = Events.find().fetch();
-        
+
         console.log('Processing events from database. Please wait.');
 
         let legalTypes = [
@@ -139,14 +139,17 @@ export const populateEventSequences = new ValidatedMethod({
             } else {
                 total--;
             }
-            console.log("The events events collection is "+event.type);
+            console.log("The events collection is "+event.type);
             eventMap[event.id] = event;
         });
 
         // Find targetedBy
         _.each(events, (event) => {
             if (event.type !== getRedirectName()) {
+                // console.log("The event type is: " + event.type + " and the ID is: " + event.id)
+                // console.log("The Eventmap is: " + JSON.stringify(eventMap))
                 _.each(event.targets, (target, index) => {
+                    if (eventMap[target] !== undefined) {
                     if (eventMap[target].type === getRedirectName()) {
                         eventMap[event.id].targets[index] = eventMap[target].target;
                         target = eventMap[target].target;
@@ -157,6 +160,7 @@ export const populateEventSequences = new ValidatedMethod({
                     if (!exists) {
                         (eventMap[target].targetedBy).push(event.id)
                     }
+                }
                     eventMap[event.id] = event;
                 });
 
@@ -189,6 +193,7 @@ export const populateEventSequences = new ValidatedMethod({
             //     linkedEvents.push(eventId);
             //     return linkedEvents;
             // }
+            if (eventMap[eventId] !== undefined) {
             if (eventMap[eventId].dev.checked === true) {
                 return [];
             }
@@ -207,7 +212,9 @@ export const populateEventSequences = new ValidatedMethod({
             for (let index = 0; index < targetedBys.length; index++) {
                 linkedEvents = linkedEvents.concat(getAllLinked(targetedBys[index], sequenceId));
             }
+
             return linkedEvents;
+        }
         }
 
         let sequencesIds = _.sortBy(_.reduce(events, function (memo, event) {
@@ -231,6 +238,7 @@ export const populateEventSequences = new ValidatedMethod({
 
             let sequenceEvents = _.reduce(sequence, function (memo, eventId) {
                 let event = eventMap[eventId];
+                if (event !== undefined){
                 if (timeStart === undefined || event.time.started < timeStart) {
                     timeStart = event.time.started;
                 }
@@ -238,7 +246,8 @@ export const populateEventSequences = new ValidatedMethod({
                     timeFinish = event.time.finished;
                 }
 
-                memo.push(event);
+            // console.log("The Event is: " + event)
+                memo.push(event);}
                 return memo;
             }, []);
 
@@ -289,7 +298,7 @@ export const populateEventSequences = new ValidatedMethod({
             }
 
             EventSequences.insert(sequence);
-             console.log("the final sequecne is "+ sequence.events.type);
+            //  console.log("the final sequecne is "+ sequence.events.type);
             done = done + sequence.events.length;
             let print = Math.floor((done / total) * 100);
             if (print >= (lastPrint + 5)) {
@@ -327,7 +336,7 @@ export const getAggregatedGraph = new ValidatedMethod({
                 {"time.started": {$gte: parseInt(from), $lte: parseInt(to)}},
                 {sort: {"time.finished": -1}, limit: limit})
                 .fetch();
-           console.log(JSON.stringify(eventSequences));         
+        //    console.log(JSON.stringify(eventSequences));
 
             let linkedSequences = {};
             _.each(eventSequences, (eventSequence) => {
@@ -355,7 +364,7 @@ export const getAggregatedGraph = new ValidatedMethod({
                 sequencesIds.push(sequence.id);
                 return memo.concat(sequence.events);
             }, []);
-           console.log(JSON.stringify(events));
+        //    console.log(JSON.stringify(events));
 
             // Maps individual event node id's to their aggregated node's id and vice versa
             let groupToEvents = {};
@@ -379,7 +388,7 @@ export const getAggregatedGraph = new ValidatedMethod({
                     }
                 };
 
-                
+
                 if (isActivityEvent(node.data.type)) {
                     console.log("isActivityEvent - IF");
                     let valueCount = _.countBy(events, (event) => event.data.outcome.conclusion);
@@ -447,16 +456,14 @@ export const getAggregatedGraph = new ValidatedMethod({
                         return memo + (event.time.started - event.time.triggered);
                     }, 0);
                     let totalRunTime = _.reduce(events, (memo, event) => {
-                        // console.log("The triggered time is: " + event.time.triggered + " " + event.type)                                                                                             
+                        // console.log("The triggered time is: " + event.time.triggered + " " + event.type)
                         // console.log("The triggered id is: " + event.id)
                         return memo + (event.time.finished - event.time.started);
                     }, 0);
                     node.data.avgQueueTime = totalQueueTime / node.data.length;
                     node.data.avgRunTime = totalRunTime / node.data.length;
                 }
-                
                 nodes.push(node);
-
                 // Save the links from events -> group and group -> events to reconstruct group -> group later
                 groupToEvents[group] = _.reduce(events, (memo, event) => memo.concat(event.targets.concat(event.dangerousTargets)), []);
                 _.each(events, (event) => {
@@ -560,13 +567,14 @@ export const getEventChainGraph = new ValidatedMethod({
                     node.version = event.version;
 
                     // Non-required Eiffel data
+                    // console.log("The event data is: " + event.data.triggers)
                     if (event.data.triggers !== undefined) {
                         node.data.triggers = event.data.triggers;
                         node.data.triggersLength = _.reduce(node.data.triggers, function (memo) {
                             return memo + 1;
                         }, 0);
                     } else {
-                        node.data.triggers = "No data";
+                        node.data.triggers = 0;
                     }
 
                     if (event.data.executionType !== undefined) {
@@ -585,7 +593,7 @@ export const getEventChainGraph = new ValidatedMethod({
 
                     // console.log("The GAV is: ", event.data.gav)
                     if (event.data.gav !== undefined) {
-            
+
                         node.data.gav_groupId = event.data.gav.groupId;
                         node.data.gav_artifactId = event.data.gav.artifactId;
                         node.data.gav_version = event.data.gav.version;
@@ -599,14 +607,18 @@ export const getEventChainGraph = new ValidatedMethod({
                     } else {
 
                         node.id = event.id;
-                        node.version = event.version;                        
-
-                        if (event.source.name !== undefined || event.data.identity !== undefined) {
-                            node.data.identity = event.data.identity;
-                            node.data.name = event.source.name;
+                        node.version = event.version;
+                        // console.log("The eventSource is: " + JSON.stringify(event))
+                        if (event.source !== null) {
+                            if (event.source.name !== undefined || event.data.identity !== undefined) {
+                                node.data.identity = event.data.identity;
+                                node.data.name = event.source.name;
+                            }
                         } else {
                             node.data.name = "No data";
+                            node.data.identity = "No data"
                         }
+
                     }
 
                 }
@@ -835,7 +847,7 @@ export const getEventChainGraph = new ValidatedMethod({
                         node.data.timeFinished = event.time.finished;
 
                         // Data from startedEvent
-                        if (event.data.testCase.id !== undefined) {
+                        if (event.data.testCase !== undefined) {
                             node.data.testCaseId = event.data.testCase.id;
                         } else {
                             node.data.testCaseId = "No Data";
@@ -847,7 +859,7 @@ export const getEventChainGraph = new ValidatedMethod({
                             node.data.executor = "No Data";
                         }
 
-                        if (event.data.testCase.tracker !== undefined) {
+                        if (event.data.testCase !== undefined) {
                             node.data.tracker = event.data.testCase.tracker;
                         } else {
                             node.data.tracker = "No Data";

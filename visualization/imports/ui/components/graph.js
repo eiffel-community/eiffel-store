@@ -48,11 +48,11 @@ function renderGraph(graph, container, level) {
                 selector: 'edge',
                 style: {
                     'width': 3,
-                    // 'line-color': '#ccc',
-                    'line-color': '#aeaeae', // TODO: remove this
+                    'line-color': '#ccc',
+                    // 'line-color': '#aeaeae', // TODO: remove this
                     'curve-style': 'bezier', // To make sure edge arrows are supported
-                    // 'target-arrow-color': '#ccc',
-                    'target-arrow-color': '#aeaeae', // TODO: remove this
+                    'target-arrow-color': '#ccc',
+                    // 'target-arrow-color': '#aeaeae', // TODO: remove this
                     'target-arrow-shape': 'triangle'
                 }
             },
