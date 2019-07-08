@@ -24,7 +24,7 @@ Meteor.startup(function () {
         default:
             break;
     }
-    
+
 
     // Uncomment to force repopulate collections
 
@@ -70,10 +70,10 @@ process.on('uncaughtException', function(err) {
 
 connection.on('ready', function () {
     // Use the default 'amq.topic' exchange
-    connection.queue('vici', function(q){   
+    connection.queue('vici', function(q){
         q.bind('#');
 
-        q.subscribe(function (message) {                
+        q.subscribe(function (message) {
             console.log(message.data.toString('utf8'));
         });
     });

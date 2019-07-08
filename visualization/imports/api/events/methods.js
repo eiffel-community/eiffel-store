@@ -191,7 +191,9 @@ export const populateEventsCollection = new ValidatedMethod({
             else if (isEiffelActivityCanceled(event.meta.type)) {
                 for(var k in event.links){
                     let mergingEvent = toBePared[event.links[k].target];
-
+                    if (mergingEvent === undefined) {
+                        // console.log("The ActivityTRIGGEREDEVENT is missing and it is: " + mergingEvent);
+                    } else if (mergingEvent !== undefined) {
                     let regex = /^(\D+)\D(\d)+$/g;
                     let str = EventName;
                     // console.log("The customData is: " + mergingEvent.data.customData[0].value)
@@ -219,7 +221,7 @@ export const populateEventsCollection = new ValidatedMethod({
                         version: event.meta.version,
                         target: mergingEvent.meta.id
                     });
-                }
+                }}
             }
             else if (isEiffelActivityExecution(event.meta.type)) {
                 // console.log("ACTIVITY Execution: " + event.meta.type + " " + event.meta.id)
