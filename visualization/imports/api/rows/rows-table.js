@@ -14,6 +14,7 @@ new Tabular.Table({
             tmpl: Meteor.isClient && Template.button_row
         },
         // {data: "name", title: "Name"},
+        {data: "id", title: "ID"},
         {data: "type", title: "Type"},
         {
             data: "time.started",
