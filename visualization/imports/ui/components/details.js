@@ -86,10 +86,20 @@ Template.details.onCreated(function () {
     Session.set('nodeTypeFilter');
     Session.set('nodeNameFilter');
     Session.set('displayedSequenceIds');
+    Session.set('conflictEvents');
+    Session.set('conflictLevel');
 });
 Template.details.helpers({
     selector() {
-        return {name: Session.get('nodeNameFilter'), sequenceId: {$in: (Session.get('displayedSequenceIds'))}}
+        let conflictEvents = Session.get('conflictEvents');
+        let conflictLevel = Session.get('conflictLevel');
+        console.log("Conflict info: ", {level: conflictLevel, events: conflictEvents});
+        if (conflictLevel && conflictLevel === "exclude" && conflictEvents) {
+            return {name: Session.get('nodeNameFilter'),
+                    sequenceId: {$in: (Session.get('displayedSequenceIds'))},
+                    id: {$nin: (conflictEvents)}};
+        }
+        return {name: Session.get('nodeNameFilter'), sequenceId: {$in: (Session.get('displayedSequenceIds'))}};
     }
 });
 

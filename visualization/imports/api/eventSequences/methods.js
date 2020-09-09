@@ -3,10 +3,12 @@ import {Meteor} from "meteor/meteor";
 
 import {ValidatedMethod} from "meteor/mdg:validated-method";
 import {Events} from "../events/events";
+import {validateEventFilterChain, getNestedObjValue} from "../eventFilter/methods";
 import {EventSequences} from "./event-sequences";
 import {getProperty, setProperty} from "../properties/methods";
 import {
-    getRedirectName,
+    getActivityEventName, getConfidenceLevelEventName,
+    getRedirectName, getTestCaseEventName, getTestSuiteEventName,
     isActivityEvent,
     isAnnouncementPublishedEvent,
     isArtifactCreatedEvent,
@@ -150,18 +152,18 @@ export const populateEventSequences = new ValidatedMethod({
                 // console.log("The Eventmap is: " + JSON.stringify(eventMap))
                 _.each(event.targets, (target, index) => {
                     if (eventMap[target] !== undefined) {
-                    if (eventMap[target].type === getRedirectName()) {
-                        eventMap[event.id].targets[index] = eventMap[target].target;
-                        target = eventMap[target].target;
+                        if (eventMap[target].type === getRedirectName()) {
+                            eventMap[event.id].targets[index] = eventMap[target].target;
+                            target = eventMap[target].target;
+                        }
+                        let exists = _.find(eventMap[target].targetedBy, function (id) {
+                            return id === event.id;
+                        });
+                        if (!exists) {
+                            (eventMap[target].targetedBy).push(event.id)
+                        }
                     }
-                    let exists = _.find(eventMap[target].targetedBy, function (id) {
-                        return id === event.id;
-                    });
-                    if (!exists) {
-                        (eventMap[target].targetedBy).push(event.id)
-                    }
-                }
-                    eventMap[event.id] = event;
+                    // eventMap[event.id] = event; // This line will basically reset the whole event, losing previously defined targetedBy.
                 });
 
                 _.each(event.dangerousTargets, (target, index) => {
@@ -175,7 +177,7 @@ export const populateEventSequences = new ValidatedMethod({
                     if (!exists) {
                         (eventMap[target].dangerousTargetedBy).push(event.id)
                     }
-                    eventMap[event.id] = event;
+                    // eventMap[event.id] = event; // This line will basically reset the whole event, losing previously defined dangerousTargetedBy.
                 });
             }
 
@@ -194,27 +196,27 @@ export const populateEventSequences = new ValidatedMethod({
             //     return linkedEvents;
             // }
             if (eventMap[eventId] !== undefined) {
-            if (eventMap[eventId].dev.checked === true) {
-                return [];
+                if (eventMap[eventId].dev.checked === true) {
+                    return [];
+                }
+                eventMap[eventId].dev.checked = true;
+                eventMap[eventId].sequenceId = sequenceId;
+
+                let linkedEvents = [];
+                linkedEvents.push(eventId);
+
+                let targets = eventMap[eventId].targets;
+                for (let index = 0; index < targets.length; index++) {
+                    linkedEvents = linkedEvents.concat(getAllLinked(targets[index], sequenceId));
+                }
+
+                let targetedBys = eventMap[eventId].targetedBy;
+                for (let index = 0; index < targetedBys.length; index++) {
+                    linkedEvents = linkedEvents.concat(getAllLinked(targetedBys[index], sequenceId));
+                }
+
+                return linkedEvents;
             }
-            eventMap[eventId].dev.checked = true;
-            eventMap[eventId].sequenceId = sequenceId;
-
-            let linkedEvents = [];
-            linkedEvents.push(eventId);
-
-            let targets = eventMap[eventId].targets;
-            for (let index = 0; index < targets.length; index++) {
-                linkedEvents = linkedEvents.concat(getAllLinked(targets[index], sequenceId));
-            }
-
-            let targetedBys = eventMap[eventId].targetedBy;
-            for (let index = 0; index < targetedBys.length; index++) {
-                linkedEvents = linkedEvents.concat(getAllLinked(targetedBys[index], sequenceId));
-            }
-
-            return linkedEvents;
-        }
         }
 
         let sequencesIds = _.sortBy(_.reduce(events, function (memo, event) {
@@ -257,6 +259,7 @@ export const populateEventSequences = new ValidatedMethod({
                 time: {
                     started: timeStart,
                     finished: timeFinish,
+                    diff: timeFinish - timeStart
                 },
                 size: sequenceEvents.length,
                 dev: {},
@@ -317,11 +320,120 @@ export const populateEventSequences = new ValidatedMethod({
     }
 });
 
-export const getAggregatedGraph = new ValidatedMethod({
+/**
+ * Function filtering the event sequences (bounding the eventFilter and eventSequences).
+ *
+ * This function will filter through the event in each sequence to detect and (or) handle
+ * these detections by using the filter.eventClash option.
+ *
+ * Arrays of values are distinguished from the isArray value from the evenFilter object
+ * returned from the collection. Path that are declared as arrays will be checked if the
+ * filter.value is present, if not display the error and modify the sequence accordingly.
+ * Otherwise, the value must match or else the same error and modification will be made.
+ *
+ * Note: The eventSequences parameter will be modified by this function and a deep copy will
+ * result in unnecessary complex computation since this object is heavily nested.
+ *
+ * @param eventSequences    object containing the event sequences
+ * @param filter            filter object
+ * @return                  object with status, data, warn and conflict (if warn is present)
+ */
+function filterEventSequences(eventSequences, filter){
+    let conflicts = {
+        initial: filter.value,
+        values: [],
+        ids: []
+    };
+    if (filter.chain && filter.chain.length > 0) {
+        let detectedEventWithDiffValue = false;
+        let keepSequences = [];
+        let eventName = filter.chain[0];
 
+        if (filter.chain.length > 1 && filter.value) {
+
+            let validate = validateEventFilterChain.call({filter: filter.chain});
+            if (!validate.status) {
+                return {status: false, data: eventSequences, detectedEventWithDiffValue: false, conflicts: conflicts};
+            }
+            let location = validate.data.filterBy;
+
+            _.each(eventSequences, (sequence) => {
+                let events = [];
+                let removeSequence = false;
+                let filterValue = filter.value;
+                for (let i = 0; i < sequence.events.length; ++i) {
+                    let removeEvent = false;
+                    if (sequence.events[i].name === eventName) {
+                        const valuesAtPath = getNestedObjValue.call({ obj: sequence.events[i], path: location });
+                        if (validate.data.isArray) {
+                            let foundValue = false;
+                            valuesAtPath.forEach((value) => {
+                                if (value && (value === filterValue)) {
+                                    foundValue = true;
+                                }
+                            });
+                            if (!foundValue) {
+                                detectedEventWithDiffValue = true;
+                                conflicts.ids.push(sequence.events[i].id);
+                                switch (filter.eventClash) {
+                                    case "include":
+                                        conflicts.isArray = true;
+                                        conflicts.values.push(valuesAtPath);
+                                        break;
+                                    case "exclude":
+                                        removeEvent = true;
+                                        break;
+                                    case "discard":
+                                        removeSequence = true;
+                                        break;
+                                }
+                            }
+                        } else {
+                            valuesAtPath.forEach((value => {
+                                if (value && (value !== filterValue)) {
+                                    detectedEventWithDiffValue = true;
+                                    conflicts.ids.push(sequence.events[i].id);
+                                    switch (filter.eventClash) {
+                                        case "include":
+                                            conflicts.values.push(value);
+                                            break;
+                                        case "exclude":
+                                            removeEvent = true;
+                                            break;
+                                        case "discard":
+                                            removeSequence = true;
+                                            break;
+                                    }
+                                }
+                            }));
+                        }
+                    }
+
+                    if (!removeEvent) {
+                        events.push(sequence.events[i]);
+                    }
+                }
+
+                sequence.events = events;
+
+                if (!removeSequence) {
+                    keepSequences.push(sequence);
+                }
+            });
+            conflicts.values = _.uniq(_.flatten(conflicts.values));
+            conflicts.ids = _.uniq(_.flatten(conflicts.ids));
+            return {status: true, data: keepSequences, detectedEventWithDiffValue: detectedEventWithDiffValue, conflicts: conflicts};
+        }
+    }
+
+    return {status: false, data: eventSequences, detectedEventWithDiffValue: false, conflicts: conflicts};
+}
+
+
+export const getAggregatedGraph = new ValidatedMethod({
     name: 'getAggregatedGraph',
     validate: null,
-    run({from, to, limit}) {
+    run({from, to, limit, filter}) {
         if (Meteor.isServer) {
             console.log("now aggregating");
             // Below values will fetch events between 2015 and 2018
@@ -332,10 +444,48 @@ export const getAggregatedGraph = new ValidatedMethod({
                 return {nodes: [], edges: [], sequences: []};
             }
             // until here the EventSequences are complete events
+
+            // filter is an array. ex ["ArtP", "Release", "Category"]
+            let query = {};
+            let eventFilter = {};
+            console.log("filter", filter);
+            if (filter.chain && filter.chain.length > 0) {
+                eventFilter["name"] = filter.chain[0];
+                if (filter.chain.length > 1 && filter.value) {
+                    let validate = validateEventFilterChain.call({filter: filter.chain});
+                    if (!validate.status) {
+                        throw new Meteor.Error(500, 'Error 500: Not found', validate.msg);
+                    }
+                    console.log("validateEventFilter data:", validate.data);
+                    eventFilter[validate.data.filterBy] = filter.value;
+                }
+            }
+
+            query["time.started"] = {$gte: parseInt(from), $lte: parseInt(to)};
+            query["events"] = {$elemMatch: eventFilter};
+
+            // Fetch the data.
             let eventSequences = EventSequences.find(
-                {"time.started": {$gte: parseInt(from), $lte: parseInt(to)}},
+                query,
                 {sort: {"time.finished": -1}, limit: limit})
                 .fetch();
+
+            console.log("eventSequences pipeline", JSON.stringify([
+                { $match: query },
+                { $sort: { "time.finished": -1 } },
+                { $limit: limit }
+            ]));
+            console.log("eventSequences size", eventSequences.length);
+
+            // Additional filtering applied here to circumvent the issue with event that (maybe) should be discarded.
+            let filterData = filterEventSequences(eventSequences, filter);
+            eventSequences = filterData.data;
+
+            if (eventSequences.length === 0) {
+                console.log("Empty return");
+                return {nodes: [], edges: [], sequences: [], detectedEventWithDiffValue: !filter.detectedEventWithDiffValue};
+            }
+
         //    console.log(JSON.stringify(eventSequences));
 
             let linkedSequences = {};
@@ -491,7 +641,8 @@ export const getAggregatedGraph = new ValidatedMethod({
             });
 
             console.log(edges);
-            return {nodes: nodes, edges: edges, sequences: sequencesIds};
+
+            return {nodes: nodes, edges: edges, sequences: sequencesIds, detectedEventWithDiffValue: filterData.detectedEventWithDiffValue, conflicts: filterData.conflicts};
         }
     }
 });
@@ -504,7 +655,7 @@ export const getEventChainGraph = new ValidatedMethod({
             return undefined;
         }
         if (Meteor.isServer) {
-            console.log("now chaining graph");
+            console.log("now chaining graph, sequenceID:", sequenceId);
             let sequence = EventSequences.findOne({id: sequenceId}, {});
 
             let linkedSequences = {};
@@ -979,4 +1130,3 @@ export const getSequenceCount = new ValidatedMethod({
         return EventSequences.find().count();
     }
 });
-

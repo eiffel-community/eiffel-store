@@ -28,6 +28,7 @@ You can select some GUI tool to access database. If database is empty, follow st
 
 ```
 eiffel-events
+eventfilter
 events
 eventsequences
 tablerows

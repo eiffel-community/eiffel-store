@@ -144,6 +144,22 @@ export const populateEventsCollection = new ValidatedMethod({
                 {
                     EventName="ActC";
                 }
+            else if (event.meta.type=="EiffelSourceChangeCreatedEvent")
+                {
+                    EventName="SCC";
+                }
+            else if (event.meta.type=="EiffelSourceChangeSubmittedEvent")
+                {
+                    EventName="SCS";
+                }
+            else if (event.meta.type=="EiffelCompositionDefinedEvent")
+                {
+                    EventName="CDef";
+                }
+
+            if (EventName === "") {
+                console.log("EVENT NAME IS EMPTY (UNSUPPORTED?): EVENT TYPE IS: ", event.meta.type);
+            }
 
             if (isEiffelTestSuiteFinished(event.meta.type)) {
                 // console.log("TEST Execution: " + event.meta.type + "  " + event.meta.id)
@@ -169,6 +185,7 @@ export const populateEventsCollection = new ValidatedMethod({
                         time: {
                             started: startEvent.meta.time,
                             finished: event.meta.time,
+                            diff: event.meta.time - startEvent.meta.time
                         },
                         links: startEvent.links, // *
                         source: startEvent.meta.source, //*
@@ -317,6 +334,7 @@ export const populateEventsCollection = new ValidatedMethod({
                         mergingEvent.event.startEvent = event.meta.id;
                     } else if (isEiffelTestCaseFinished(event.meta.type)) {
                         mergingEvent.event.time.finished = event.meta.time;
+                        mergingEvent.event.time.diff = event.meta.time - mergingEvent.event.time.started;
                         mergingEvent.event.finishEvent = event.meta.id;
                     }
 

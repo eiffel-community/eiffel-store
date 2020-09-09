@@ -6,3 +6,17 @@
 #aggregation_container {
     position: relative;
 }
+
+.aggregation-filtering {
+    background-color: #F2F4F8;
+    padding: 10px 15px 10px 15px;
+}
+
+.aggregation-filtering .form-group {
+    margin: 0;
+}
+
+.aggregation-filtering #aggregation-warnings {
+    /* background-color: #F5DFDF;
+    padding: 10px 15px 10px 15px; */
+}
