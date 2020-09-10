@@ -1,6 +1,7 @@
 'use strict';
 import {ValidatedMethod} from "meteor/mdg:validated-method";
 import {Events} from "../events/events";
+import {EventFilter} from "../eventFilter/event-filter";
 import {EiffelEvents} from "../eiffelevents/eiffelevents";
 import {Rows} from "../rows/rows";
 import {populateRowsCollection, rowsVersion, rowsVersionPropertyName} from "../rows/methods";
@@ -12,6 +13,7 @@ import {
 } from "../eventSequences/methods";
 import {EventSequences} from "../eventSequences/event-sequences";
 import {getProperty} from "../properties/methods";
+import {populateEventFilter} from "../eventFilter/methods";
 
 Meteor.startup(function () {
     switch (true) {
@@ -19,6 +21,7 @@ Meteor.startup(function () {
             populateEventsCollection.call();
         case (getProperty.call({propertyName: eventSequenceVersionPropertyName.call()}) !== eventSequenceVersion.call() || EventSequences.find().count() === 0):
             populateEventSequences.call();
+            populateEventFilter.call();
         case (getProperty.call({propertyName: rowsVersionPropertyName.call()}) !== rowsVersion.call() || Rows.find().count() === 0):
             populateRowsCollection.call();
         default:
@@ -36,6 +39,7 @@ Meteor.startup(function () {
          //console.log(doc);
             populateEventsCollection.call();
     populateEventSequences.call();
+    populateEventFilter.call();
     populateRowsCollection.call();
       }
     },
@@ -43,6 +47,7 @@ Meteor.startup(function () {
         if (!initializing) {
         populateEventsCollection.call();
     populateEventSequences.call();
+    populateEventFilter.call();
     populateRowsCollection.call();
     }
 },
@@ -51,6 +56,7 @@ removed:function(id,doc){
     console.log('EiffelEvents observe removed value function');
        populateEventsCollection.call();
     populateEventSequences.call();
+    populateEventFilter.call();
     populateRowsCollection.call();
    }
 
@@ -88,6 +94,7 @@ export const generateAll = new ValidatedMethod({
     run(){
         populateEventsCollection.call();
         populateEventSequences.call();
+        populateEventFilter.call();
         populateRowsCollection.call();
     }
 });
