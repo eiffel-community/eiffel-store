@@ -285,10 +285,8 @@ function merge(target, source) {
  * @return        relevant object for finding members
  */
 function parseData(data) {
-    let arr = [];
-    Object.keys(data).forEach((key) => {
-        arr.push(parseHelper(data[key], key, false));
-    });
+    // data is assumed to be an object here.
+    let arr = parseHelper(data, "", false);
 
     let uniqArr = _.flatten(arr.filter((v, i, a) => a.indexOf(v) === i));
 
@@ -371,12 +369,12 @@ function allowPath(path) {
  * Each object will have a name member and (or) a nested member containing the same structure,
  * the structure is can thus be used recursively.
  *
- * @param data           data to query
- * @param currentPath    the current path
- * @param isArray        specifies if the value in data is an array
- * @return               relevant object for finding members
+ * @param data                 data to query
+ * @param currentPath          the current path
+ * @param pathIncludesArray    specifies if the currentPath contains an array somewhere
+ * @return                     relevant object for finding members
  */
-function parseHelper(data, currentPath, isArray) {
+function parseHelper(data, currentPath, pathIncludesArray = false) {
     let arr = [];
     if (_.isArray(data)) {
         data.forEach((item) => {
@@ -384,21 +382,12 @@ function parseHelper(data, currentPath, isArray) {
         });
     } else if (_.isObject(data)) {
         Object.keys(data).forEach((key) => {
-            if (_.isArray(data[key])) {
-                data[key].forEach((item) => {
-                    arr.push(parseHelper(item, currentPath + "." + key, true))
-                });
-            } else if (_.isObject(data[key])) {
-                arr.push(parseHelper(data[key], currentPath + "." + key, false));
-            } else {
-                if (allowPath(currentPath + "." + key)) {
-                    arr.push({filterBy: currentPath + "." + key, isArray: _.isArray(data[key])});
-                }
-            }
+            const newPath = ((currentPath !== "") ? currentPath + "." : "") + key;
+            arr.push(parseHelper(data[key], newPath, pathIncludesArray));
         });
     } else {
         if (allowPath(currentPath)) {
-            arr.push({filterBy: currentPath,  isArray: isArray});
+            arr.push({filterBy: currentPath, pathIncludesArray: pathIncludesArray});
         }
     }
     return arr;

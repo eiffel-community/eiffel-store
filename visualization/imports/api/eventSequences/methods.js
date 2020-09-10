@@ -326,9 +326,9 @@ export const populateEventSequences = new ValidatedMethod({
  * This function will filter through the event in each sequence to detect and (or) handle
  * these detections by using the filter.eventClash option.
  *
- * Arrays of values are distinguished from the isArray value from the evenFilter object
- * returned from the collection. Path that are declared as arrays will be checked if the
- * filter.value is present, if not display the error and modify the sequence accordingly.
+ * Arrays of values are distinguished from the pathIncludesArray value from the evenFilter
+ * object returned from the collection. Path that are declared as arrays will be checked if
+ * the filter.value is present, if not display the error and modify the sequence accordingly.
  * Otherwise, the value must match or else the same error and modification will be made.
  *
  * Note: The eventSequences parameter will be modified by this function and a deep copy will
@@ -342,7 +342,8 @@ function filterEventSequences(eventSequences, filter){
     let conflicts = {
         initial: filter.value,
         values: [],
-        ids: []
+        ids: [],
+        sequences: []
     };
     if (filter.chain && filter.chain.length > 0) {
         let detectedEventWithDiffValue = false;
@@ -365,19 +366,14 @@ function filterEventSequences(eventSequences, filter){
                     let removeEvent = false;
                     if (sequence.events[i].name === eventName) {
                         const valuesAtPath = getNestedObjValue.call({ obj: sequence.events[i], path: location });
-                        if (validate.data.isArray) {
-                            let foundValue = false;
-                            valuesAtPath.forEach((value) => {
-                                if (value && (value === filterValue)) {
-                                    foundValue = true;
-                                }
-                            });
-                            if (!foundValue) {
+                        if (validate.data.pathIncludesArray) {
+                            if (!valuesAtPath.includes(filterValue)) {
                                 detectedEventWithDiffValue = true;
                                 conflicts.ids.push(sequence.events[i].id);
+                                conflicts.sequences.push(sequence.id)
                                 switch (filter.eventClash) {
                                     case "include":
-                                        conflicts.isArray = true;
+                                        conflicts.pathIncludesArray = true;
                                         conflicts.values.push(valuesAtPath);
                                         break;
                                     case "exclude":
@@ -392,6 +388,7 @@ function filterEventSequences(eventSequences, filter){
                             valuesAtPath.forEach((value => {
                                 if (value && (value !== filterValue)) {
                                     detectedEventWithDiffValue = true;
+                                    conflicts.sequences.push(sequence.id)
                                     conflicts.ids.push(sequence.events[i].id);
                                     switch (filter.eventClash) {
                                         case "include":
@@ -422,6 +419,7 @@ function filterEventSequences(eventSequences, filter){
             });
             conflicts.values = _.uniq(_.flatten(conflicts.values));
             conflicts.ids = _.uniq(_.flatten(conflicts.ids));
+            conflicts.sequences = _.uniq(_.flatten(conflicts.sequences));
             return {status: true, data: keepSequences, detectedEventWithDiffValue: detectedEventWithDiffValue, conflicts: conflicts};
         }
     }

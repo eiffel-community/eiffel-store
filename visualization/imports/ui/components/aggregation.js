@@ -364,8 +364,8 @@ function createExplanation(conflicts) {
         let conflictString = conflicts.values.join("\", \"");
         middle += `<b>These are the current conflicts: [ "${conflictString}" ] with value: "${conflicts.initial}".</b>`;
     }
-    if (conflicts.isArray) {
-        middle += `<br><b>The selected path ends with an array and the value is not present in some event(s) in the sequence(s). </b>`;
+    if (conflicts.pathIncludesArray) {
+        middle += `<br><b>The selected path contains an array and the value is not present in some event(s) in the sequence(s). </b>`;
     }
     let end = `
             <p>Include => no change, Remove => removes the conflicting events, Discard => removes the whole sequence.</p>
