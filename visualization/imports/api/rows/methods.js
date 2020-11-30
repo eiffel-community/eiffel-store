@@ -105,13 +105,18 @@ export const populateRowsCollection = new ValidatedMethod({
 export const getDetailedPlots = new ValidatedMethod({
     name: 'getDetailedPlots',
     validate: null,
-    run({eventName, eventType, sequenceIds}){
+    run({eventName, eventType, sequenceIds, conflicts}){
         if (Meteor.isServer) {
             if (eventName === undefined || eventType === undefined || sequenceIds === undefined) {
                 return undefined;
             }
 
-            let rows = Rows.find({name: eventName, sequenceId: {$in: (sequenceIds)}}).fetch();
+            let query = {name: eventName, sequenceId: {$in: (sequenceIds)}};
+            if (conflicts.exclude && conflicts.eventIds) {
+               query["id"] = {$nin: (conflicts.eventIds)};
+            }
+
+            let rows = Rows.find(query).fetch();
 
             rows = rows.sort(function (a, b) {
                 return a.time.finished - b.time.finished;

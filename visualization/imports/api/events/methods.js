@@ -3,7 +3,13 @@
 import { ValidatedMethod } from "meteor/mdg:validated-method";
 import { EiffelEvents } from "../eiffelevents/eiffelevents";
 import { Events } from "../events/events";
-import { getActivityEventName, getRedirectName, getTestCaseEventName, getTestSuiteEventName } from "./event-types";
+import {
+    getActivityEventName,
+    getRedirectName,
+    getTestCaseEventName,
+    getTestSuiteEventName,
+    isTestCaseEvent
+} from "./event-types";
 import {
     isEiffelActivityCanceled,
     isEiffelActivityExecution,
