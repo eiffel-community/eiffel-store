@@ -385,7 +385,7 @@ function parseHelper(data, currentPath, pathIncludesArray = false) {
             arr.push(parseHelper(data[key], newPath, pathIncludesArray));
         });
     } else {
-        if (allowPath(currentPath)) {
+        if (allowPath(currentPath) && data !== null) {
             arr.push({filterBy: currentPath, pathIncludesArray: pathIncludesArray});
         }
     }
