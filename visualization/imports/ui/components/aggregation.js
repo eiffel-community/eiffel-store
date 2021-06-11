@@ -346,6 +346,15 @@ function showEventWithDiffValueWarn(conflicts) {
         $('#event-diff-warning-explanation').css({"margin-top": "10px"});
         $('.aggregation-filtering').css("padding-bottom", "0px");
     }
+
+    if (document.getElementById("conflicts-read")) {
+        $('#conflicts-read').click(function (evt) {
+            $('#conflict-values').toggle(50, function(){
+                $(evt.target).html($(this).is(':visible')? '[Hide conflicts]' : '[Show conflicts]')
+            });
+            return false;
+        });
+    }
 }
 
 /**
@@ -361,8 +370,13 @@ function createExplanation(conflicts) {
             For example, if there is multiple TestCase events in a sequence and each have different outcomes.</p>`;
     let middle = "";
     if (conflicts.values.length > 0) {
-        let conflictString = conflicts.values.join("\", \"");
-        middle += `<b>These are the current conflicts: [ "${conflictString}" ] with value: "${conflicts.initial}".</b>`;
+        const conflictStr = (conflicts.values.length > 1) ? "conflicts" : "conflict";
+        middle += `<b>The value "${conflicts.initial}" has ${conflicts.values.length} ${conflictStr}! </b>`;
+        middle += `<a style="cursor: pointer;" id="conflicts-read">[Show conflicts]</a>`;
+        const conflictValues = conflicts.values.map((value) => {
+            return "\"" + value + "\"";
+        }).join(",");
+        middle += `<p style="display: none;" id="conflict-values">${conflictValues}</p>`;
     }
     if (conflicts.pathIncludesArray) {
         middle += `<br><b>The selected path contains an array and the value is not present in some event(s) in the sequence(s). </b>`;

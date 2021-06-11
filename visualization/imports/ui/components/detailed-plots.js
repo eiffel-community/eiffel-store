@@ -4,7 +4,7 @@ function renderPassFailPlot(graph, data) {
     if (graph === undefined || data === undefined) {
         return undefined;
     }
-
+    console.log("plot data: ", data);
     let groups = new vis.DataSet();
 
     let borderWidth = 1;

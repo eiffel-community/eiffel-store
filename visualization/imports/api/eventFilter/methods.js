@@ -286,14 +286,13 @@ function merge(target, source) {
  */
 function parseData(data) {
     // data is assumed to be an object here.
-    let arr = parseHelper(data, "", false);
-
+    const arr = parseHelper(data, "", false);
     let uniqArr = _.flatten(arr.filter((v, i, a) => a.indexOf(v) === i));
 
     // We need a deep copy here, and since slice is a shallow copy, we need to use another method.
     // The data is guarantied to be transformable to a JSON object since it arrives that way.
     // Javascript specific things, such as, functions are also not likely to be contained in a data object anyways, so this should be fine.
-    let locations = JSON.parse(JSON.stringify(uniqArr));
+    const locations = JSON.parse(JSON.stringify(uniqArr));
 
     for (let i = 0; i < uniqArr.length; ++i) {
         settings.collapse.forEach((rule) => {
@@ -386,7 +385,7 @@ function parseHelper(data, currentPath, pathIncludesArray = false) {
             arr.push(parseHelper(data[key], newPath, pathIncludesArray));
         });
     } else {
-        if (allowPath(currentPath)) {
+        if (allowPath(currentPath) && data !== null) {
             arr.push({filterBy: currentPath, pathIncludesArray: pathIncludesArray});
         }
     }

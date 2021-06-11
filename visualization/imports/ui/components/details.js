@@ -111,10 +111,14 @@ function renderPlots() {
     plotExecTime.hide();
     loader.show();
 
+    const exclude = (Session.get('conflictLevel') === "exclude");
+    let conflicts = {exclude: exclude, eventIds: Session.get('conflictEvents')};
+
     getDetailedPlots.call({
         eventName: Session.get('nodeNameFilter'),
         eventType: Session.get('nodeTypeFilter'),
-        sequenceIds: Session.get('displayedSequenceIds')
+        sequenceIds: Session.get('displayedSequenceIds'),
+        conflicts: conflicts
     }, function (error, data) {
         if (error) {
             console.log(error);

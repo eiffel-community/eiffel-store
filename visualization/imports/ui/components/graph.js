@@ -460,9 +460,14 @@ function renderGraph(graph, container, level) {
                     + '<tr><td>Version</td><td class="td-right">' + nodeData.version + '</td></tr>' + '</table>';
                 return html;
             case /EDef/.test(nodeLabel):
+                console.log(nodeData);
                 return '<h4 id="tt_header">' + nodeLabel + '</h4>' +
                     '<table class="table table-bordered">' +
                     '<tr><td>Name</td><td class="td-right">' + nodeData.name + '</td></tr>' +
+                    '<tr><td>Image</td><td class="td-right">' + nodeData.image + '</td></tr>' +
+                    '<tr><td>Hostname</td><td class="td-right">' + nodeData.hostname + '</td></tr>' +
+                    '<tr><td>Host user</td><td class="td-right">' + nodeData.hostuser + '</td></tr>' +
+                    '<tr><td>Uri</td><td class="td-right">' + nodeData.uri + '</td></tr>' +
                     '<tr><td>ID</td><td class="td-right">' + nodeData.id + '</td></tr>' +
                     '<tr><td>Version</td><td class="td-right">' + nodeData.version + '</td></tr>' +
                     '</table>';
@@ -476,6 +481,7 @@ function renderGraph(graph, container, level) {
                     '<tr><td>Change ID</td><td class="td-right">' + nodeData.changeId + '</td></tr>' +
                     '<tr><td>Git repository</td><td class="td-right">' + nodeData.gitRepoName + '</td></tr>' +
                     '<tr><td>Git branch</td><td class="td-right">' + nodeData.gitBranch + '</td></tr>' +
+                    '<tr><td>Submitted</td><td class="td-right">' + nodeData.isSubmitted + '</td></tr>' +
                     '<tr><td>Version</td><td class="td-right">' + nodeData.version + '</td></tr>' +
                     //'<tr><td>Git commit ID</td><td class="td-right">' + nodeData.gitCommitId + '</td></tr>' +
                     '</table>';
@@ -499,6 +505,7 @@ function renderGraph(graph, container, level) {
                     '<tr><td>Test Case ID</td><td>' + nodeData.testCaseId + '</td></tr>' +
                     '<tr><td>Verdict</td><td>' + nodeData.verdict + '</td></tr>' +
                     '<tr><td>Conclusion</td><td>' + nodeData.conclusion + '</td></tr>' +
+                    '<tr><td>Environment</td><td>' + nodeData.environment + '</td></tr>' +
                     '<tr><td>Executor</td><td>' + nodeData.executor + '</td></tr>' +
                     '<tr><td>Tracker</td><td>' + nodeData.tracker + '</td></tr>' +
                     '<tr><td>Execution type</td><td>' + nodeData.executionType + '</td></tr>' +
@@ -516,6 +523,7 @@ function renderGraph(graph, container, level) {
                     '<tr><td>Conclusion</td><td>' + nodeData.conclusion + '</td></tr>' +
                     '<tr><td>Description</td><td>' + nodeData.outcomeDescription + '</td></tr>' +
                     '<tr><td>Execution time</td><td>' + toHMS(nodeData.timeFinished - nodeData.timeStarted) + '</td></tr>' +
+                    '<tr><td>Confidence</td><td>' + nodeData.confidence + '</td></tr>' +
                     '<tr><td>Version</td><td class="td-right">' + nodeData.version + '</td></tr>' +
                     '</table>';
 

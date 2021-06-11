@@ -26,6 +26,7 @@ import {
     isTestEvent,
     isTestSuiteEvent,
 } from "../events/event-types";
+import {EiffelEvents} from "../eiffelevents/eiffelevents";
 
 function getEventSequenceVersion() {
     return '2.0';
@@ -141,7 +142,7 @@ export const populateEventSequences = new ValidatedMethod({
             } else {
                 total--;
             }
-            console.log("The events collection is "+event.type);
+            // console.log("The events collection is "+event.type);
             eventMap[event.id] = event;
         });
 
@@ -167,6 +168,7 @@ export const populateEventSequences = new ValidatedMethod({
                 });
 
                 _.each(event.dangerousTargets, (target, index) => {
+                    // console.log(JSON.stringify(eventMap[target]));
                     if (eventMap[target].type === getRedirectName()) {
                         eventMap[event.id].dangerousTargets[index] = eventMap[target].target;
                         target = eventMap[target].target;
@@ -196,7 +198,8 @@ export const populateEventSequences = new ValidatedMethod({
             //     return linkedEvents;
             // }
             if (eventMap[eventId] !== undefined) {
-                if (eventMap[eventId].dev.checked === true) {
+                if (eventMap[eventId].dev.checked === true ||
+                    eventMap[eventId].type === getRedirectName()) {
                     return [];
                 }
                 eventMap[eventId].dev.checked = true;
@@ -204,16 +207,19 @@ export const populateEventSequences = new ValidatedMethod({
 
                 let linkedEvents = [];
                 linkedEvents.push(eventId);
-
                 let targets = eventMap[eventId].targets;
-                for (let index = 0; index < targets.length; index++) {
-                    linkedEvents = linkedEvents.concat(getAllLinked(targets[index], sequenceId));
-                }
+                // if (targets) {
+                    for (let index = 0; index < targets.length; index++) {
+                        linkedEvents = linkedEvents.concat(getAllLinked(targets[index], sequenceId));
+                    }
+                // }
 
                 let targetedBys = eventMap[eventId].targetedBy;
-                for (let index = 0; index < targetedBys.length; index++) {
-                    linkedEvents = linkedEvents.concat(getAllLinked(targetedBys[index], sequenceId));
-                }
+                // if (targetedBys) {
+                    for (let index = 0; index < targetedBys.length; index++) {
+                        linkedEvents = linkedEvents.concat(getAllLinked(targetedBys[index], sequenceId));
+                    }
+                // }
 
                 return linkedEvents;
             }
@@ -300,6 +306,27 @@ export const populateEventSequences = new ValidatedMethod({
                 earliestTime = sequence.time.started;
             }
 
+            // Calculate confidence for TestSuites.
+            _.each(sequence.events, (evt) => {
+               if (isTestSuiteEvent(evt.type)) {
+                   const tests = sequence.events.filter((obj) => {
+                       return isTestCaseEvent(obj.type) && obj.targets.find((id) => {
+                            return id === evt.startEvent || id === evt.id;
+                       });
+                   });
+                   let totalTests = 0;
+                   let passedTests= 0;
+                   _.each(tests, (test) => {
+                       ++totalTests;
+                       if (test.data.outcome.verdict === 'PASSED') {
+                           ++passedTests;
+                       }
+                   });
+                   evt.confidence = Math.round((totalTests > 0) ? (passedTests / totalTests) * 100 : 0);
+               }
+            });
+
+            //EventSequences._collection.insert(sequence);
             EventSequences.insert(sequence);
             //  console.log("the final sequecne is "+ sequence.events.type);
             done = done + sequence.events.length;
@@ -539,7 +566,10 @@ export const getAggregatedGraph = new ValidatedMethod({
 
                 if (isActivityEvent(node.data.type)) {
                     console.log("isActivityEvent - IF");
-                    let valueCount = _.countBy(events, (event) => event.data.outcome.conclusion);
+                    // ActC do not have event.data.outcome, set it to empty string if not.
+                    let valueCount = _.countBy(events, (event) => {
+                        return (event.data.outcome) ? event.data.outcome.conclusion : "";
+                    });
                     node.data.successful = valueCount.hasOwnProperty('SUCCESSFUL') ? valueCount['SUCCESSFUL'] : 0;
                     node.data.unsuccessful = valueCount.hasOwnProperty('UNSUCCESSFUL') ? valueCount['UNSUCCESSFUL'] : 0;
                     node.data.failed = valueCount.hasOwnProperty('FAILED') ? valueCount['FAILED'] : 0;
@@ -703,16 +733,20 @@ export const getEventChainGraph = new ValidatedMethod({
                 };
 
                 if (isActivityEvent(node.data.type)) {
-                    if (event.data.outcome.conclusion === 'SUCCESSFUL') {
+                    // ActC do not have event.data.outcome, check that first.
+                    if (event.data.outcome && event.data.outcome.conclusion === 'SUCCESSFUL') {
                         node.data.successful = 1;
                     } else {
                         node.data.successful = 0;
                     }
+
                     // Required Eiffel data
                     node.data.timeTriggered = event.time.triggered;
                     node.data.timeStarted = event.time.started;
                     node.data.timeFinished = event.time.finished;
-                    node.data.conclusion = event.data.outcome.conclusion;
+
+                    // ActC do not have event.data.outcome, set it to "No data" if not.
+                    node.data.conclusion = (event.data.outcome) ? event.data.outcome.conclusion : "No data";
                     node.version = event.version;
 
                     // Non-required Eiffel data
@@ -833,6 +867,17 @@ export const getEventChainGraph = new ValidatedMethod({
                     node.data.name = event.data.name;
                     node.version = event.version;
 
+                    // One of [image, uri, host] should be present to describe the environment.
+                    node.data.image = (event.data.image) ? event.data.image : "No data";
+                    node.data.uri = (event.data.uri) ? event.data.uri : "No data";
+                    if (event.data.host) {
+                        node.data.hostname = event.data.host.name;
+                        node.data.hostuser = event.data.host.user;
+                    } else {
+                        node.data.hostname = "No data";
+                        node.data.hostuser = "No data";
+                    }
+
                 }
                 else if (isFlowContextDefinedEvent(node.data.type)) {
 
@@ -904,6 +949,19 @@ export const getEventChainGraph = new ValidatedMethod({
                         node.data.gitCommitId = "No data";
                         node.data.gitBranch = "No data";
                         node.data.gitRepoName = "No data";
+                    }
+
+                    let isSubmitted = false;
+                    for (const t_evtID of event.targetedBy) {
+                        for (const s_evt of events)
+                        if (s_evt.id === t_evtID && isSourceChangeSubmittedEvent(s_evt.type)) {
+                            isSubmitted = true;
+                            node.data.isSubmitted = "Yes";
+                            break;
+                        }
+                    }
+                    if (!isSubmitted) {
+                        node.data.isSubmitted = "No";
                     }
 
                 }
@@ -1020,6 +1078,30 @@ export const getEventChainGraph = new ValidatedMethod({
                             node.data.executionType = "No Data";
                         }
 
+                        // Environment data
+                        // The "ENVIRONMENT" target link is disabled in eiffel-store.
+                        // To go around that we can find the "EiffelTestCaseStartedEvent" and read the link manually.
+                        // TestCaseStarted should have one Environment defined event target.
+                        const startTestCaseEvt = EiffelEvents.find({"meta.id": event.startEvent}).fetch();
+                        let envFound = false;
+                        if (startTestCaseEvt && startTestCaseEvt[0].meta.type === "EiffelTestCaseStartedEvent") {
+                            for (const t_link of startTestCaseEvt[0].links) {
+                                if (t_link.type === "ENVIRONMENT") {
+                                    for (const t_event of events) {
+                                        if (t_event.id === t_link.target && isEnvironmentDefinedEvent(t_event.type)) {
+                                            envFound = true;
+                                            node.data.environment = t_event.data.name;
+                                            break;
+                                        }
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                        if (!envFound) {
+                            node.data.environment = "No data";
+                        }
+
                         // Data from finishedEvent
                         node.data.verdict = event.data.outcome.verdict;
                         node.data.conclusion = event.data.outcome.conclusion;
@@ -1035,6 +1117,8 @@ export const getEventChainGraph = new ValidatedMethod({
                         node.data.name = event.data.name;
                         node.data.timeStarted = event.time.started;
                         node.data.timeFinished = event.time.finished;
+
+                        node.data.confidence = (event.confidence) ? event.confidence + "%": 0 + "%";
 
                         // Data from finishedEvent
                         if (event.data.outcome !== undefined) {
