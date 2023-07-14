@@ -1,3 +1,5 @@
+[![Sandbox badge](https://img.shields.io/badge/Stage-Sandbox-yellow)](https://github.com/eiffel-community/community/blob/master/PROJECT_LIFECYCLE.md#stage-sandbox)
+
 # eiffel-store
 A persistence solution for Eiffel events. This repository is different than Eiffel Vici. This repository accepts live view of Eiffel
 events. The MongoDB, at backend, has trigger events. Whenever any event is added into the collection named "eiffel-events", the 
