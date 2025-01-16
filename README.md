@@ -1,4 +1,4 @@
-[![Sandbox badge](https://img.shields.io/badge/Stage-Sandbox-yellow)](https://github.com/eiffel-community/community/blob/master/PROJECT_LIFECYCLE.md#stage-sandbox)
+[![Archived badge](https://img.shields.io/badge/Stage-Archived-orange)](https://github.com/eiffel-community/community/blob/master/PROJECT_LIFECYCLE.md#stage-archived)
 
 # eiffel-store
 A persistence solution for Eiffel events. This repository is different than Eiffel Vici. This repository accepts live view of Eiffel
